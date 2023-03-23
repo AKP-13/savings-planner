@@ -1,11 +1,20 @@
+// Components
+import SavingGoals from './savingGoals/SavingGoals';
+import GraphDisplay from './graph/GraphDisplay';
+import TimeLine from './timeLine/TimeLine';
+import Header from './header/Header';
+// Styles
 import './App.css';
 
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        <h1>Savings Planner</h1>
-      </header>
+      <Header />
+      <div style={{ display: 'flex' }}>
+        <SavingGoals />
+        <GraphDisplay />
+      </div>
+      <TimeLine />
     </div>
   );
 }
