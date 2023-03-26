@@ -46,8 +46,8 @@ const SavingGoals = ({ setTableData }) => {
   return (
     <div style={{ border: '1px solid green', width: '50%' }}>
       <h1>Saving Goals Go Here</h1>
-      <form onSubmit={handleSubmit}>
-        <label>
+      <form onSubmit={handleSubmit} style={{ display: 'flex', justifyContent: 'space-evenly' }}>
+        <label style={{ display: 'flex', flexDirection: 'column', width: '20%' }}>
           Item to save for:
           <input
             type="text"
@@ -57,7 +57,7 @@ const SavingGoals = ({ setTableData }) => {
           />
         </label>
 
-        <label>
+        <label style={{ display: 'flex', flexDirection: 'column', width: '20%' }}>
           Amount:
           <input
             type="number"
@@ -67,7 +67,7 @@ const SavingGoals = ({ setTableData }) => {
           />
         </label>
 
-        <label>
+        <label style={{ display: 'flex', flexDirection: 'column', width: '20%' }}>
           Month needed:
           <select name="monthNeeded" onChange={handleChange} value={inputs.monthNeeded || ''}>
             {months.map((month) => (
@@ -78,7 +78,7 @@ const SavingGoals = ({ setTableData }) => {
           </select>
         </label>
 
-        <label>
+        <label style={{ display: 'flex', flexDirection: 'column', width: '20%' }}>
           Year needed:
           <select name="yearNeeded" onChange={handleChange} value={inputs.yearNeeded || ''}>
             {years.map((year) => (
@@ -97,7 +97,7 @@ const SavingGoals = ({ setTableData }) => {
               key={`${itemToSaveFor}-${monthNeeded}-${yearNeeded}`}
               style={{ display: 'flex', justifyContent: 'space-evenly' }}>
               <span>Item: {itemToSaveFor}</span>
-              <span>Amount: {itemAmount}</span>
+              <span>Amount: £{itemAmount}</span>
               <span>
                 Month needed: {monthNeeded} {yearNeeded}
               </span>
