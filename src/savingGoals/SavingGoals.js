@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import { useState } from 'react';
 
 const initialInputs = { monthNeeded: 'January', yearNeeded: '2023' };
@@ -17,7 +18,7 @@ const months = [
 ];
 const years = ['2023', '2024', '2025'];
 
-const SavingGoals = () => {
+const SavingGoals = ({ setTableData }) => {
   const [inputs, setInputs] = useState(initialInputs);
   const [savingItems, setSavingItems] = useState([]);
 
@@ -31,6 +32,15 @@ const SavingGoals = () => {
     event.preventDefault();
     setSavingItems((values) => [...values, { ...inputs }]);
     setInputs(initialInputs);
+    setTableData((prev) => {
+      const monthToUpdate = prev.find((obj) => {
+        return obj.month === `${inputs.monthNeeded} ${inputs.yearNeeded}`;
+      });
+
+      monthToUpdate.withdrawn += Number(inputs.itemAmount);
+
+      return [...prev];
+    });
   };
 
   return (
@@ -83,12 +93,14 @@ const SavingGoals = () => {
       <div>
         {savingItems.length > 0 &&
           savingItems.map(({ itemToSaveFor, itemAmount, monthNeeded, yearNeeded }) => (
-            <div key={itemToSaveFor}>
-              <p>Item: {itemToSaveFor}</p>
-              <p>Amount: {itemAmount}</p>
-              <p>
+            <div
+              key={`${itemToSaveFor}-${monthNeeded}-${yearNeeded}`}
+              style={{ display: 'flex', justifyContent: 'space-evenly' }}>
+              <span>Item: {itemToSaveFor}</span>
+              <span>Amount: {itemAmount}</span>
+              <span>
                 Month needed: {monthNeeded} {yearNeeded}
-              </p>
+              </span>
             </div>
           ))}
       </div>

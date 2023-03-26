@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import React from 'react';
 import {
   Table,
@@ -9,65 +10,26 @@ import {
   Paper
 } from '@mui/material';
 
-const columns = [
-  { month: 'January 2023', saved: 0, withdrawn: 0 },
-  { month: 'February 2023', saved: 0, withdrawn: 0 },
-  { month: 'March 2023', saved: 1000, withdrawn: 0 },
-  { month: 'April 2023', saved: 500, withdrawn: 0 },
-  { month: 'May 2023', saved: 500, withdrawn: 0 },
-  { month: 'June 2023', saved: 500, withdrawn: 0 },
-  { month: 'July 2023', saved: 500, withdrawn: 0 },
-  { month: 'August 2023', saved: 500, withdrawn: 0 },
-  { month: 'September 2023', saved: 500, withdrawn: 0 },
-  { month: 'October 2023', saved: 500, withdrawn: 0 },
-  { month: 'November 2023', saved: 500, withdrawn: 0 },
-  { month: 'December 2023', saved: 500, withdrawn: 0 },
-  { month: 'January 2024', saved: 500, withdrawn: 0 },
-  { month: 'February 2024', saved: 500, withdrawn: 0 },
-  { month: 'March 2024', saved: 500, withdrawn: 0 },
-  { month: 'April 2024', saved: 500, withdrawn: 0 },
-  { month: 'May 2024', saved: 500, withdrawn: 0 },
-  { month: 'June 2024', saved: 500, withdrawn: 0 },
-  { month: 'July 2024', saved: 500, withdrawn: 0 },
-  { month: 'August 2024', saved: 500, withdrawn: 0 },
-  { month: 'September 2024', saved: 500, withdrawn: 0 },
-  { month: 'October 2024', saved: 500, withdrawn: 0 },
-  { month: 'November 2024', saved: 500, withdrawn: 0 },
-  { month: 'December 2024', saved: 500, withdrawn: 0 },
-  { month: 'January 2025', saved: 500, withdrawn: 0 },
-  { month: 'February 2025', saved: 500, withdrawn: 0 },
-  { month: 'March 2025', saved: 500, withdrawn: 0 },
-  { month: 'April 2025', saved: 500, withdrawn: 0 },
-  { month: 'May 2025', saved: 500, withdrawn: 0 },
-  { month: 'June 2025', saved: 500, withdrawn: 0 },
-  { month: 'July 2025', saved: 500, withdrawn: 0 },
-  { month: 'August 2025', saved: 500, withdrawn: 0 },
-  { month: 'September 2025', saved: 500, withdrawn: 0 },
-  { month: 'October 2025', saved: 500, withdrawn: 0 },
-  { month: 'November 2025', saved: 500, withdrawn: 0 },
-  { month: 'December 2025', saved: 500, withdrawn: 0 }
-];
+export default function SavingsProjectionsTable({ tableData }) {
+  let accumulatedSaved = 0;
+  let accumulatedWithdrawn = 0;
 
-let accumulatedSaved = 0;
-let accumulatedWithdrawn = 0;
+  const totalSaved = tableData.map(({ month, saved, withdrawn }) => {
+    accumulatedSaved += saved;
+    accumulatedWithdrawn += withdrawn;
 
-const totalSaved = columns.map(({ month, saved, withdrawn }) => {
-  accumulatedSaved += saved;
-  accumulatedWithdrawn += withdrawn;
+    const amount = accumulatedSaved - accumulatedWithdrawn;
 
-  const amount = accumulatedSaved - accumulatedWithdrawn;
+    return { month, amount };
+  });
 
-  return { month, amount };
-});
-
-export default function SavingsProjectionsTable() {
   return (
     <TableContainer component={Paper}>
       <Table sx={{ minWidth: 650 }} size="small" aria-label="a dense table">
         <TableHead>
           <TableRow>
             <TableCell />
-            {columns.map(({ month }) => (
+            {tableData.map(({ month }) => (
               <TableCell key={month}>{month}</TableCell>
             ))}
           </TableRow>
@@ -77,7 +39,7 @@ export default function SavingsProjectionsTable() {
             <TableCell component="th" scope="row">
               Saved
             </TableCell>
-            {columns.map(({ month, saved }) => (
+            {tableData.map(({ month, saved }) => (
               <TableCell key={`${month}-saved`}>{saved}</TableCell>
             ))}
           </TableRow>
@@ -86,7 +48,7 @@ export default function SavingsProjectionsTable() {
             <TableCell component="th" scope="row">
               Withdrawn
             </TableCell>
-            {columns.map(({ month, withdrawn }) => (
+            {tableData.map(({ month, withdrawn }) => (
               <TableCell key={`${month}-withdrawn`}>{withdrawn}</TableCell>
             ))}
           </TableRow>
