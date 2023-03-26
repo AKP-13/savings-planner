@@ -23,6 +23,11 @@ export default function SavingsProjectionsTable({ tableData }) {
     return { month, amount };
   });
 
+  const formattedCurrency = new Intl.NumberFormat('en-GB', {
+    currency: 'GBP',
+    style: 'currency'
+  });
+
   return (
     <TableContainer component={Paper}>
       <Table sx={{ minWidth: 650 }} size="small" aria-label="a dense table">
@@ -30,7 +35,9 @@ export default function SavingsProjectionsTable({ tableData }) {
           <TableRow>
             <TableCell />
             {tableData.map(({ month }) => (
-              <TableCell key={month}>{month}</TableCell>
+              <TableCell key={month} sx={{ minWidth: '100px' }}>
+                {month}
+              </TableCell>
             ))}
           </TableRow>
         </TableHead>
@@ -40,7 +47,7 @@ export default function SavingsProjectionsTable({ tableData }) {
               Saved
             </TableCell>
             {tableData.map(({ month, saved }) => (
-              <TableCell key={`${month}-saved`}>{saved}</TableCell>
+              <TableCell key={`${month}-saved`}>{`+${formattedCurrency.format(saved)}`}</TableCell>
             ))}
           </TableRow>
 
@@ -49,7 +56,9 @@ export default function SavingsProjectionsTable({ tableData }) {
               Withdrawn
             </TableCell>
             {tableData.map(({ month, withdrawn }) => (
-              <TableCell key={`${month}-withdrawn`}>{withdrawn}</TableCell>
+              <TableCell key={`${month}-withdrawn`}>{`-${formattedCurrency.format(
+                withdrawn
+              )}`}</TableCell>
             ))}
           </TableRow>
 
@@ -58,7 +67,7 @@ export default function SavingsProjectionsTable({ tableData }) {
               Total
             </TableCell>
             {totalSaved.map(({ month, amount }) => (
-              <TableCell key={`${month}-total`}>{amount}</TableCell>
+              <TableCell key={`${month}-total`}>{`${formattedCurrency.format(amount)}`}</TableCell>
             ))}
           </TableRow>
         </TableBody>

@@ -88,7 +88,7 @@ const SavingGoals = ({ setTableData }) => {
             ))}
           </select>
         </label>
-        <input type="submit" />
+        <input type="submit" value="Add" />
       </form>
       <div>
         {savingItems.length > 0 &&
