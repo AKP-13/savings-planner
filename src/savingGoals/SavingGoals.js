@@ -1,6 +1,21 @@
 import { useState } from 'react';
 
 const initialInputs = { monthNeeded: 'January', yearNeeded: '2023' };
+const months = [
+  'January',
+  'February',
+  'March',
+  'April',
+  'May',
+  'June',
+  'July',
+  'August',
+  'September',
+  'October',
+  'November',
+  'December'
+];
+const years = ['2023', '2024', '2025'];
 
 const SavingGoals = () => {
   const [inputs, setInputs] = useState(initialInputs);
@@ -18,8 +33,6 @@ const SavingGoals = () => {
     setInputs(initialInputs);
   };
 
-  console.log('savingItems', savingItems);
-
   return (
     <div style={{ border: '1px solid green', width: '50%' }}>
       <h1>Saving Goals Go Here</h1>
@@ -33,6 +46,7 @@ const SavingGoals = () => {
             onChange={handleChange}
           />
         </label>
+
         <label>
           Amount:
           <input
@@ -46,42 +60,37 @@ const SavingGoals = () => {
         <label>
           Month needed:
           <select name="monthNeeded" onChange={handleChange} value={inputs.monthNeeded || ''}>
-            <option value="January">January</option>
-            <option value="February">February</option>
-            <option value="March">March</option>
-            <option value="April">April</option>
-            <option value="May">May</option>
-            <option value="June">June</option>
-            <option value="July">July</option>
-            <option value="August">August</option>
-            <option value="September">September</option>
-            <option value="October">October</option>
-            <option value="November">November</option>
-            <option value="December">December</option>
+            {months.map((month) => (
+              <option key={month} value={month}>
+                {month}
+              </option>
+            ))}
           </select>
         </label>
 
         <label>
           Year needed:
           <select name="yearNeeded" onChange={handleChange} value={inputs.yearNeeded || ''}>
-            <option value="2023">2023</option>
-            <option value="2024">2024</option>
-            <option value="2025">2025</option>
+            {years.map((year) => (
+              <option key={year} value={year}>
+                {year}
+              </option>
+            ))}
           </select>
         </label>
         <input type="submit" />
       </form>
       <div>
         {savingItems.length > 0 &&
-          savingItems.map((item) => {
-            return (
-              <div key={item.itemToSaveFor}>
-                <p>Item: {item.itemToSaveFor}</p>
-                <p>Amount: {item.itemAmount}</p>
-                <p>Month needed: {item.monthNeeded}</p>
-              </div>
-            );
-          })}
+          savingItems.map(({ itemToSaveFor, itemAmount, monthNeeded, yearNeeded }) => (
+            <div key={itemToSaveFor}>
+              <p>Item: {itemToSaveFor}</p>
+              <p>Amount: {itemAmount}</p>
+              <p>
+                Month needed: {monthNeeded} {yearNeeded}
+              </p>
+            </div>
+          ))}
       </div>
     </div>
   );
