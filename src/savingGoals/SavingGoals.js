@@ -83,7 +83,7 @@ const SavingGoals = ({ tableData, setTableData }) => {
   };
 
   return (
-    <div style={{ border: '1px solid green', width: '50%' }}>
+    <div>
       <h1>Saving Goals Go Here</h1>
       <form
         onSubmit={handleAmountSavedEachMonthSubmit}

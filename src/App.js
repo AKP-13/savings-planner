@@ -47,12 +47,9 @@ function App() {
   return (
     <div className="App">
       <Header />
-      <div style={{ display: 'flex' }}>
-        <SavingGoals tableData={tableData} setTableData={setTableData} />
-
-        <GraphDisplay />
-      </div>
+      <SavingGoals tableData={tableData} setTableData={setTableData} />
       <SavingsProjectionsTable tableData={tableData} />
+      <GraphDisplay />
     </div>
   );
 }
