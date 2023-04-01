@@ -1,10 +1,45 @@
+/* eslint-disable react/prop-types */
 import { useState } from 'react';
 
 const initialInputs = { monthNeeded: 'January', yearNeeded: '2023' };
+const months = [
+  'January',
+  'February',
+  'March',
+  'April',
+  'May',
+  'June',
+  'July',
+  'August',
+  'September',
+  'October',
+  'November',
+  'December'
+];
+const years = ['2023', '2024', '2025'];
 
-const SavingGoals = () => {
+const SavingGoals = ({ setTableData }) => {
   const [inputs, setInputs] = useState(initialInputs);
-  const [savingItems, setSavingItems] = useState([]);
+  const [savingItems, setSavingItems] = useState([
+    { itemAmount: '500', itemToSaveFor: 'Holiday', monthNeeded: 'July', yearNeeded: '2023' },
+    { itemAmount: '60', itemToSaveFor: 'FIFA', monthNeeded: 'October', yearNeeded: '2023' },
+    { itemAmount: '2500', itemToSaveFor: 'MacBook', monthNeeded: 'December', yearNeeded: '2023' },
+    {
+      itemAmount: '450',
+      itemToSaveFor: "Jord's Stag",
+      monthNeeded: 'February',
+      yearNeeded: '2024'
+    },
+    {
+      itemAmount: '250',
+      itemToSaveFor: 'Suit',
+      monthNeeded: 'February',
+      yearNeeded: '2024'
+    },
+    { itemAmount: '4000', itemToSaveFor: 'LISA', monthNeeded: 'April', yearNeeded: '2024' },
+    { itemAmount: '1200', itemToSaveFor: 'Phone', monthNeeded: 'October', yearNeeded: '2024' },
+    { itemAmount: '4000', itemToSaveFor: 'LISA', monthNeeded: 'April', yearNeeded: '2025' }
+  ]);
 
   const handleChange = (event) => {
     const { name, value } = event.target;
@@ -16,15 +51,22 @@ const SavingGoals = () => {
     event.preventDefault();
     setSavingItems((values) => [...values, { ...inputs }]);
     setInputs(initialInputs);
-  };
+    setTableData((prev) => {
+      const monthToUpdate = prev.find((obj) => {
+        return obj.month === `${inputs.monthNeeded} ${inputs.yearNeeded}`;
+      });
 
-  console.log('savingItems', savingItems);
+      monthToUpdate.withdrawn += Number(inputs.itemAmount);
+
+      return [...prev];
+    });
+  };
 
   return (
     <div style={{ border: '1px solid green', width: '50%' }}>
       <h1>Saving Goals Go Here</h1>
-      <form onSubmit={handleSubmit}>
-        <label>
+      <form onSubmit={handleSubmit} style={{ display: 'flex', justifyContent: 'space-evenly' }}>
+        <label style={{ display: 'flex', flexDirection: 'column', width: '20%' }}>
           Item to save for:
           <input
             type="text"
@@ -33,7 +75,8 @@ const SavingGoals = () => {
             onChange={handleChange}
           />
         </label>
-        <label>
+
+        <label style={{ display: 'flex', flexDirection: 'column', width: '20%' }}>
           Amount:
           <input
             type="number"
@@ -43,45 +86,42 @@ const SavingGoals = () => {
           />
         </label>
 
-        <label>
+        <label style={{ display: 'flex', flexDirection: 'column', width: '20%' }}>
           Month needed:
           <select name="monthNeeded" onChange={handleChange} value={inputs.monthNeeded || ''}>
-            <option value="January">January</option>
-            <option value="February">February</option>
-            <option value="March">March</option>
-            <option value="April">April</option>
-            <option value="May">May</option>
-            <option value="June">June</option>
-            <option value="July">July</option>
-            <option value="August">August</option>
-            <option value="September">September</option>
-            <option value="October">October</option>
-            <option value="November">November</option>
-            <option value="December">December</option>
+            {months.map((month) => (
+              <option key={month} value={month}>
+                {month}
+              </option>
+            ))}
           </select>
         </label>
 
-        <label>
+        <label style={{ display: 'flex', flexDirection: 'column', width: '20%' }}>
           Year needed:
           <select name="yearNeeded" onChange={handleChange} value={inputs.yearNeeded || ''}>
-            <option value="2023">2023</option>
-            <option value="2024">2024</option>
-            <option value="2025">2025</option>
+            {years.map((year) => (
+              <option key={year} value={year}>
+                {year}
+              </option>
+            ))}
           </select>
         </label>
-        <input type="submit" />
+        <input type="submit" value="Add" />
       </form>
       <div>
         {savingItems.length > 0 &&
-          savingItems.map((item) => {
-            return (
-              <div key={item.itemToSaveFor}>
-                <p>Item: {item.itemToSaveFor}</p>
-                <p>Amount: {item.itemAmount}</p>
-                <p>Month needed: {item.monthNeeded}</p>
-              </div>
-            );
-          })}
+          savingItems.map(({ itemToSaveFor, itemAmount, monthNeeded, yearNeeded }) => (
+            <div
+              key={`${itemToSaveFor}-${monthNeeded}-${yearNeeded}`}
+              style={{ display: 'flex', justifyContent: 'space-evenly' }}>
+              <span>Item: {itemToSaveFor}</span>
+              <span>Amount: £{itemAmount}</span>
+              <span>
+                Month needed: {monthNeeded} {yearNeeded}
+              </span>
+            </div>
+          ))}
       </div>
     </div>
   );
