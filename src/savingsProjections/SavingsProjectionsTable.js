@@ -42,9 +42,9 @@ export default function SavingsProjectionsTable({ tableData }) {
               Withdrawn
             </TableCell>
             {tableData.map(({ month, withdrawn }) => (
-              <TableCell key={`${month}-withdrawn`}>{`-${formattedCurrency.format(
-                withdrawn
-              )}`}</TableCell>
+              <TableCell key={`${month}-withdrawn`}>
+                {withdrawn === 0 ? '' : `-${formattedCurrency.format(withdrawn)}`}
+              </TableCell>
             ))}
           </TableRow>
 
