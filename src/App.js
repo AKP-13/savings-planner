@@ -48,7 +48,7 @@ function App() {
     <div className="App">
       <Header />
       <div style={{ display: 'flex' }}>
-        <SavingGoals setTableData={setTableData} />
+        <SavingGoals tableData={tableData} setTableData={setTableData} />
 
         <GraphDisplay />
       </div>
