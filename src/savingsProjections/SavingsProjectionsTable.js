@@ -67,7 +67,9 @@ export default function SavingsProjectionsTable({ tableData }) {
               Total
             </TableCell>
             {totalSaved.map(({ month, amount }) => (
-              <TableCell key={`${month}-total`}>{`${formattedCurrency.format(amount)}`}</TableCell>
+              <TableCell
+                sx={{ backgroundColor: amount === 0 ? 'grey' : amount < 0 ? 'red' : 'green' }}
+                key={`${month}-total`}>{`${formattedCurrency.format(amount)}`}</TableCell>
             ))}
           </TableRow>
         </TableBody>
