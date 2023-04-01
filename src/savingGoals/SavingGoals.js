@@ -20,7 +20,26 @@ const years = ['2023', '2024', '2025'];
 
 const SavingGoals = ({ setTableData }) => {
   const [inputs, setInputs] = useState(initialInputs);
-  const [savingItems, setSavingItems] = useState([]);
+  const [savingItems, setSavingItems] = useState([
+    { itemAmount: '500', itemToSaveFor: 'Holiday', monthNeeded: 'July', yearNeeded: '2023' },
+    { itemAmount: '60', itemToSaveFor: 'FIFA', monthNeeded: 'October', yearNeeded: '2023' },
+    { itemAmount: '2500', itemToSaveFor: 'MacBook', monthNeeded: 'December', yearNeeded: '2023' },
+    {
+      itemAmount: '450',
+      itemToSaveFor: "Jord's Stag",
+      monthNeeded: 'February',
+      yearNeeded: '2024'
+    },
+    {
+      itemAmount: '250',
+      itemToSaveFor: 'Suit',
+      monthNeeded: 'February',
+      yearNeeded: '2024'
+    },
+    { itemAmount: '4000', itemToSaveFor: 'LISA', monthNeeded: 'April', yearNeeded: '2024' },
+    { itemAmount: '1200', itemToSaveFor: 'Phone', monthNeeded: 'October', yearNeeded: '2024' },
+    { itemAmount: '4000', itemToSaveFor: 'LISA', monthNeeded: 'April', yearNeeded: '2025' }
+  ]);
 
   const handleChange = (event) => {
     const { name, value } = event.target;
