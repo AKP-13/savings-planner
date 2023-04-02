@@ -1,5 +1,6 @@
 /* eslint-disable react/prop-types */
 import { useState } from 'react';
+import MonthlySavingCard from './MonthlySavingCard';
 
 const initialInputs = { monthNeeded: 'January', yearNeeded: '2023' };
 const months = [
@@ -20,7 +21,6 @@ const years = ['2023', '2024', '2025'];
 
 const SavingGoals = ({ tableData, setTableData }) => {
   const [inputs, setInputs] = useState(initialInputs);
-  const [amountSavedEachMonth, setAmountSavedEachMonth] = useState(500);
 
   const [savingItems, setSavingItems] = useState([
     { itemAmount: '500', itemToSaveFor: 'Holiday', monthNeeded: 'July', yearNeeded: '2023' },
@@ -49,12 +49,6 @@ const SavingGoals = ({ tableData, setTableData }) => {
     setInputs((values) => ({ ...values, [name]: value }));
   };
 
-  const handleAmountSavedEachMonthChange = (event) => {
-    const { value } = event.target;
-
-    setAmountSavedEachMonth(Number(value));
-  };
-
   const handleSubmit = (event) => {
     event.preventDefault();
     setSavingItems((values) => [...values, { ...inputs }]);
@@ -70,36 +64,9 @@ const SavingGoals = ({ tableData, setTableData }) => {
     });
   };
 
-  const handleAmountSavedEachMonthSubmit = (event) => {
-    event.preventDefault();
-    const newTableData = tableData.map((monthConfig) => {
-      return {
-        ...monthConfig,
-        saved: amountSavedEachMonth
-      };
-    });
-
-    setTableData(newTableData);
-  };
-
   return (
     <div>
-      <h1>Saving Goals Go Here</h1>
-      <form
-        onSubmit={handleAmountSavedEachMonthSubmit}
-        style={{ display: 'flex', justifyContent: 'space-evenly' }}>
-        <label>
-          Each month I can save:
-          <input
-            type="number"
-            name="amountSavedEachMonth"
-            value={amountSavedEachMonth || 0}
-            onChange={handleAmountSavedEachMonthChange}
-          />
-        </label>
-
-        <input type="submit" value="Confirm" />
-      </form>
+      <MonthlySavingCard tableData={tableData} setTableData={setTableData} />
 
       <form onSubmit={handleSubmit} style={{ display: 'flex', justifyContent: 'space-evenly' }}>
         <label style={{ display: 'flex', flexDirection: 'column', width: '20%' }}>
