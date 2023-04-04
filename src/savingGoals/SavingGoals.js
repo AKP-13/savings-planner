@@ -13,7 +13,12 @@ const SavingGoals = ({ tableData, setTableData }) => {
 
       <AddNewSavingItem setSavingItems={setSavingItems} setTableData={setTableData} />
 
-      <SavingItems savingItems={savingItems} />
+      <SavingItems
+        savingItems={savingItems}
+        tableData={tableData}
+        setTableData={setTableData}
+        setSavingItems={setSavingItems}
+      />
     </div>
   );
 };

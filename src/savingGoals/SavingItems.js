@@ -3,8 +3,25 @@ import React from 'react';
 import { Box, Card, CardActions, CardContent, Typography } from '@mui/material';
 import IconButton from '@mui/material/IconButton';
 import DeleteIcon from '@mui/icons-material/Delete';
+import { removeSavingItem, updateWithdrawnAmount } from './helpers';
 
-const SavingItems = ({ savingItems }) => {
+const SavingItems = ({ savingItems, tableData, setTableData, setSavingItems }) => {
+  const deleteItem = ({ itemToSaveFor, itemAmount, monthNeeded, yearNeeded }) => {
+    const updatedTableData = updateWithdrawnAmount(tableData, monthNeeded, yearNeeded, itemAmount);
+
+    setTableData(updatedTableData);
+
+    const updatedSavingsItems = removeSavingItem(
+      savingItems,
+      itemAmount,
+      itemToSaveFor,
+      monthNeeded,
+      yearNeeded
+    );
+
+    setSavingItems(updatedSavingsItems);
+  };
+
   return (
     <div style={{ display: 'flex', overflow: 'auto' }}>
       {savingItems.length > 0 &&
@@ -28,7 +45,11 @@ const SavingItems = ({ savingItems }) => {
                   </Typography>
                 </CardContent>
                 <CardActions disableSpacing>
-                  <IconButton aria-label="delete">
+                  <IconButton
+                    aria-label="delete"
+                    onClick={() =>
+                      deleteItem({ itemToSaveFor, itemAmount, monthNeeded, yearNeeded })
+                    }>
                     <DeleteIcon />
                   </IconButton>
                 </CardActions>
