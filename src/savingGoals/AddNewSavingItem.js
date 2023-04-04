@@ -3,23 +3,9 @@ import React, { useState } from 'react';
 import { Box, Card, CardContent, Fab } from '@mui/material';
 import AddIcon from '@mui/icons-material/Add';
 import { updateWithdrawnAmount } from './helpers';
+import { MONTHS, YEARS } from '../utils/constants';
 
 const initialInputs = { monthNeeded: 'January', yearNeeded: '2023' };
-const months = [
-  'January',
-  'February',
-  'March',
-  'April',
-  'May',
-  'June',
-  'July',
-  'August',
-  'September',
-  'October',
-  'November',
-  'December'
-];
-const years = ['2023', '2024', '2025'];
 
 const AddNewSavingItem = ({ setSavingItems, setTableData, tableData }) => {
   const [inputs, setInputs] = useState(initialInputs);
@@ -81,7 +67,7 @@ const AddNewSavingItem = ({ setSavingItems, setTableData, tableData }) => {
           <label style={{ display: 'flex', width: '100%', justifyContent: 'space-between' }}>
             Month:
             <select name="monthNeeded" onChange={handleChange} value={inputs.monthNeeded || ''}>
-              {months.map((month) => (
+              {MONTHS.map((month) => (
                 <option key={month} value={month}>
                   {month}
                 </option>
@@ -92,7 +78,7 @@ const AddNewSavingItem = ({ setSavingItems, setTableData, tableData }) => {
           <label style={{ display: 'flex', width: '100%', justifyContent: 'space-between' }}>
             Year:
             <select name="yearNeeded" onChange={handleChange} value={inputs.yearNeeded || ''}>
-              {years.map((year) => (
+              {YEARS.map((year) => (
                 <option key={year} value={year}>
                   {year}
                 </option>

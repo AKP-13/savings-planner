@@ -3,10 +3,6 @@
  * e.g. if we are deleting a goal of value `X` in month `Y`. Remove `X` from month `Y`'s `withdrawn` figure.
  */
 const updateWithdrawnAmount = ({ itemAmount, method, monthNeeded, tableData, yearNeeded }) => {
-  if (!['add', 'subtract'].includes(method)) {
-    return 'Error';
-  }
-
   return tableData.map((monthObj) => {
     if (monthObj.month === `${monthNeeded} ${yearNeeded}`) {
       return {
