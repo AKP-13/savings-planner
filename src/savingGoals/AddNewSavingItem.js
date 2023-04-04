@@ -52,7 +52,7 @@ const AddNewSavingItem = ({ setSavingItems, setTableData }) => {
   };
 
   return (
-    <Box sx={{ minWidth: 275, width: '20%', margin: '0 1rem' }}>
+    <Box sx={{ minWidth: 275, margin: '0 1rem' }}>
       <Card variant="outlined">
         <CardContent>
           {isAdding ? (

@@ -9,7 +9,7 @@ const SavingItems = ({ savingItems }) => (
         return (
           <Box
             key={`${itemToSaveFor}-${itemAmount}-${monthNeeded}-${yearNeeded}`}
-            sx={{ minWidth: 275, width: '20%', margin: '0 1rem' }}>
+            sx={{ minWidth: 275, margin: '0 1rem' }}>
             <Card variant="outlined">
               <CardContent>
                 <Typography variant="h5" component="div">
