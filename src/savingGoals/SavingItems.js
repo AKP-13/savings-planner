@@ -7,17 +7,25 @@ import { removeSavingItem, updateWithdrawnAmount } from './helpers';
 
 const SavingItems = ({ savingItems, tableData, setTableData, setSavingItems }) => {
   const deleteItem = ({ itemToSaveFor, itemAmount, monthNeeded, yearNeeded }) => {
-    const updatedTableData = updateWithdrawnAmount(tableData, monthNeeded, yearNeeded, itemAmount);
+    const method = 'subtract';
+
+    const updatedTableData = updateWithdrawnAmount({
+      itemAmount,
+      method,
+      monthNeeded,
+      tableData,
+      yearNeeded
+    });
 
     setTableData(updatedTableData);
 
-    const updatedSavingsItems = removeSavingItem(
-      savingItems,
+    const updatedSavingsItems = removeSavingItem({
       itemAmount,
       itemToSaveFor,
       monthNeeded,
+      savingItems,
       yearNeeded
-    );
+    });
 
     setSavingItems(updatedSavingsItems);
   };

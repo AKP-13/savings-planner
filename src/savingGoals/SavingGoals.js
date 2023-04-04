@@ -11,7 +11,11 @@ const SavingGoals = ({ tableData, setTableData }) => {
     <div style={{ display: 'flex' }}>
       <MonthlySavingCard tableData={tableData} setTableData={setTableData} />
 
-      <AddNewSavingItem setSavingItems={setSavingItems} setTableData={setTableData} />
+      <AddNewSavingItem
+        setSavingItems={setSavingItems}
+        setTableData={setTableData}
+        tableData={tableData}
+      />
 
       <SavingItems
         savingItems={savingItems}

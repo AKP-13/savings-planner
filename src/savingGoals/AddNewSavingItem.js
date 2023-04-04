@@ -2,6 +2,7 @@
 import React, { useState } from 'react';
 import { Box, Card, CardContent, Fab } from '@mui/material';
 import AddIcon from '@mui/icons-material/Add';
+import { updateWithdrawnAmount } from './helpers';
 
 const initialInputs = { monthNeeded: 'January', yearNeeded: '2023' };
 const months = [
@@ -20,7 +21,7 @@ const months = [
 ];
 const years = ['2023', '2024', '2025'];
 
-const AddNewSavingItem = ({ setSavingItems, setTableData }) => {
+const AddNewSavingItem = ({ setSavingItems, setTableData, tableData }) => {
   const [inputs, setInputs] = useState(initialInputs);
 
   const handleChange = (event) => {
@@ -33,15 +34,20 @@ const AddNewSavingItem = ({ setSavingItems, setTableData }) => {
     event.preventDefault();
     setSavingItems((values) => [...values, { ...inputs }]);
     setInputs(initialInputs);
-    setTableData((prev) => {
-      const monthToUpdate = prev.find((obj) => {
-        return obj.month === `${inputs.monthNeeded} ${inputs.yearNeeded}`;
-      });
 
-      monthToUpdate.withdrawn += Number(inputs.itemAmount);
+    const method = 'add';
 
-      return [...prev];
+    const { itemAmount, monthNeeded, yearNeeded } = inputs;
+
+    const updatedTableData = updateWithdrawnAmount({
+      itemAmount,
+      method,
+      monthNeeded,
+      tableData,
+      yearNeeded
     });
+
+    setTableData(updatedTableData);
   };
 
   const isDisabled =
