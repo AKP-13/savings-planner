@@ -3,28 +3,22 @@ import React from 'react';
 import { Box, Card, CardActions, CardContent, Typography } from '@mui/material';
 import IconButton from '@mui/material/IconButton';
 import DeleteIcon from '@mui/icons-material/Delete';
+import { removeSavingItem, updateWithdrawnAmount } from './helpers';
 
 const SavingItems = ({ savingItems, tableData, setTableData, setSavingItems }) => {
   const deleteItem = ({ itemToSaveFor, itemAmount, monthNeeded, yearNeeded }) => {
-    const updatedTableData = tableData.map((monthObj) => {
-      if (monthObj.month === `${monthNeeded} ${yearNeeded}`) {
-        return {
-          ...monthObj,
-          withdrawn: monthObj.withdrawn - Number(itemAmount)
-        };
-      } else {
-        return { ...monthObj };
-      }
-    });
+    // Update the 'withdrawn' amount in the tableData for the month that the saving goal was needed in
+    const updatedTableData = updateWithdrawnAmount(tableData, monthNeeded, yearNeeded, itemAmount);
 
     setTableData(updatedTableData);
 
-    const updatedSavingsItems = savingItems.filter(
-      (item) =>
-        item.itemAmount !== itemAmount ||
-        item.itemToSaveFor !== itemToSaveFor ||
-        item.monthNeeded !== monthNeeded ||
-        item.yearNeeded !== yearNeeded
+    // Filter out the deleted item from the list of saving items
+    const updatedSavingsItems = removeSavingItem(
+      savingItems,
+      itemAmount,
+      itemToSaveFor,
+      monthNeeded,
+      yearNeeded
     );
 
     setSavingItems(updatedSavingsItems);
