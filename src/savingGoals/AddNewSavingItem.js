@@ -1,7 +1,7 @@
 /* eslint-disable react/prop-types */
 import React, { useState } from 'react';
 import { Box, Card, CardContent, Fab } from '@mui/material';
-import CheckIcon from '@mui/icons-material/Check';
+import AddIcon from '@mui/icons-material/Add';
 
 const initialInputs = { monthNeeded: 'January', yearNeeded: '2023' };
 const months = [
@@ -54,7 +54,7 @@ const AddNewSavingItem = ({ setSavingItems, setTableData }) => {
     <Box sx={{ minWidth: 275, margin: '0 1rem' }}>
       <Card variant="outlined">
         <CardContent>
-          <label style={{ display: 'block' }}>
+          <label style={{ display: 'flex', width: '100%', justifyContent: 'space-between' }}>
             Item:
             <input
               type="text"
@@ -64,7 +64,7 @@ const AddNewSavingItem = ({ setSavingItems, setTableData }) => {
             />
           </label>
 
-          <label style={{ display: 'block' }}>
+          <label style={{ display: 'flex', width: '100%', justifyContent: 'space-between' }}>
             Amount:
             <input
               type="number"
@@ -74,7 +74,7 @@ const AddNewSavingItem = ({ setSavingItems, setTableData }) => {
             />
           </label>
 
-          <label style={{ display: 'block' }}>
+          <label style={{ display: 'flex', width: '100%', justifyContent: 'space-between' }}>
             Month:
             <select name="monthNeeded" onChange={handleChange} value={inputs.monthNeeded || ''}>
               {months.map((month) => (
@@ -85,7 +85,7 @@ const AddNewSavingItem = ({ setSavingItems, setTableData }) => {
             </select>
           </label>
 
-          <label style={{ display: 'block' }}>
+          <label style={{ display: 'flex', width: '100%', justifyContent: 'space-between' }}>
             Year:
             <select name="yearNeeded" onChange={handleChange} value={inputs.yearNeeded || ''}>
               {years.map((year) => (
@@ -101,7 +101,7 @@ const AddNewSavingItem = ({ setSavingItems, setTableData }) => {
             size="small"
             onClick={handleSubmit}
             disabled={isDisabled}>
-            <CheckIcon />
+            <AddIcon />
           </Fab>
         </CardContent>
       </Card>
