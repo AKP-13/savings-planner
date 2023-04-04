@@ -1,3 +1,5 @@
+import { MONTHS } from '../utils/constants';
+
 /**
  * Update the `withdrawn` amount in the `tableData` for the month that the saving goal was needed in.
  * e.g. if we are deleting a goal of value `X` in month `Y`. Remove `X` from month `Y`'s `withdrawn` figure.
@@ -31,4 +33,23 @@ const removeSavingItem = ({ itemAmount, itemToSaveFor, monthNeeded, savingItems,
   );
 };
 
-export { updateWithdrawnAmount, removeSavingItem };
+const sortByDate = (a, b) => {
+  if (a.yearNeeded !== b.yearNeeded) {
+    return a.yearNeeded - b.yearNeeded;
+  } else {
+    return MONTHS.indexOf(a.monthNeeded) - MONTHS.indexOf(b.monthNeeded);
+  }
+};
+
+/**
+ * Sorts the saving goals by ascending date
+ */
+const returnSortedSavingItems = (savingItems) => {
+  if (savingItems.length === 0) {
+    return [];
+  } else {
+    return savingItems.sort(sortByDate);
+  }
+};
+
+export { updateWithdrawnAmount, removeSavingItem, returnSortedSavingItems };

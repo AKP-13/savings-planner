@@ -1,10 +1,9 @@
 /* eslint-disable react/prop-types */
-import React from 'react';
+import React, { useMemo } from 'react';
 import { Box, Card, CardActions, CardContent, Typography } from '@mui/material';
 import IconButton from '@mui/material/IconButton';
 import DeleteIcon from '@mui/icons-material/Delete';
-import { removeSavingItem, updateWithdrawnAmount } from './helpers';
-import { MONTHS } from '../utils/constants';
+import { removeSavingItem, returnSortedSavingItems, updateWithdrawnAmount } from './helpers';
 
 const SavingItems = ({ savingItems, tableData, setTableData, setSavingItems }) => {
   const deleteItem = ({ itemToSaveFor, itemAmount, monthNeeded, yearNeeded }) => {
@@ -29,15 +28,7 @@ const SavingItems = ({ savingItems, tableData, setTableData, setSavingItems }) =
     setSavingItems(updatedSavingsItems);
   };
 
-  const sortByDate = (a, b) => {
-    if (a.yearNeeded !== b.yearNeeded) {
-      return a.yearNeeded - b.yearNeeded;
-    } else {
-      return MONTHS.indexOf(a.monthNeeded) - MONTHS.indexOf(b.monthNeeded);
-    }
-  };
-
-  const sortedSavingItems = savingItems.sort(sortByDate);
+  const sortedSavingItems = useMemo(() => returnSortedSavingItems(savingItems), [savingItems]);
 
   return (
     <div style={{ display: 'flex', overflow: 'auto' }}>
