@@ -2,13 +2,14 @@
 import React, { useState } from 'react';
 import { Box, Card, CardContent, Typography, Button, Tooltip, Fab } from '@mui/material';
 import CheckIcon from '@mui/icons-material/Check';
+import CloseIcon from '@mui/icons-material/Close';
 
 const MonthlySavingCard = ({ tableData, setTableData }) => {
   const [isEditing, setIsEditing] = useState(false);
   const [amountSavedEachMonth, setAmountSavedEachMonth] = useState(500);
 
   const handleClick = () => {
-    setIsEditing(true);
+    setIsEditing(!isEditing);
   };
 
   const handleAmountSavedEachMonthChange = (event) => {
@@ -48,11 +49,14 @@ const MonthlySavingCard = ({ tableData, setTableData }) => {
                 onChange={handleAmountSavedEachMonthChange}
               />
               <Fab
-                color="primary"
+                color="success"
                 aria-label="Confirm"
                 size="small"
                 onClick={handleAmountSavedEachMonthSubmit}>
                 <CheckIcon />
+              </Fab>
+              <Fab color="error" aria-label="Confirm" size="small" onClick={handleClick}>
+                <CloseIcon />
               </Fab>
             </div>
           ) : (

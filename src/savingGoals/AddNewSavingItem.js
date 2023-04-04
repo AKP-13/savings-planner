@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import { Box, Card, CardContent, Fab } from '@mui/material';
 import AddIcon from '@mui/icons-material/Add';
 import CloseIcon from '@mui/icons-material/Close';
+import CheckIcon from '@mui/icons-material/Check';
 
 const initialInputs = { monthNeeded: 'January', yearNeeded: '2023' };
 const months = [
@@ -50,64 +51,68 @@ const AddNewSavingItem = ({ setSavingItems, setTableData }) => {
     setIsAdding(!isAdding);
   };
 
-  return isAdding ? (
+  return (
     <Box sx={{ minWidth: 275, width: '20%', margin: '0 1rem' }}>
       <Card variant="outlined">
         <CardContent>
-          <form onSubmit={handleSubmit}>
-            <label style={{ display: 'block' }}>
-              Item:
-              <input
-                type="text"
-                name="itemToSaveFor"
-                value={inputs.itemToSaveFor || ''}
-                onChange={handleChange}
-              />
-            </label>
+          {isAdding ? (
+            <>
+              <label style={{ display: 'block' }}>
+                Item:
+                <input
+                  type="text"
+                  name="itemToSaveFor"
+                  value={inputs.itemToSaveFor || ''}
+                  onChange={handleChange}
+                />
+              </label>
 
-            <label style={{ display: 'block' }}>
-              Amount:
-              <input
-                type="number"
-                name="itemAmount"
-                value={inputs.itemAmount || ''}
-                onChange={handleChange}
-              />
-            </label>
+              <label style={{ display: 'block' }}>
+                Amount:
+                <input
+                  type="number"
+                  name="itemAmount"
+                  value={inputs.itemAmount || ''}
+                  onChange={handleChange}
+                />
+              </label>
 
-            <label style={{ display: 'block' }}>
-              Month:
-              <select name="monthNeeded" onChange={handleChange} value={inputs.monthNeeded || ''}>
-                {months.map((month) => (
-                  <option key={month} value={month}>
-                    {month}
-                  </option>
-                ))}
-              </select>
-            </label>
+              <label style={{ display: 'block' }}>
+                Month:
+                <select name="monthNeeded" onChange={handleChange} value={inputs.monthNeeded || ''}>
+                  {months.map((month) => (
+                    <option key={month} value={month}>
+                      {month}
+                    </option>
+                  ))}
+                </select>
+              </label>
 
-            <label style={{ display: 'block' }}>
-              Year:
-              <select name="yearNeeded" onChange={handleChange} value={inputs.yearNeeded || ''}>
-                {years.map((year) => (
-                  <option key={year} value={year}>
-                    {year}
-                  </option>
-                ))}
-              </select>
-            </label>
-            <input type="submit" value="Add" />
-          </form>
-          <Fab color="primary" aria-label="Confirm" size="small" onClick={handleIsAddingClick}>
-            <CloseIcon />
-          </Fab>
+              <label style={{ display: 'block' }}>
+                Year:
+                <select name="yearNeeded" onChange={handleChange} value={inputs.yearNeeded || ''}>
+                  {years.map((year) => (
+                    <option key={year} value={year}>
+                      {year}
+                    </option>
+                  ))}
+                </select>
+              </label>
+              <Fab color="success" aria-label="Confirm" size="small" onClick={handleSubmit}>
+                <CheckIcon />
+              </Fab>
+              <Fab color="error" aria-label="Confirm" size="small" onClick={handleIsAddingClick}>
+                <CloseIcon />
+              </Fab>
+            </>
+          ) : (
+            <Fab color="primary" aria-label="Confirm" size="small" onClick={handleIsAddingClick}>
+              <AddIcon />
+            </Fab>
+          )}
         </CardContent>
       </Card>
     </Box>
-  ) : (
-    <Fab color="primary" aria-label="Confirm" size="small" onClick={handleIsAddingClick}>
-      <AddIcon />
-    </Fab>
   );
 };
 
