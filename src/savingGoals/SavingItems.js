@@ -7,12 +7,10 @@ import { removeSavingItem, updateWithdrawnAmount } from './helpers';
 
 const SavingItems = ({ savingItems, tableData, setTableData, setSavingItems }) => {
   const deleteItem = ({ itemToSaveFor, itemAmount, monthNeeded, yearNeeded }) => {
-    // Update the 'withdrawn' amount in the tableData for the month that the saving goal was needed in
     const updatedTableData = updateWithdrawnAmount(tableData, monthNeeded, yearNeeded, itemAmount);
 
     setTableData(updatedTableData);
 
-    // Filter out the deleted item from the list of saving items
     const updatedSavingsItems = removeSavingItem(
       savingItems,
       itemAmount,
