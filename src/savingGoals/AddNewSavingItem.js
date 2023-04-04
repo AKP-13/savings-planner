@@ -1,11 +1,11 @@
 /* eslint-disable react/prop-types */
 import React, { useState } from 'react';
-import { Box, Card, CardContent, Fab } from '@mui/material';
+import { Box, Card, CardContent, Fab, MenuItem, TextField } from '@mui/material';
 import AddIcon from '@mui/icons-material/Add';
 import { updateWithdrawnAmount } from './helpers';
 import { MONTHS, YEARS } from '../utils/constants';
 
-const initialInputs = { monthNeeded: 'January', yearNeeded: '2023' };
+const initialInputs = { monthNeeded: '', yearNeeded: '', itemToSaveFor: '', itemAmount: '' };
 
 const AddNewSavingItem = ({ setSavingItems, setTableData, tableData }) => {
   const [inputs, setInputs] = useState(initialInputs);
@@ -43,54 +43,65 @@ const AddNewSavingItem = ({ setSavingItems, setTableData, tableData }) => {
   return (
     <Box sx={{ minWidth: 275, margin: '0 1rem' }}>
       <Card variant="outlined">
-        <CardContent>
-          <label style={{ display: 'flex', width: '100%', justifyContent: 'space-between' }}>
-            Item:
-            <input
-              type="text"
-              name="itemToSaveFor"
-              value={inputs.itemToSaveFor || ''}
-              onChange={handleChange}
-            />
-          </label>
+        <CardContent sx={{ display: 'flex', flexDirection: 'column' }}>
+          <TextField
+            id="standard-basic"
+            label="Item"
+            variant="standard"
+            onChange={handleChange}
+            value={inputs.itemToSaveFor}
+            name="itemToSaveFor"
+          />
 
-          <label style={{ display: 'flex', width: '100%', justifyContent: 'space-between' }}>
-            Amount:
-            <input
-              type="number"
-              name="itemAmount"
-              value={inputs.itemAmount || ''}
-              onChange={handleChange}
-            />
-          </label>
+          <TextField
+            id="standard-number"
+            label="Amount"
+            name="itemAmount"
+            type="number"
+            onChange={handleChange}
+            variant="standard"
+            value={inputs.itemAmount}
+          />
 
-          <label style={{ display: 'flex', width: '100%', justifyContent: 'space-between' }}>
-            Month:
-            <select name="monthNeeded" onChange={handleChange} value={inputs.monthNeeded || ''}>
-              {MONTHS.map((month) => (
-                <option key={month} value={month}>
-                  {month}
-                </option>
-              ))}
-            </select>
-          </label>
+          <TextField
+            id="standard-select-month"
+            select
+            label="Month"
+            defaultValue="January"
+            variant="standard"
+            name="monthNeeded"
+            value={inputs.monthNeeded}
+            onChange={handleChange}>
+            {MONTHS.map((month) => (
+              <MenuItem key={month} value={month}>
+                {month}
+              </MenuItem>
+            ))}
+          </TextField>
 
-          <label style={{ display: 'flex', width: '100%', justifyContent: 'space-between' }}>
-            Year:
-            <select name="yearNeeded" onChange={handleChange} value={inputs.yearNeeded || ''}>
-              {YEARS.map((year) => (
-                <option key={year} value={year}>
-                  {year}
-                </option>
-              ))}
-            </select>
-          </label>
+          <TextField
+            id="standard-select-year"
+            select
+            label="Year"
+            defaultValue="2023"
+            variant="standard"
+            name="yearNeeded"
+            onChange={handleChange}
+            value={inputs.yearNeeded}>
+            {YEARS.map((year) => (
+              <MenuItem key={year} value={year}>
+                {year}
+              </MenuItem>
+            ))}
+          </TextField>
+
           <Fab
             color="success"
             aria-label="Confirm"
             size="small"
             onClick={handleSubmit}
-            disabled={isDisabled}>
+            disabled={isDisabled}
+            sx={{ margin: '1rem auto 0' }}>
             <AddIcon />
           </Fab>
         </CardContent>
