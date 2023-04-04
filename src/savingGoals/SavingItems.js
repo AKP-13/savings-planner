@@ -4,7 +4,32 @@ import { Box, Card, CardActions, CardContent, Typography } from '@mui/material';
 import IconButton from '@mui/material/IconButton';
 import DeleteIcon from '@mui/icons-material/Delete';
 
-const SavingItems = ({ savingItems }) => {
+const SavingItems = ({ savingItems, tableData, setTableData, setSavingItems }) => {
+  const deleteItem = ({ itemToSaveFor, itemAmount, monthNeeded, yearNeeded }) => {
+    const updatedTableData = tableData.map((monthObj) => {
+      if (monthObj.month === `${monthNeeded} ${yearNeeded}`) {
+        return {
+          ...monthObj,
+          withdrawn: monthObj.withdrawn - Number(itemAmount)
+        };
+      } else {
+        return { ...monthObj };
+      }
+    });
+
+    setTableData(updatedTableData);
+
+    const updatedSavingsItems = savingItems.filter(
+      (item) =>
+        item.itemAmount !== itemAmount ||
+        item.itemToSaveFor !== itemToSaveFor ||
+        item.monthNeeded !== monthNeeded ||
+        item.yearNeeded !== yearNeeded
+    );
+
+    setSavingItems(updatedSavingsItems);
+  };
+
   return (
     <div style={{ display: 'flex', overflow: 'auto' }}>
       {savingItems.length > 0 &&
@@ -28,7 +53,11 @@ const SavingItems = ({ savingItems }) => {
                   </Typography>
                 </CardContent>
                 <CardActions disableSpacing>
-                  <IconButton aria-label="delete">
+                  <IconButton
+                    aria-label="delete"
+                    onClick={() =>
+                      deleteItem({ itemToSaveFor, itemAmount, monthNeeded, yearNeeded })
+                    }>
                     <DeleteIcon />
                   </IconButton>
                 </CardActions>
