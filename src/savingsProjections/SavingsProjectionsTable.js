@@ -12,20 +12,20 @@ import {
 } from '@mui/material';
 import { formattedCurrency, returnTotals } from './helpers';
 
+const StickyCell = styled(TableCell)(() => ({
+  position: 'sticky',
+  left: 0,
+  background: 'white'
+}));
+
+const StyledTableRow = styled(TableRow)(() => ({
+  [`&:last-child td, &:last-child th`]: {
+    border: 0
+  }
+}));
+
 export default function SavingsProjectionsTable({ tableData }) {
   const totalSaved = useMemo(() => returnTotals({ tableData }), [tableData]);
-
-  const StickyCell = styled(TableCell)(() => ({
-    position: 'sticky',
-    left: 0,
-    background: 'white'
-  }));
-
-  const StyledTableRow = styled(TableRow)(() => ({
-    [`&:last-child td, &:last-child th`]: {
-      border: 0
-    }
-  }));
 
   return (
     <TableContainer component={Paper}>
@@ -67,7 +67,7 @@ export default function SavingsProjectionsTable({ tableData }) {
             </StickyCell>
             {totalSaved.map(({ month, amount }) => (
               <TableCell
-                sx={{ backgroundColor: amount === 0 ? 'grey' : amount < 0 ? 'red' : 'green' }}
+                sx={{ color: amount === 0 ? 'grey' : amount < 0 ? 'red' : 'green' }}
                 key={`${month}-total`}>{`${formattedCurrency.format(amount)}`}</TableCell>
             ))}
           </StyledTableRow>
