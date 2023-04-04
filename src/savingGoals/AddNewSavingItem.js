@@ -35,13 +35,11 @@ const AddNewSavingItem = ({ setSavingItems, setTableData, tableData }) => {
     setSavingItems((values) => [...values, { ...inputs }]);
     setInputs(initialInputs);
 
-    const method = 'add';
-
     const { itemAmount, monthNeeded, yearNeeded } = inputs;
 
     const updatedTableData = updateWithdrawnAmount({
       itemAmount,
-      method,
+      method: 'add',
       monthNeeded,
       tableData,
       yearNeeded
