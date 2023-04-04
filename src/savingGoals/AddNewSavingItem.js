@@ -1,8 +1,6 @@
 /* eslint-disable react/prop-types */
 import React, { useState } from 'react';
 import { Box, Card, CardContent, Fab } from '@mui/material';
-import AddIcon from '@mui/icons-material/Add';
-import CloseIcon from '@mui/icons-material/Close';
 import CheckIcon from '@mui/icons-material/Check';
 
 const initialInputs = { monthNeeded: 'January', yearNeeded: '2023' };
@@ -24,7 +22,6 @@ const years = ['2023', '2024', '2025'];
 
 const AddNewSavingItem = ({ setSavingItems, setTableData }) => {
   const [inputs, setInputs] = useState(initialInputs);
-  const [isAdding, setIsAdding] = useState(false);
 
   const handleChange = (event) => {
     const { name, value } = event.target;
@@ -47,69 +44,65 @@ const AddNewSavingItem = ({ setSavingItems, setTableData }) => {
     });
   };
 
-  const handleIsAddingClick = () => {
-    setIsAdding(!isAdding);
-  };
+  const isDisabled =
+    !inputs.itemToSaveFor ||
+    inputs.itemToSaveFor === '' ||
+    !inputs.itemAmount ||
+    !inputs.itemAmount;
 
   return (
     <Box sx={{ minWidth: 275, margin: '0 1rem' }}>
       <Card variant="outlined">
         <CardContent>
-          {isAdding ? (
-            <>
-              <label style={{ display: 'block' }}>
-                Item:
-                <input
-                  type="text"
-                  name="itemToSaveFor"
-                  value={inputs.itemToSaveFor || ''}
-                  onChange={handleChange}
-                />
-              </label>
+          <label style={{ display: 'block' }}>
+            Item:
+            <input
+              type="text"
+              name="itemToSaveFor"
+              value={inputs.itemToSaveFor || ''}
+              onChange={handleChange}
+            />
+          </label>
 
-              <label style={{ display: 'block' }}>
-                Amount:
-                <input
-                  type="number"
-                  name="itemAmount"
-                  value={inputs.itemAmount || ''}
-                  onChange={handleChange}
-                />
-              </label>
+          <label style={{ display: 'block' }}>
+            Amount:
+            <input
+              type="number"
+              name="itemAmount"
+              value={inputs.itemAmount || ''}
+              onChange={handleChange}
+            />
+          </label>
 
-              <label style={{ display: 'block' }}>
-                Month:
-                <select name="monthNeeded" onChange={handleChange} value={inputs.monthNeeded || ''}>
-                  {months.map((month) => (
-                    <option key={month} value={month}>
-                      {month}
-                    </option>
-                  ))}
-                </select>
-              </label>
+          <label style={{ display: 'block' }}>
+            Month:
+            <select name="monthNeeded" onChange={handleChange} value={inputs.monthNeeded || ''}>
+              {months.map((month) => (
+                <option key={month} value={month}>
+                  {month}
+                </option>
+              ))}
+            </select>
+          </label>
 
-              <label style={{ display: 'block' }}>
-                Year:
-                <select name="yearNeeded" onChange={handleChange} value={inputs.yearNeeded || ''}>
-                  {years.map((year) => (
-                    <option key={year} value={year}>
-                      {year}
-                    </option>
-                  ))}
-                </select>
-              </label>
-              <Fab color="success" aria-label="Confirm" size="small" onClick={handleSubmit}>
-                <CheckIcon />
-              </Fab>
-              <Fab color="error" aria-label="Confirm" size="small" onClick={handleIsAddingClick}>
-                <CloseIcon />
-              </Fab>
-            </>
-          ) : (
-            <Fab color="primary" aria-label="Confirm" size="small" onClick={handleIsAddingClick}>
-              <AddIcon />
-            </Fab>
-          )}
+          <label style={{ display: 'block' }}>
+            Year:
+            <select name="yearNeeded" onChange={handleChange} value={inputs.yearNeeded || ''}>
+              {years.map((year) => (
+                <option key={year} value={year}>
+                  {year}
+                </option>
+              ))}
+            </select>
+          </label>
+          <Fab
+            color="success"
+            aria-label="Confirm"
+            size="small"
+            onClick={handleSubmit}
+            disabled={isDisabled}>
+            <CheckIcon />
+          </Fab>
         </CardContent>
       </Card>
     </Box>
