@@ -32,7 +32,7 @@ const SavingItems = ({ savingItems, tableData, setTableData, setSavingItems }) =
 
   return (
     <div style={{ display: 'flex', overflow: 'auto' }}>
-      {sortedSavingItems.length > 0 &&
+      {sortedSavingItems.length > 0 ? (
         sortedSavingItems.map(({ itemToSaveFor, itemAmount, monthNeeded, yearNeeded }) => {
           return (
             <Box
@@ -64,7 +64,18 @@ const SavingItems = ({ savingItems, tableData, setTableData, setSavingItems }) =
               </Card>
             </Box>
           );
-        })}
+        })
+      ) : (
+        <Box sx={{ minWidth: 275, margin: '0 1rem' }}>
+          <Card variant="outlined">
+            <CardContent>
+              <Typography variant="h5" component="div">
+                No saving goals
+              </Typography>
+            </CardContent>
+          </Card>
+        </Box>
+      )}
     </div>
   );
 };
