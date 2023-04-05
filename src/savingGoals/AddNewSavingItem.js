@@ -2,6 +2,8 @@
 import React, { useState } from 'react';
 import { Box, Card, CardContent, Fab, MenuItem, TextField } from '@mui/material';
 import AddIcon from '@mui/icons-material/Add';
+import CloseIcon from '@mui/icons-material/Close';
+import CheckIcon from '@mui/icons-material/Check';
 import { updateWithdrawnAmount } from './helpers';
 import { MONTHS, YEARS } from '../utils/constants';
 
@@ -9,6 +11,7 @@ const initialInputs = { monthNeeded: '', yearNeeded: '', itemToSaveFor: '', item
 
 const AddNewSavingItem = ({ setSavingItems, setTableData, tableData }) => {
   const [inputs, setInputs] = useState(initialInputs);
+  const [isAdding, setIsAdding] = useState(false);
 
   const handleChange = (event) => {
     const { name, value } = event.target;
@@ -32,15 +35,22 @@ const AddNewSavingItem = ({ setSavingItems, setTableData, tableData }) => {
     });
 
     setTableData(updatedTableData);
+    setIsAdding(false);
   };
 
-  const isDisabled =
-    !inputs.itemToSaveFor ||
-    inputs.itemToSaveFor === '' ||
-    !inputs.itemAmount ||
-    !inputs.itemAmount;
+  // TO DO
+  // Also disable when adding a duplicate item
+  const isDisabled = inputs.itemToSaveFor === '' || inputs.itemAmount === '';
 
-  return (
+  const handleAddNewItem = () => {
+    setIsAdding(true);
+  };
+
+  const handleClose = () => {
+    setIsAdding(false);
+  };
+
+  return isAdding ? (
     <Box sx={{ minWidth: 275, margin: '0 1rem' }}>
       <Card variant="outlined">
         <CardContent sx={{ display: 'flex', flexDirection: 'column' }}>
@@ -95,18 +105,32 @@ const AddNewSavingItem = ({ setSavingItems, setTableData, tableData }) => {
             ))}
           </TextField>
 
-          <Fab
-            color="success"
-            aria-label="Confirm"
-            size="small"
-            onClick={handleSubmit}
-            disabled={isDisabled}
-            sx={{ margin: '1rem auto 0' }}>
-            <AddIcon />
-          </Fab>
+          <div>
+            <Fab
+              color="success"
+              aria-label="Confirm"
+              size="small"
+              onClick={handleSubmit}
+              disabled={isDisabled}
+              sx={{ margin: '1rem auto 0' }}>
+              <CheckIcon />
+            </Fab>
+            <Fab
+              color="error"
+              aria-label="Close"
+              size="small"
+              onClick={handleClose}
+              sx={{ margin: '1rem auto 0' }}>
+              <CloseIcon />
+            </Fab>
+          </div>
         </CardContent>
       </Card>
     </Box>
+  ) : (
+    <Fab aria-label="Add" size="small" onClick={handleAddNewItem} sx={{ margin: 'auto 8rem' }}>
+      <AddIcon />
+    </Fab>
   );
 };
 
