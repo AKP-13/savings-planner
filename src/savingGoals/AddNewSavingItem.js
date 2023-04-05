@@ -1,30 +1,46 @@
 /* eslint-disable react/prop-types */
 import React, { useState } from 'react';
-import { Box, Card, CardContent, Fab, MenuItem, TextField } from '@mui/material';
+import {
+  Box,
+  Button,
+  Card,
+  CardContent,
+  Fab,
+  FormControl,
+  InputAdornment,
+  InputLabel,
+  MenuItem,
+  OutlinedInput,
+  TextField
+} from '@mui/material';
 import AddIcon from '@mui/icons-material/Add';
 import CloseIcon from '@mui/icons-material/Close';
 import CheckIcon from '@mui/icons-material/Check';
-import { updateWithdrawnAmount } from './helpers';
 import { MONTHS, YEARS } from '../utils/constants';
+import { updateWithdrawnAmount } from './helpers';
 
 const initialInputs = { monthNeeded: '', yearNeeded: '', itemToSaveFor: '', itemAmount: '' };
 
 const AddNewSavingItem = ({ setSavingItems, setTableData, tableData }) => {
-  const [inputs, setInputs] = useState(initialInputs);
-  const [isAdding, setIsAdding] = useState(false);
+  const [formInputs, setFormInputs] = useState(initialInputs);
+  const [isAddingNewItem, setIsAddingNewItem] = useState(false);
 
-  const handleChange = (event) => {
+  const handleFormInputChange = (event) => {
     const { name, value } = event.target;
 
-    setInputs((values) => ({ ...values, [name]: value }));
+    setFormInputs((values) => ({ ...values, [name]: value }));
   };
 
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    setSavingItems((values) => [...values, { ...inputs }]);
-    setInputs(initialInputs);
+  const handleCloseAddNewItem = () => {
+    setIsAddingNewItem(false);
+  };
 
-    const { itemAmount, monthNeeded, yearNeeded } = inputs;
+  const handleSaveNewItem = (event) => {
+    event.preventDefault();
+    setSavingItems((values) => [...values, { ...formInputs }]);
+    setFormInputs(initialInputs);
+
+    const { itemAmount, monthNeeded, yearNeeded } = formInputs;
 
     const updatedTableData = updateWithdrawnAmount({
       itemAmount,
@@ -35,102 +51,121 @@ const AddNewSavingItem = ({ setSavingItems, setTableData, tableData }) => {
     });
 
     setTableData(updatedTableData);
-    setIsAdding(false);
+    handleCloseAddNewItem();
   };
 
   // TO DO
   // Also disable when adding a duplicate item
-  const isDisabled = inputs.itemToSaveFor === '' || inputs.itemAmount === '';
+  const isDisabled =
+    formInputs.itemToSaveFor === '' ||
+    formInputs.itemAmount === '' ||
+    formInputs.monthNeeded === '' ||
+    formInputs.yearNeeded === '';
 
   const handleAddNewItem = () => {
-    setIsAdding(true);
+    setIsAddingNewItem(true);
   };
 
-  const handleClose = () => {
-    setIsAdding(false);
-  };
-
-  return isAdding ? (
-    <Box sx={{ minWidth: 275, margin: '0 1rem' }}>
+  return isAddingNewItem ? (
+    <Box sx={{ minWidth: 275, margin: '0 1rem', width: '300px' }}>
       <Card variant="outlined">
         <CardContent sx={{ display: 'flex', flexDirection: 'column' }}>
           <TextField
-            id="standard-basic"
-            label="Item"
-            variant="standard"
-            onChange={handleChange}
-            value={inputs.itemToSaveFor}
+            label="Item to save for"
+            onChange={handleFormInputChange}
+            value={formInputs.itemToSaveFor}
             name="itemToSaveFor"
+            size="small"
+            InputLabelProps={{
+              shrink: true
+            }}
           />
 
-          <TextField
-            id="standard-number"
-            label="Amount"
-            name="itemAmount"
-            type="number"
-            onChange={handleChange}
-            variant="standard"
-            value={inputs.itemAmount}
-          />
-
-          <TextField
-            id="standard-select-month"
-            select
-            label="Month"
-            defaultValue="January"
-            variant="standard"
-            name="monthNeeded"
-            value={inputs.monthNeeded}
-            onChange={handleChange}>
-            {MONTHS.map((month) => (
-              <MenuItem key={month} value={month}>
-                {month}
-              </MenuItem>
-            ))}
-          </TextField>
-
-          <TextField
-            id="standard-select-year"
-            select
-            label="Year"
-            defaultValue="2023"
-            variant="standard"
-            name="yearNeeded"
-            onChange={handleChange}
-            value={inputs.yearNeeded}>
-            {YEARS.map((year) => (
-              <MenuItem key={year} value={year}>
-                {year}
-              </MenuItem>
-            ))}
-          </TextField>
-
-          <div>
-            <Fab
-              color="success"
-              aria-label="Confirm"
+          <FormControl fullWidth sx={{ margin: '0.75rem 0 0 0' }}>
+            <InputLabel htmlFor="amount">Amount</InputLabel>
+            <OutlinedInput
+              id="amount"
+              startAdornment={<InputAdornment position="start">£</InputAdornment>}
+              label="Amount"
+              value={formInputs.itemAmount}
+              onChange={handleFormInputChange}
+              name="itemAmount"
               size="small"
-              onClick={handleSubmit}
-              disabled={isDisabled}
-              sx={{ margin: '1rem auto 0' }}>
-              <CheckIcon />
-            </Fab>
-            <Fab
+            />
+          </FormControl>
+
+          <div style={{ margin: '0.75rem 0', display: 'flex', justifyContent: 'space-between' }}>
+            <TextField
+              select
+              label="Month"
+              name="monthNeeded"
+              value={formInputs.monthNeeded}
+              onChange={handleFormInputChange}
+              sx={{ width: '56%' }}
+              size="small"
+              InputLabelProps={{
+                shrink: true
+              }}>
+              {MONTHS.map((month) => (
+                <MenuItem key={month} value={month}>
+                  {month}
+                </MenuItem>
+              ))}
+            </TextField>
+
+            <TextField
+              select
+              label="Year"
+              name="yearNeeded"
+              value={formInputs.yearNeeded}
+              onChange={handleFormInputChange}
+              sx={{ width: '40%' }}
+              size="small"
+              InputLabelProps={{
+                shrink: true
+              }}>
+              {YEARS.map((year) => (
+                <MenuItem key={year} value={year}>
+                  {year}
+                </MenuItem>
+              ))}
+            </TextField>
+          </div>
+
+          <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+            <Button
               color="error"
-              aria-label="Close"
-              size="small"
-              onClick={handleClose}
-              sx={{ margin: '1rem auto 0' }}>
-              <CloseIcon />
-            </Fab>
+              variant="outlined"
+              startIcon={<CloseIcon />}
+              onClick={handleCloseAddNewItem}
+              size="small">
+              Cancel
+            </Button>
+
+            <Button
+              color="success"
+              variant="outlined"
+              startIcon={<CheckIcon />}
+              disabled={isDisabled}
+              onClick={handleSaveNewItem}
+              size="small">
+              Confirm
+            </Button>
           </div>
         </CardContent>
       </Card>
     </Box>
   ) : (
-    <Fab aria-label="Add" size="small" onClick={handleAddNewItem} sx={{ margin: 'auto 8rem' }}>
-      <AddIcon />
-    </Fab>
+    <div style={{ display: 'flex', width: '300px', margin: '0 1rem' }}>
+      <Fab
+        aria-label="Add"
+        color="primary"
+        size="small"
+        onClick={handleAddNewItem}
+        sx={{ margin: 'auto 8rem' }}>
+        <AddIcon />
+      </Fab>
+    </div>
   );
 };
 
