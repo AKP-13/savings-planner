@@ -33,6 +33,7 @@ const AddNewSavingItem = ({ setSavingItems, setTableData, tableData }) => {
 
   const handleCloseAddNewItem = () => {
     setIsAddingNewItem(false);
+    setFormInputs(initialInputs);
   };
 
   const handleSaveNewItem = (event) => {
@@ -67,7 +68,7 @@ const AddNewSavingItem = ({ setSavingItems, setTableData, tableData }) => {
   };
 
   return isAddingNewItem ? (
-    <Box sx={{ minWidth: 275, margin: '0 1rem', width: '300px' }}>
+    <Box sx={{ minWidth: 300, margin: '0 1rem', width: '300px' }}>
       <Card variant="outlined">
         <CardContent sx={{ display: 'flex', flexDirection: 'column' }}>
           <TextField
@@ -156,7 +157,7 @@ const AddNewSavingItem = ({ setSavingItems, setTableData, tableData }) => {
       </Card>
     </Box>
   ) : (
-    <div style={{ display: 'flex', width: '300px', margin: '0 1rem' }}>
+    <div style={{ minWidth: 300, display: 'flex', width: '300px', margin: '0 1rem' }}>
       <Fab
         aria-label="Add"
         color="primary"

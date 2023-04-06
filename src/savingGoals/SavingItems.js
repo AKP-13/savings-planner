@@ -37,18 +37,14 @@ const SavingItems = ({ savingItems, tableData, setTableData, setSavingItems }) =
           return (
             <Box
               key={`${itemToSaveFor}-${itemAmount}-${monthNeeded}-${yearNeeded}`}
-              sx={{ minWidth: 275, margin: '0 1rem' }}>
+              sx={{ minWidth: 225, margin: '0 1rem', textAlign: 'left' }}>
               <Card variant="outlined">
                 <CardContent>
                   <Typography variant="h5" component="div">
                     {itemToSaveFor}
                   </Typography>
-
-                  <Typography variant="h5" component="div">
-                    {`£${itemAmount}`}
-                  </Typography>
-
-                  <Typography variant="h5" component="div">
+                  <Typography sx={{ mb: 1.5 }}>{`£${itemAmount}`}</Typography>
+                  <Typography variant="body2" color="text.secondary">
                     {monthNeeded} {yearNeeded}
                   </Typography>
                 </CardContent>
@@ -72,6 +68,7 @@ const SavingItems = ({ savingItems, tableData, setTableData, setSavingItems }) =
               <Typography variant="h5" component="div">
                 No saving goals
               </Typography>
+              <Typography color="text.secondary">Add some by clicking the + icon</Typography>
             </CardContent>
           </Card>
         </Box>

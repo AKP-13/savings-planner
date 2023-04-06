@@ -9,6 +9,7 @@ const SavingGoals = ({ tableData, setTableData }) => {
     <div
       style={{
         alignItems: 'center',
+        backgroundColor: 'aliceblue',
         border: '1px solid gray',
         borderRadius: '8px',
         display: 'flex',
