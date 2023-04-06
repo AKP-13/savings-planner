@@ -34,7 +34,7 @@ export default function SavingsProjectionsTable({ tableData }) {
           <TableRow>
             <StickyCell />
             {tableData.map(({ month }) => (
-              <TableCell key={month} sx={{ minWidth: '100px' }}>
+              <TableCell key={month} sx={{ minWidth: '150px' }}>
                 {month}
               </TableCell>
             ))}
@@ -56,11 +56,12 @@ export default function SavingsProjectionsTable({ tableData }) {
             </StickyCell>
             {tableData.map(({ month, savingGoals }) => (
               // Mapping over the months
-              <TableCell key={`${month}-withdrawn`}>
+              <TableCell key={`${month}-withdrawn`} sx={{ verticalAlign: 'baseline' }}>
                 {savingGoals.map(({ itemToSaveFor, itemAmount }) => (
                   // Mapping over the savingGoals in the month
-                  <p key={`${itemToSaveFor}-${itemAmount}`}>
-                    {`-${formattedCurrency.format(itemAmount)}, ${itemToSaveFor}`}
+                  <p key={`${itemToSaveFor}-${itemAmount}`} style={{ margin: '0' }}>
+                    {`-${formattedCurrency.format(itemAmount)}`}{' '}
+                    <span style={{ color: 'grey' }}>{`, ${itemToSaveFor}`}</span>
                   </p>
                 ))}
               </TableCell>
