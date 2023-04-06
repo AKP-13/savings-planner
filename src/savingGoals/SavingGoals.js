@@ -1,6 +1,6 @@
 /* eslint-disable react/prop-types */
 import { useState } from 'react';
-import { AddNewSavingItem, MonthlySavingCard, SavingItems } from './index';
+import { AddNewSavingItem, SavingItems } from './index';
 
 const SavingGoals = ({ tableData, setTableData }) => {
   const [savingItems, setSavingItems] = useState([]);
@@ -9,15 +9,15 @@ const SavingGoals = ({ tableData, setTableData }) => {
     <div
       style={{
         alignItems: 'center',
-        backgroundColor: 'aliceblue',
-        border: '1px solid gray',
+        backgroundColor: 'white',
         borderRadius: '8px',
+        boxShadow: ' 0px 1px 1px rgba(0, 0, 0, 0.25)',
         display: 'flex',
         height: '250px',
-        margin: '1rem'
+        margin: '1rem',
+        padding: '0.5rem',
+        width: '66%'
       }}>
-      <MonthlySavingCard tableData={tableData} setTableData={setTableData} />
-
       <AddNewSavingItem
         setSavingItems={setSavingItems}
         tableData={tableData}

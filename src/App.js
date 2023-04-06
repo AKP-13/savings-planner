@@ -49,9 +49,11 @@ function App() {
     <div className="App">
       <Header />
 
-      <MonthlySavingAmount />
+      <div style={{ display: 'flex' }}>
+        <MonthlySavingAmount tableData={tableData} setTableData={setTableData} />
 
-      <SavingGoals tableData={tableData} setTableData={setTableData} />
+        <SavingGoals tableData={tableData} setTableData={setTableData} />
+      </div>
 
       <SavingsProjectionsTable tableData={tableData} />
 
