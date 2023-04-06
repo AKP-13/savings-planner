@@ -4,6 +4,7 @@ import { Box, Card, CardActions, CardContent, Typography } from '@mui/material';
 import IconButton from '@mui/material/IconButton';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { removeSavingItem, returnSortedSavingItems, updateWithdrawnAmount } from './helpers';
+import { formattedCurrency } from '../utils/helpers';
 
 const SavingItems = ({ savingItems, tableData, setTableData, setSavingItems }) => {
   const deleteItem = ({ itemToSaveFor, itemAmount, monthNeeded, yearNeeded }) => {
@@ -31,7 +32,7 @@ const SavingItems = ({ savingItems, tableData, setTableData, setSavingItems }) =
   const sortedSavingItems = useMemo(() => returnSortedSavingItems(savingItems), [savingItems]);
 
   return (
-    <div style={{ display: 'flex', overflow: 'auto' }}>
+    <div style={{ display: 'flex', overflow: 'auto', width: '100%' }}>
       {sortedSavingItems.length > 0 ? (
         sortedSavingItems.map(({ itemToSaveFor, itemAmount, monthNeeded, yearNeeded }) => {
           return (
@@ -40,11 +41,23 @@ const SavingItems = ({ savingItems, tableData, setTableData, setSavingItems }) =
               sx={{ minWidth: 225, margin: '0 1rem', textAlign: 'left' }}>
               <Card variant="outlined">
                 <CardContent>
-                  <Typography variant="h5" component="div">
+                  <Typography
+                    variant="h5"
+                    component="div"
+                    sx={{ fontFamily: 'Quicksand, sans-serif' }}>
                     {itemToSaveFor}
                   </Typography>
-                  <Typography sx={{ mb: 1.5 }}>{`£${itemAmount}`}</Typography>
-                  <Typography variant="body2" color="text.secondary">
+                  <Typography
+                    sx={{
+                      mb: 1.5,
+                      fontFamily: 'Quicksand, sans-serif'
+                    }}>
+                    {formattedCurrency.format(itemAmount)}
+                  </Typography>
+                  <Typography
+                    sx={{ fontFamily: 'Quicksand, sans-serif' }}
+                    variant="body2"
+                    color="text.secondary">
                     {monthNeeded} {yearNeeded}
                   </Typography>
                 </CardContent>
@@ -62,16 +75,7 @@ const SavingItems = ({ savingItems, tableData, setTableData, setSavingItems }) =
           );
         })
       ) : (
-        <Box sx={{ minWidth: 275, margin: '0 1rem' }}>
-          <Card variant="outlined">
-            <CardContent>
-              <Typography variant="h5" component="div">
-                No saving goals
-              </Typography>
-              <Typography color="text.secondary">Add some by clicking the + icon</Typography>
-            </CardContent>
-          </Card>
-        </Box>
+        <p style={{ width: '100%' }}> You have no Saving Goals. Add some by clicking the + icon.</p>
       )}
     </div>
   );

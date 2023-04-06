@@ -157,13 +157,8 @@ const AddNewSavingItem = ({ setSavingItems, setTableData, tableData }) => {
       </Card>
     </Box>
   ) : (
-    <div style={{ minWidth: 300, display: 'flex', width: '300px', margin: '0 1rem' }}>
-      <Fab
-        aria-label="Add"
-        color="primary"
-        size="small"
-        onClick={handleAddNewItem}
-        sx={{ margin: 'auto 8rem' }}>
+    <div style={{ minWidth: 50, display: 'flex', width: '50px', margin: '0 1rem' }}>
+      <Fab aria-label="Add" color="primary" size="small" onClick={handleAddNewItem}>
         <AddIcon />
       </Fab>
     </div>
