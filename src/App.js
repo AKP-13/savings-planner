@@ -4,7 +4,7 @@ import GraphDisplay from './graph/GraphDisplay';
 import Header from './header/Header';
 import MonthlySavingAmount from './monthlySavingAmount/MonthlySavingAmount';
 import SavingGoals from './savingGoals/SavingGoals';
-// import SavingsProjectionsTable from './savingsProjections/SavingsProjectionsTable';
+import SavingsProjectionsTable from './savingsProjections/SavingsProjectionsTable';
 // Styles
 import './App.css';
 
@@ -57,7 +57,7 @@ function App() {
         <SavingGoals tableData={tableData} setTableData={setTableData} />
       </div>
 
-      {/* <SavingsProjectionsTable tableData={tableData} /> */}
+      <SavingsProjectionsTable tableData={tableData} />
 
       <GraphDisplay />
     </div>

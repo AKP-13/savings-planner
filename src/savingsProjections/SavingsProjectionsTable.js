@@ -54,9 +54,15 @@ export default function SavingsProjectionsTable({ tableData }) {
             <StickyCell component="th" scope="row">
               Withdrawn
             </StickyCell>
-            {tableData.map(({ month, withdrawn }) => (
+            {tableData.map(({ month, savingGoals }) => (
+              // Mapping over the months
               <TableCell key={`${month}-withdrawn`}>
-                {withdrawn === 0 ? '' : `-${formattedCurrency.format(withdrawn)}`}
+                {savingGoals.map(({ itemToSaveFor, itemAmount }) => (
+                  // Mapping over the savingGoals in the month
+                  <p key={`${itemToSaveFor}-${itemAmount}`}>
+                    {`-${formattedCurrency.format(itemAmount)}, ${itemToSaveFor}`}
+                  </p>
+                ))}
               </TableCell>
             ))}
           </StyledTableRow>
