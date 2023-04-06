@@ -10,7 +10,7 @@ import './App.css';
 
 function App() {
   const [tableData, setTableData] = useState([
-    { month: 'April 2023', saved: 1204, withdrawn: 0 },
+    { month: 'April 2023', saved: 500, withdrawn: 0 },
     { month: 'May 2023', saved: 500, withdrawn: 0 },
     { month: 'June 2023', saved: 500, withdrawn: 0 },
     { month: 'July 2023', saved: 500, withdrawn: 0 },
