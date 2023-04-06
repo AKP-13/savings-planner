@@ -1,10 +1,7 @@
 /* eslint-disable react/prop-types */
-import { useState } from 'react';
 import { AddNewSavingItem, SavingItems } from './index';
 
 const SavingGoals = ({ tableData, setTableData }) => {
-  const [savingItems, setSavingItems] = useState([]);
-
   return (
     <div
       style={{
@@ -18,18 +15,9 @@ const SavingGoals = ({ tableData, setTableData }) => {
         padding: '0.5rem',
         width: '66%'
       }}>
-      <AddNewSavingItem
-        setSavingItems={setSavingItems}
-        tableData={tableData}
-        setTableData={setTableData}
-      />
+      <AddNewSavingItem tableData={tableData} setTableData={setTableData} />
 
-      <SavingItems
-        tableData={tableData}
-        setTableData={setTableData}
-        savingItems={savingItems}
-        setSavingItems={setSavingItems}
-      />
+      <SavingItems tableData={tableData} setTableData={setTableData} />
     </div>
   );
 };

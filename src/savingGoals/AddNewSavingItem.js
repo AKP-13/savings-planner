@@ -17,11 +17,11 @@ import AddIcon from '@mui/icons-material/Add';
 import CloseIcon from '@mui/icons-material/Close';
 import CheckIcon from '@mui/icons-material/Check';
 import { MONTHS, YEARS } from '../utils/constants';
-import { updateWithdrawnAmount } from './helpers';
+import { updateSavingItems } from './helpers';
 
 const initialInputs = { monthNeeded: '', yearNeeded: '', itemToSaveFor: '', itemAmount: '' };
 
-const AddNewSavingItem = ({ setSavingItems, setTableData, tableData }) => {
+const AddNewSavingItem = ({ setTableData, tableData }) => {
   const [formInputs, setFormInputs] = useState(initialInputs);
   const [isAddingNewItem, setIsAddingNewItem] = useState(false);
 
@@ -38,13 +38,13 @@ const AddNewSavingItem = ({ setSavingItems, setTableData, tableData }) => {
 
   const handleSaveNewItem = (event) => {
     event.preventDefault();
-    setSavingItems((values) => [...values, { ...formInputs }]);
     setFormInputs(initialInputs);
 
-    const { itemAmount, monthNeeded, yearNeeded } = formInputs;
+    const { itemAmount, itemToSaveFor, monthNeeded, yearNeeded } = formInputs;
 
-    const updatedTableData = updateWithdrawnAmount({
+    const updatedTableData = updateSavingItems({
       itemAmount,
+      itemToSaveFor,
       method: 'add',
       monthNeeded,
       tableData,
