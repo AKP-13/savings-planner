@@ -35,7 +35,7 @@ const returnSortedSavingItems = (tableData) => {
   tableData.forEach((monthObj) => {
     monthObj.savingGoals.forEach((goal) => {
       savingGoals.push({
-        itemToSave: goal.itemToSaveFor,
+        itemToSaveFor: goal.itemToSaveFor,
         itemAmount: goal.itemAmount,
         monthNeeded: monthObj.month.split(' ')[0],
         yearNeeded: monthObj.month.split(' ')[1]
