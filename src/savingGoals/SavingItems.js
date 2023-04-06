@@ -1,46 +1,50 @@
 /* eslint-disable react/prop-types */
-import React from 'react';
+import React, { useMemo } from 'react';
 import { Box, Card, CardActions, CardContent, Typography } from '@mui/material';
 import IconButton from '@mui/material/IconButton';
 import DeleteIcon from '@mui/icons-material/Delete';
-import { removeSavingItem, updateWithdrawnAmount } from './helpers';
+import { removeSavingItem, returnSortedSavingItems, updateWithdrawnAmount } from './helpers';
 
 const SavingItems = ({ savingItems, tableData, setTableData, setSavingItems }) => {
   const deleteItem = ({ itemToSaveFor, itemAmount, monthNeeded, yearNeeded }) => {
-    const updatedTableData = updateWithdrawnAmount(tableData, monthNeeded, yearNeeded, itemAmount);
+    const updatedTableData = updateWithdrawnAmount({
+      itemAmount,
+      method: 'subtract',
+      monthNeeded,
+      tableData,
+      yearNeeded
+    });
 
     setTableData(updatedTableData);
 
-    const updatedSavingsItems = removeSavingItem(
-      savingItems,
+    const updatedSavingsItems = removeSavingItem({
       itemAmount,
       itemToSaveFor,
       monthNeeded,
+      savingItems,
       yearNeeded
-    );
+    });
 
     setSavingItems(updatedSavingsItems);
   };
 
+  const sortedSavingItems = useMemo(() => returnSortedSavingItems(savingItems), [savingItems]);
+
   return (
     <div style={{ display: 'flex', overflow: 'auto' }}>
-      {savingItems.length > 0 &&
-        savingItems.map(({ itemToSaveFor, itemAmount, monthNeeded, yearNeeded }) => {
+      {sortedSavingItems.length > 0 ? (
+        sortedSavingItems.map(({ itemToSaveFor, itemAmount, monthNeeded, yearNeeded }) => {
           return (
             <Box
               key={`${itemToSaveFor}-${itemAmount}-${monthNeeded}-${yearNeeded}`}
-              sx={{ minWidth: 275, margin: '0 1rem' }}>
+              sx={{ minWidth: 225, margin: '0 1rem', textAlign: 'left' }}>
               <Card variant="outlined">
                 <CardContent>
                   <Typography variant="h5" component="div">
                     {itemToSaveFor}
                   </Typography>
-
-                  <Typography variant="h5" component="div">
-                    {`£${itemAmount}`}
-                  </Typography>
-
-                  <Typography variant="h5" component="div">
+                  <Typography sx={{ mb: 1.5 }}>{`£${itemAmount}`}</Typography>
+                  <Typography variant="body2" color="text.secondary">
                     {monthNeeded} {yearNeeded}
                   </Typography>
                 </CardContent>
@@ -56,7 +60,19 @@ const SavingItems = ({ savingItems, tableData, setTableData, setSavingItems }) =
               </Card>
             </Box>
           );
-        })}
+        })
+      ) : (
+        <Box sx={{ minWidth: 275, margin: '0 1rem' }}>
+          <Card variant="outlined">
+            <CardContent>
+              <Typography variant="h5" component="div">
+                No saving goals
+              </Typography>
+              <Typography color="text.secondary">Add some by clicking the + icon</Typography>
+            </CardContent>
+          </Card>
+        </Box>
+      )}
     </div>
   );
 };

@@ -1,6 +1,16 @@
 /* eslint-disable react/prop-types */
 import React, { useState } from 'react';
-import { Box, Card, CardContent, Typography, Button, Tooltip, Fab } from '@mui/material';
+import {
+  Box,
+  Card,
+  CardContent,
+  Typography,
+  Button,
+  Tooltip,
+  Fab,
+  Input,
+  InputAdornment
+} from '@mui/material';
 import CheckIcon from '@mui/icons-material/Check';
 import CloseIcon from '@mui/icons-material/Close';
 
@@ -42,11 +52,14 @@ const MonthlySavingCard = ({ tableData, setTableData }) => {
 
           {isEditing ? (
             <div>
-              <input
+              <Input
+                id="standard-adornment-amount"
                 type="number"
+                startAdornment={<InputAdornment position="start">£</InputAdornment>}
                 name="amountSavedEachMonth"
                 value={amountSavedEachMonth || 0}
                 onChange={handleAmountSavedEachMonthChange}
+                sx={{ width: '30%' }}
               />
               <Fab
                 color="success"

@@ -47,8 +47,11 @@ function App() {
   return (
     <div className="App">
       <Header />
+
       <SavingGoals tableData={tableData} setTableData={setTableData} />
+
       <SavingsProjectionsTable tableData={tableData} />
+
       <GraphDisplay />
     </div>
   );
