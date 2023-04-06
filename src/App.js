@@ -1,9 +1,10 @@
 import { useState } from 'react';
 // Components
-import SavingsProjectionsTable from './savingsProjections/SavingsProjectionsTable';
-import SavingGoals from './savingGoals/SavingGoals';
 import GraphDisplay from './graph/GraphDisplay';
 import Header from './header/Header';
+import MonthlySavingAmount from './monthlySavingAmount/MonthlySavingAmount';
+import SavingGoals from './savingGoals/SavingGoals';
+import SavingsProjectionsTable from './savingsProjections/SavingsProjectionsTable';
 // Styles
 import './App.css';
 
@@ -48,7 +49,11 @@ function App() {
     <div className="App">
       <Header />
 
-      <SavingGoals tableData={tableData} setTableData={setTableData} />
+      <div style={{ display: 'flex' }}>
+        <MonthlySavingAmount tableData={tableData} setTableData={setTableData} />
+
+        <SavingGoals tableData={tableData} setTableData={setTableData} />
+      </div>
 
       <SavingsProjectionsTable tableData={tableData} />
 

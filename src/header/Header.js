@@ -1,6 +1,6 @@
 const Header = () => (
   <header className="App-header">
-    <h1>Savings Planner</h1>
+    <h1 style={{ fontWeight: 500 }}>Savings Planner</h1>
   </header>
 );
 

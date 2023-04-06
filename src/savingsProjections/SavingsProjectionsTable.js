@@ -10,7 +10,7 @@ import {
   TableHead,
   TableRow
 } from '@mui/material';
-import { formattedCurrency, returnTotals } from './helpers';
+import { formattedCurrency, returnTotals } from '../utils/helpers';
 
 const StickyCell = styled(TableCell)(() => ({
   position: 'sticky',
