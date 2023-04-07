@@ -1,5 +1,6 @@
 /* eslint-disable react/prop-types */
 import React, { useState } from 'react';
+import styled from 'styled-components';
 import {
   Box,
   Button,
@@ -18,6 +19,24 @@ import CloseIcon from '@mui/icons-material/Close';
 import CheckIcon from '@mui/icons-material/Check';
 import { MONTHS, YEARS } from '../utils/constants';
 import { updateSavingItems } from './helpers';
+
+const DateContainer = styled.div`
+  display: flex;
+  margin: 0.75rem 0;
+  justify-content: space-between;
+`;
+
+const ButtonContainer = styled.div`
+  display: flex;
+  justify-content: space-between;
+`;
+
+const AddContainer = styled.div`
+  display: flex;
+  margin: 0 1rem;
+  min-width: 50;
+  width: 50px;
+`;
 
 const initialInputs = { monthNeeded: '', yearNeeded: '', itemToSaveFor: '', itemAmount: '' };
 
@@ -72,41 +91,41 @@ const AddNewSavingItem = ({ setTableData, tableData }) => {
       <Card variant="outlined">
         <CardContent sx={{ display: 'flex', flexDirection: 'column' }}>
           <TextField
-            label="Item to save for"
-            onChange={handleFormInputChange}
-            value={formInputs.itemToSaveFor}
-            name="itemToSaveFor"
-            size="small"
             InputLabelProps={{
               shrink: true
             }}
+            label="Item to save for"
+            name="itemToSaveFor"
+            onChange={handleFormInputChange}
+            size="small"
+            value={formInputs.itemToSaveFor}
           />
 
           <FormControl fullWidth sx={{ margin: '0.75rem 0 0 0' }}>
             <InputLabel htmlFor="amount">Amount</InputLabel>
             <OutlinedInput
               id="amount"
-              startAdornment={<InputAdornment position="start">£</InputAdornment>}
               label="Amount"
-              value={formInputs.itemAmount}
-              onChange={handleFormInputChange}
               name="itemAmount"
+              onChange={handleFormInputChange}
               size="small"
+              startAdornment={<InputAdornment position="start">£</InputAdornment>}
+              value={formInputs.itemAmount}
             />
           </FormControl>
 
-          <div style={{ margin: '0.75rem 0', display: 'flex', justifyContent: 'space-between' }}>
+          <DateContainer>
             <TextField
-              select
-              label="Month"
-              name="monthNeeded"
-              value={formInputs.monthNeeded}
-              onChange={handleFormInputChange}
-              sx={{ width: '56%' }}
-              size="small"
               InputLabelProps={{
                 shrink: true
-              }}>
+              }}
+              label="Month"
+              name="monthNeeded"
+              onChange={handleFormInputChange}
+              select
+              size="small"
+              sx={{ width: '56%' }}
+              value={formInputs.monthNeeded}>
               {MONTHS.map((month) => (
                 <MenuItem key={month} value={month}>
                   {month}
@@ -115,53 +134,53 @@ const AddNewSavingItem = ({ setTableData, tableData }) => {
             </TextField>
 
             <TextField
-              select
-              label="Year"
-              name="yearNeeded"
-              value={formInputs.yearNeeded}
-              onChange={handleFormInputChange}
-              sx={{ width: '40%' }}
-              size="small"
               InputLabelProps={{
                 shrink: true
-              }}>
+              }}
+              label="Year"
+              name="yearNeeded"
+              onChange={handleFormInputChange}
+              select
+              size="small"
+              sx={{ width: '40%' }}
+              value={formInputs.yearNeeded}>
               {YEARS.map((year) => (
                 <MenuItem key={year} value={year}>
                   {year}
                 </MenuItem>
               ))}
             </TextField>
-          </div>
+          </DateContainer>
 
-          <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+          <ButtonContainer>
             <Button
               color="error"
-              variant="outlined"
+              size="small"
               startIcon={<CloseIcon />}
               onClick={handleCloseAddNewItem}
-              size="small">
+              variant="outlined">
               Cancel
             </Button>
 
             <Button
               color="success"
-              variant="outlined"
-              startIcon={<CheckIcon />}
               disabled={isDisabled}
               onClick={handleSaveNewItem}
-              size="small">
+              size="small"
+              startIcon={<CheckIcon />}
+              variant="outlined">
               Confirm
             </Button>
-          </div>
+          </ButtonContainer>
         </CardContent>
       </Card>
     </Box>
   ) : (
-    <div style={{ minWidth: 50, display: 'flex', width: '50px', margin: '0 1rem' }}>
-      <Fab aria-label="Add" color="primary" size="small" onClick={handleAddNewItem}>
+    <AddContainer>
+      <Fab aria-label="Add" color="primary" onClick={handleAddNewItem} size="small">
         <AddIcon />
       </Fab>
-    </div>
+    </AddContainer>
   );
 };
 

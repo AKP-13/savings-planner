@@ -1,10 +1,21 @@
 /* eslint-disable react/prop-types */
 import React, { useMemo } from 'react';
+import styled from 'styled-components';
 import { Box, Card, CardActions, CardContent, Typography } from '@mui/material';
 import IconButton from '@mui/material/IconButton';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { returnSortedSavingItems, updateSavingItems } from './helpers';
 import { formattedCurrency } from '../utils/helpers';
+
+const Container = styled.div`
+  display: flex;
+  overflow: auto;
+  width: 100%;
+`;
+
+const InfoText = styled.p`
+  width: 100%;
+`;
 
 const SavingItems = ({ tableData, setTableData }) => {
   const deleteItem = ({ itemToSaveFor, itemAmount, monthNeeded, yearNeeded }) => {
@@ -23,7 +34,7 @@ const SavingItems = ({ tableData, setTableData }) => {
   const sortedSavingItems = useMemo(() => returnSortedSavingItems(tableData), [tableData]);
 
   return (
-    <div style={{ display: 'flex', overflow: 'auto', width: '100%' }}>
+    <Container>
       {sortedSavingItems.length > 0 ? (
         sortedSavingItems.map(({ itemToSaveFor, itemAmount, monthNeeded, yearNeeded }) => {
           return (
@@ -33,9 +44,9 @@ const SavingItems = ({ tableData, setTableData }) => {
               <Card variant="outlined">
                 <CardContent>
                   <Typography
-                    variant="h5"
                     component="div"
-                    sx={{ fontFamily: 'Quicksand, sans-serif' }}>
+                    sx={{ fontFamily: 'Quicksand, sans-serif' }}
+                    variant="h5">
                     {itemToSaveFor}
                   </Typography>
                   <Typography
@@ -46,9 +57,9 @@ const SavingItems = ({ tableData, setTableData }) => {
                     {formattedCurrency.format(itemAmount)}
                   </Typography>
                   <Typography
+                    color="text.secondary"
                     sx={{ fontFamily: 'Quicksand, sans-serif' }}
-                    variant="body2"
-                    color="text.secondary">
+                    variant="body2">
                     {monthNeeded} {yearNeeded}
                   </Typography>
                 </CardContent>
@@ -66,9 +77,9 @@ const SavingItems = ({ tableData, setTableData }) => {
           );
         })
       ) : (
-        <p style={{ width: '100%' }}> You have no Saving Goals. Add some by clicking the + icon.</p>
+        <InfoText>You have no Saving Goals. Add some by clicking the + icon.</InfoText>
       )}
-    </div>
+    </Container>
   );
 };
 

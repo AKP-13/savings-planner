@@ -1,6 +1,12 @@
+import styled from 'styled-components';
+
+const Title = styled.h1`
+  font-weight: 500;
+`;
+
 const Header = () => (
   <header className="App-header">
-    <h1 style={{ fontWeight: 500 }}>Savings Planner</h1>
+    <Title>Savings Planner</Title>
   </header>
 );
 

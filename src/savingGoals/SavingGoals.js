@@ -1,24 +1,26 @@
 /* eslint-disable react/prop-types */
+import styled from 'styled-components';
 import { AddNewSavingItem, SavingItems } from './index';
+
+const Container = styled.div`
+  align-items: center;
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.25);
+  display: flex;
+  height: 250px;
+  margin: 1rem;
+  padding: 0.5rem;
+  width: 66%;
+`;
 
 const SavingGoals = ({ tableData, setTableData }) => {
   return (
-    <div
-      style={{
-        alignItems: 'center',
-        backgroundColor: 'white',
-        borderRadius: '8px',
-        boxShadow: ' 0px 1px 1px rgba(0, 0, 0, 0.25)',
-        display: 'flex',
-        height: '250px',
-        margin: '1rem',
-        padding: '0.5rem',
-        width: '66%'
-      }}>
+    <Container>
       <AddNewSavingItem tableData={tableData} setTableData={setTableData} />
 
       <SavingItems tableData={tableData} setTableData={setTableData} />
-    </div>
+    </Container>
   );
 };
 
