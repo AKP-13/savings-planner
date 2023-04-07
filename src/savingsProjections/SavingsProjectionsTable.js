@@ -71,27 +71,30 @@ export default function SavingsProjectionsTable({ tableData }) {
                     </p>
                   </div>
                 ))}
-                {savingGoals.length > 1 && (
-                  <p
-                    style={{
-                      borderTop: '1px solid black',
-                      fontWeight: 'bold',
-                      margin: '0'
-                    }}>
-                    {`-${formattedCurrency.format(
-                      savingGoals.reduce((acc, curr) => {
-                        return acc + curr.itemAmount;
-                      }, 0)
-                    )}`}
-                    <span
+                {
+                  // If more than 1 goal, sum the total and display as Total
+                  savingGoals.length > 1 && (
+                    <p
                       style={{
-                        color: 'grey',
-                        fontSize: '10px',
-                        margin: '0',
-                        fontWeight: 'bold'
-                      }}>{` Total`}</span>
-                  </p>
-                )}
+                        borderTop: '1px solid black',
+                        fontWeight: 'bold',
+                        margin: '0'
+                      }}>
+                      {`-${formattedCurrency.format(
+                        savingGoals.reduce((acc, curr) => {
+                          return acc + curr.itemAmount;
+                        }, 0)
+                      )}`}
+                      <span
+                        style={{
+                          color: 'grey',
+                          fontSize: '10px',
+                          margin: '0',
+                          fontWeight: 'bold'
+                        }}>{` Total`}</span>
+                    </p>
+                  )
+                }
               </TableCell>
             ))}
           </StyledTableRow>
@@ -100,10 +103,10 @@ export default function SavingsProjectionsTable({ tableData }) {
             <StickyCell component="th" scope="row">
               Total
             </StickyCell>
-            {totalSaved.map(({ month, amount }) => (
+            {totalSaved.map(({ month, total }) => (
               <TableCell
-                sx={{ color: amount === 0 ? 'grey' : amount < 0 ? 'red' : 'green' }}
-                key={`${month}-total`}>{`${formattedCurrency.format(amount)}`}</TableCell>
+                sx={{ color: total === 0 ? 'grey' : total < 0 ? 'red' : 'green' }}
+                key={`${month}-total`}>{`${formattedCurrency.format(total)}`}</TableCell>
             ))}
           </StyledTableRow>
         </TableBody>
