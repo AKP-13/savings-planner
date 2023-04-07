@@ -1,5 +1,5 @@
 /* eslint-disable react/prop-types */
-import React, { useMemo } from 'react';
+import React from 'react';
 import {
   Paper,
   styled,
@@ -10,7 +10,7 @@ import {
   TableHead,
   TableRow
 } from '@mui/material';
-import { formattedCurrency, returnTotals } from '../utils/helpers';
+import { formattedCurrency } from '../utils/helpers';
 
 const StickyCell = styled(TableCell)(() => ({
   position: 'sticky',
@@ -24,9 +24,7 @@ const StyledTableRow = styled(TableRow)(() => ({
   }
 }));
 
-export default function SavingsProjectionsTable({ tableData }) {
-  const totalSaved = useMemo(() => returnTotals({ tableData }), [tableData]);
-
+export default function SavingsProjectionsTable({ tableData, totalSaved }) {
   return (
     <TableContainer component={Paper}>
       <Table sx={{ minWidth: 650 }} size="small" aria-label="a dense table">

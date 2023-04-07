@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useMemo, useState } from 'react';
 // Components
 import GraphDisplay from './graph/GraphDisplay';
 import Header from './header/Header';
@@ -7,6 +7,7 @@ import SavingGoals from './savingGoals/SavingGoals';
 import SavingsProjectionsTable from './savingsProjections/SavingsProjectionsTable';
 // Styles
 import './App.css';
+import { returnTotals } from './utils/helpers';
 
 function App() {
   const [tableData, setTableData] = useState([
@@ -45,19 +46,23 @@ function App() {
     { month: 'December 2025', saved: 500, savingGoals: [] }
   ]);
 
-  console.log('tableData', tableData);
+  const totalSaved = useMemo(() => returnTotals({ tableData }), [tableData]);
 
   return (
     <div className="App">
       <Header />
 
       <div style={{ display: 'flex' }}>
-        <MonthlySavingAmount tableData={tableData} setTableData={setTableData} />
+        <MonthlySavingAmount
+          tableData={tableData}
+          setTableData={setTableData}
+          totalSaved={totalSaved}
+        />
 
         <SavingGoals tableData={tableData} setTableData={setTableData} />
       </div>
 
-      <SavingsProjectionsTable tableData={tableData} />
+      <SavingsProjectionsTable tableData={tableData} totalSaved={totalSaved} />
 
       <GraphDisplay />
     </div>
