@@ -1,7 +1,8 @@
 .App {
-  text-align: center;
   background-color: #f8f8f8;
   font-family: 'Quicksand', sans-serif;
+  height: 100vh;
+  text-align: center;
 }
 
 .App-header {

@@ -3,33 +3,24 @@ import React, { useMemo } from 'react';
 import { Box, Card, CardActions, CardContent, Typography } from '@mui/material';
 import IconButton from '@mui/material/IconButton';
 import DeleteIcon from '@mui/icons-material/Delete';
-import { removeSavingItem, returnSortedSavingItems, updateWithdrawnAmount } from './helpers';
+import { returnSortedSavingItems, updateSavingItems } from './helpers';
 import { formattedCurrency } from '../utils/helpers';
 
-const SavingItems = ({ savingItems, tableData, setTableData, setSavingItems }) => {
+const SavingItems = ({ tableData, setTableData }) => {
   const deleteItem = ({ itemToSaveFor, itemAmount, monthNeeded, yearNeeded }) => {
-    const updatedTableData = updateWithdrawnAmount({
+    const updatedTableData = updateSavingItems({
       itemAmount,
-      method: 'subtract',
+      itemToSaveFor,
+      method: 'delete',
       monthNeeded,
       tableData,
       yearNeeded
     });
 
     setTableData(updatedTableData);
-
-    const updatedSavingsItems = removeSavingItem({
-      itemAmount,
-      itemToSaveFor,
-      monthNeeded,
-      savingItems,
-      yearNeeded
-    });
-
-    setSavingItems(updatedSavingsItems);
   };
 
-  const sortedSavingItems = useMemo(() => returnSortedSavingItems(savingItems), [savingItems]);
+  const sortedSavingItems = useMemo(() => returnSortedSavingItems(tableData), [tableData]);
 
   return (
     <div style={{ display: 'flex', overflow: 'auto', width: '100%' }}>

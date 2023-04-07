@@ -4,10 +4,35 @@ import { Button, IconButton, Input, InputAdornment, Tooltip } from '@mui/materia
 import CheckIcon from '@mui/icons-material/Check';
 import CloseIcon from '@mui/icons-material/Close';
 
-const MonthlySavingAmount = ({ tableData, setTableData }) => {
+const MonthlySavingAmount = ({ tableData, setTableData, totalSaved }) => {
   const [monthlySavingAmount, setMonthlySavingAmount] = useState(500);
   const [input, setInput] = useState(500);
   const [isEditing, setIsEditing] = useState(false);
+
+  const isConfirmDisabled = input === monthlySavingAmount;
+
+  const monthsWithNegativeTotalValues = totalSaved.reduce((acc, curr) => {
+    if (curr.total < 0) {
+      return [...acc, curr.month];
+    }
+    return acc;
+  }, []);
+
+  const goalsWithIssues = monthsWithNegativeTotalValues.reduce((acc, curr) => {
+    const [month, year] = curr.split(' ');
+
+    // find the tableData object with this month
+    const foundObj = tableData.find((monthObj) => {
+      return monthObj.month === `${month} ${year}`;
+    });
+
+    if (foundObj.savingGoals.length > 0) {
+      const goals = foundObj.savingGoals.map((obj) => ({ month: curr, goal: obj.itemToSaveFor }));
+      return [...acc, ...goals];
+    }
+
+    return acc;
+  }, []);
 
   const handleClick = () => {
     setIsEditing(true);
@@ -38,8 +63,6 @@ const MonthlySavingAmount = ({ tableData, setTableData }) => {
   const handleCancel = () => {
     setIsEditing(false);
   };
-
-  const isConfirmDisabled = input === monthlySavingAmount;
 
   return (
     <div
@@ -125,6 +148,34 @@ const MonthlySavingAmount = ({ tableData, setTableData }) => {
           </Tooltip>
         )}
       </div>
+
+      {goalsWithIssues.length > 0 && (
+        <div>
+          <h3
+            style={{
+              color: 'red',
+              margin: '0.5rem',
+              fontWeight: 400,
+              textAlign: 'left',
+              textDecoration: 'underline'
+            }}>
+            {goalsWithIssues.length} Issue{goalsWithIssues.length === 1 ? '' : 's'}
+          </h3>
+          <p style={{ margin: '0.5rem', textAlign: 'left' }}>
+            Based on your monthly saving amount and saving goals, you won&apos;t have enough for:
+          </p>
+          {goalsWithIssues.map((issue) => {
+            return (
+              <p
+                key={`${issue.month} - ${issue.goal}`}
+                style={{ margin: '0.5rem', textAlign: 'left' }}>
+                <span style={{ fontWeight: 'bold' }}>{issue.goal}</span> in{' '}
+                <span style={{ fontWeight: 'bold' }}>{issue.month}</span>
+              </p>
+            );
+          })}
+        </div>
+      )}
     </div>
   );
 };
