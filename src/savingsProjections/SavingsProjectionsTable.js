@@ -34,7 +34,7 @@ export default function SavingsProjectionsTable({ tableData }) {
           <TableRow>
             <StickyCell />
             {tableData.map(({ month }) => (
-              <TableCell key={month} sx={{ minWidth: '150px' }}>
+              <TableCell key={month} sx={{ minWidth: '115px' }}>
                 {month}
               </TableCell>
             ))}
@@ -59,11 +59,39 @@ export default function SavingsProjectionsTable({ tableData }) {
               <TableCell key={`${month}-withdrawn`} sx={{ verticalAlign: 'baseline' }}>
                 {savingGoals.map(({ itemToSaveFor, itemAmount }) => (
                   // Mapping over the savingGoals in the month
-                  <p key={`${itemToSaveFor}-${itemAmount}`} style={{ margin: '0' }}>
-                    {`-${formattedCurrency.format(itemAmount)}`}{' '}
-                    <span style={{ color: 'grey' }}>{`, ${itemToSaveFor}`}</span>
-                  </p>
+                  <div key={`${itemToSaveFor}-${itemAmount}`}>
+                    <p style={{ margin: '0' }}>
+                      {`-${formattedCurrency.format(itemAmount)}`}
+                      <span
+                        style={{
+                          color: 'grey',
+                          fontSize: '10px',
+                          margin: '0'
+                        }}>{` ${itemToSaveFor}`}</span>
+                    </p>
+                  </div>
                 ))}
+                {savingGoals.length > 1 && (
+                  <p
+                    style={{
+                      borderTop: '1px solid black',
+                      fontWeight: 'bold',
+                      margin: '0'
+                    }}>
+                    {`-${formattedCurrency.format(
+                      savingGoals.reduce((acc, curr) => {
+                        return acc + curr.itemAmount;
+                      }, 0)
+                    )}`}
+                    <span
+                      style={{
+                        color: 'grey',
+                        fontSize: '10px',
+                        margin: '0',
+                        fontWeight: 'bold'
+                      }}>{` Total`}</span>
+                  </p>
+                )}
               </TableCell>
             ))}
           </StyledTableRow>
