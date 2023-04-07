@@ -1,6 +1,6 @@
 /* eslint-disable react/prop-types */
 import { useState } from 'react';
-import { IconButton, InputAdornment, Tooltip } from '@mui/material';
+import { Button, IconButton, Input, InputAdornment, styled, Tooltip } from '@mui/material';
 import CheckIcon from '@mui/icons-material/Check';
 import CloseIcon from '@mui/icons-material/Close';
 // Styles
@@ -12,12 +12,21 @@ import {
   IssuesExplanation,
   IssuesTitle,
   PoundSign,
-  SavingAmountButton,
   SavingsAmount,
   SavingsAmountContainer,
-  StyledInput,
   Title
 } from './styles';
+
+const StyledInput = styled(Input)`
+  color: dodgerblue;
+  font-family: Kaushan Script, cursive;
+  font-size: 2rem;
+`;
+
+const SavingAmountButton = styled(Button)`
+  font-family: Kaushan Script, cursive;
+  font-size: 2rem;
+`;
 
 const startAdornment = (
   <InputAdornment position="start">

@@ -1,4 +1,3 @@
-import { Button, Input } from '@mui/material';
 import styled from 'styled-components';
 
 export const Container = styled.div`
@@ -41,19 +40,8 @@ export const PoundSign = styled.span`
   font-size: 2rem;
 `;
 
-export const StyledInput = styled(Input)`
-  color: dodgerblue;
-  font-family: Kaushan Script, cursive;
-  font-size: 2rem;
-`;
-
 export const ConfirmContainer = styled.span`
   align-self: center;
-`;
-
-export const SavingAmountButton = styled(Button)`
-  font-family: Kaushan Script, cursive;
-  font-size: 2rem;
 `;
 
 export const IssuesTitle = styled.h3`
