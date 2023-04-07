@@ -1,81 +1,23 @@
 /* eslint-disable react/prop-types */
 import { useState } from 'react';
-import { Button, IconButton, Input, InputAdornment, Tooltip } from '@mui/material';
+import { IconButton, InputAdornment, Tooltip } from '@mui/material';
 import CheckIcon from '@mui/icons-material/Check';
 import CloseIcon from '@mui/icons-material/Close';
-import styled from 'styled-components';
-
-const Container = styled.div`
-  background-color: white;
-  border-radius: 4px;
-  box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.25);
-  margin: 1rem;
-  padding: 0.5rem;
-  width: 33%;
-`;
-
-const Title = styled.h2`
-  margin: 0.5rem;
-  font-weight: 400;
-  text-align: left;
-  text-decoration: underline;
-`;
-
-const SavingsAmountContainer = styled.div`
-  align-items: center;
-  display: flex;
-  height: 4rem;
-  justify-content: space-between;
-`;
-
-const SavingsAmount = styled.p`
-  margin: 0.5rem;
-  text-align: left;
-  width: 50%;
-`;
-
-const EditingContainer = styled.div`
-  display: flex;
-  width: 50%;
-`;
-
-const PoundSign = styled.span`
-  color: dodgerblue;
-  font-family: Kaushan Script, cursive;
-  font-size: 2rem;
-`;
-
-const StyledInput = styled(Input)`
-  color: dodgerblue;
-  font-family: Kaushan Script, cursive;
-  font-size: 2rem;
-`;
-
-const ConfirmContainer = styled.span`
-  align-self: center;
-`;
-
-const SavingAmountButton = styled(Button)`
-  font-family: Kaushan Script, cursive;
-  font-size: 2rem;
-`;
-
-const IssuesTitle = styled.h3`
-  color: red;
-  margin: 0.5rem;
-  font-weight: 400;
-  text-align: left;
-  text-decoration: underline;
-`;
-
-const IssuesExplanation = styled.p`
-  margin: 0.5rem;
-  text-align: left;
-`;
-
-const Bold = styled.span`
-  font-weight: bold;
-`;
+// Styles
+import {
+  Bold,
+  ConfirmContainer,
+  Container,
+  EditingContainer,
+  IssuesExplanation,
+  IssuesTitle,
+  PoundSign,
+  SavingAmountButton,
+  SavingsAmount,
+  SavingsAmountContainer,
+  StyledInput,
+  Title
+} from './styles';
 
 const startAdornment = (
   <InputAdornment position="start">
@@ -192,9 +134,11 @@ const MonthlySavingAmount = ({ tableData, setTableData, totalSaved }) => {
           <IssuesTitle>
             {numberOfIssues} Issue{numberOfIssues === 1 ? '' : 's'}
           </IssuesTitle>
+
           <IssuesExplanation>
             Based on your monthly saving amount and saving goals, you won&apos;t have enough for:
           </IssuesExplanation>
+
           {goalsWithIssues.map(({ month, goal }) => (
             <IssuesExplanation key={`${month}-${goal}`}>
               <Bold>{goal}</Bold> in <Bold>{month}</Bold>

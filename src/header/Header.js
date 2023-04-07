@@ -1,8 +1,4 @@
-import styled from 'styled-components';
-
-const Title = styled.h1`
-  font-weight: 500;
-`;
+import { Title } from './styles';
 
 const Header = () => (
   <header className="App-header">

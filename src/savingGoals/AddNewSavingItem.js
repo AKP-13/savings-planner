@@ -1,6 +1,5 @@
 /* eslint-disable react/prop-types */
 import React, { useState } from 'react';
-import styled from 'styled-components';
 import {
   Box,
   Button,
@@ -19,24 +18,8 @@ import CloseIcon from '@mui/icons-material/Close';
 import CheckIcon from '@mui/icons-material/Check';
 import { MONTHS, YEARS } from '../utils/constants';
 import { updateSavingItems } from './helpers';
-
-const DateContainer = styled.div`
-  display: flex;
-  margin: 0.75rem 0;
-  justify-content: space-between;
-`;
-
-const ButtonContainer = styled.div`
-  display: flex;
-  justify-content: space-between;
-`;
-
-const AddContainer = styled.div`
-  display: flex;
-  margin: 0 1rem;
-  min-width: 50;
-  width: 50px;
-`;
+// Styles
+import { AddContainer, ButtonContainer, DateContainer } from './styles';
 
 const initialInputs = { monthNeeded: '', yearNeeded: '', itemToSaveFor: '', itemAmount: '' };
 

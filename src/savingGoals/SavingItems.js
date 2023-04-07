@@ -1,21 +1,12 @@
 /* eslint-disable react/prop-types */
 import React, { useMemo } from 'react';
-import styled from 'styled-components';
 import { Box, Card, CardActions, CardContent, Typography } from '@mui/material';
 import IconButton from '@mui/material/IconButton';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { returnSortedSavingItems, updateSavingItems } from './helpers';
 import { formattedCurrency } from '../utils/helpers';
-
-const Container = styled.div`
-  display: flex;
-  overflow: auto;
-  width: 100%;
-`;
-
-const InfoText = styled.p`
-  width: 100%;
-`;
+// Styles
+import { CardContainer, InfoText } from './styles';
 
 const SavingItems = ({ tableData, setTableData }) => {
   const deleteItem = ({ itemToSaveFor, itemAmount, monthNeeded, yearNeeded }) => {
@@ -34,7 +25,7 @@ const SavingItems = ({ tableData, setTableData }) => {
   const sortedSavingItems = useMemo(() => returnSortedSavingItems(tableData), [tableData]);
 
   return (
-    <Container>
+    <CardContainer>
       {sortedSavingItems.length > 0 ? (
         sortedSavingItems.map(({ itemToSaveFor, itemAmount, monthNeeded, yearNeeded }) => {
           return (
@@ -49,6 +40,7 @@ const SavingItems = ({ tableData, setTableData }) => {
                     variant="h5">
                     {itemToSaveFor}
                   </Typography>
+
                   <Typography
                     sx={{
                       mb: 1.5,
@@ -56,6 +48,7 @@ const SavingItems = ({ tableData, setTableData }) => {
                     }}>
                     {formattedCurrency.format(itemAmount)}
                   </Typography>
+
                   <Typography
                     color="text.secondary"
                     sx={{ fontFamily: 'Quicksand, sans-serif' }}
@@ -79,7 +72,7 @@ const SavingItems = ({ tableData, setTableData }) => {
       ) : (
         <InfoText>You have no Saving Goals. Add some by clicking the + icon.</InfoText>
       )}
-    </Container>
+    </CardContainer>
   );
 };
 

@@ -10,9 +10,10 @@ import {
   TableHead,
   TableRow
 } from '@mui/material';
-import styledComponents from 'styled-components';
 // Utils
 import { formattedCurrency } from '../utils/helpers';
+// Styles
+import { SavingGoal, SavingItem, TotalAmount, TotalText } from './styles';
 
 const StickyCell = styled(TableCell)(() => ({
   position: 'sticky',
@@ -26,29 +27,6 @@ const StyledTableRow = styled(TableRow)(() => ({
   }
 }));
 
-const SavingGoal = styledComponents.p`
-  margin: 0;
-`;
-
-const SavingItem = styledComponents.span`
-  color: grey;
-  font-size: 10px;
-  margin: 0;
-`;
-
-const TotalAmount = styledComponents.p`
-  border-top: 1px solid black;
-  font-weight: bold;
-  margin: 0;
-`;
-
-const TotalText = styledComponents.span`
-  color: grey;
-  font-size: 10px;
-  font-weight: bold;
-  margin: 0;
-`;
-
 export default function SavingsProjectionsTable({ tableData, totalSaved }) {
   return (
     <TableContainer component={Paper}>
@@ -56,6 +34,7 @@ export default function SavingsProjectionsTable({ tableData, totalSaved }) {
         <TableHead>
           <TableRow>
             <StickyCell />
+
             {tableData.map(({ month }) => (
               <TableCell key={month} sx={{ minWidth: '115px' }}>
                 {month}
@@ -68,6 +47,7 @@ export default function SavingsProjectionsTable({ tableData, totalSaved }) {
             <StickyCell component="th" scope="row">
               Saved
             </StickyCell>
+
             {tableData.map(({ month, saved }) => (
               <TableCell key={`${month}-saved`}>{`+${formattedCurrency.format(saved)}`}</TableCell>
             ))}
@@ -89,17 +69,15 @@ export default function SavingsProjectionsTable({ tableData, totalSaved }) {
                     </SavingGoal>
                   </div>
                 ))}
-                {
-                  // If more than 1 goal, sum the total and display as Total
-                  savingGoals.length > 1 && (
-                    <TotalAmount>
-                      {`-${formattedCurrency.format(
-                        savingGoals.reduce((acc, curr) => acc + curr.itemAmount, 0)
-                      )}`}
-                      <TotalText>{` Total`}</TotalText>
-                    </TotalAmount>
-                  )
-                }
+
+                {savingGoals.length > 1 && (
+                  <TotalAmount>
+                    {`-${formattedCurrency.format(
+                      savingGoals.reduce((acc, curr) => acc + curr.itemAmount, 0)
+                    )}`}
+                    <TotalText>{` Total`}</TotalText>
+                  </TotalAmount>
+                )}
               </TableCell>
             ))}
           </StyledTableRow>
@@ -108,6 +86,7 @@ export default function SavingsProjectionsTable({ tableData, totalSaved }) {
             <StickyCell component="th" scope="row">
               Total
             </StickyCell>
+
             {totalSaved.map(({ month, total }) => (
               <TableCell
                 key={`${month}-total`}
