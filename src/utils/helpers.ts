@@ -1,9 +1,11 @@
+import { TableData, TotalSaved } from '../types';
+
 const formattedCurrency = new Intl.NumberFormat('en-GB', {
   currency: 'GBP',
   style: 'currency'
 });
 
-const returnTotals = ({ tableData }) => {
+const returnTotals = ({ tableData }: { tableData: TableData }): TotalSaved => {
   let accumulatedSaved = 0;
   let accumulatedWithdrawn = 0;
 

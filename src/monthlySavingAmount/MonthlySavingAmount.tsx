@@ -1,9 +1,7 @@
-/* eslint-disable react/prop-types */
-import { useState } from 'react';
+import React, { ChangeEventHandler, FunctionComponent, useState } from 'react';
 import { Button, IconButton, Input, InputAdornment, styled, Tooltip } from '@mui/material';
 import CheckIcon from '@mui/icons-material/Check';
 import CloseIcon from '@mui/icons-material/Close';
-// Styles
 import {
   Bold,
   ConfirmContainer,
@@ -16,6 +14,7 @@ import {
   SavingsAmountContainer,
   Title
 } from './styles';
+import { SetTableData, TableData, TotalSaved } from '../types';
 
 const StyledInput = styled(Input)`
   color: dodgerblue;
@@ -34,7 +33,13 @@ const startAdornment = (
   </InputAdornment>
 );
 
-const MonthlySavingAmount = ({ tableData, setTableData, totalSaved }) => {
+interface Props {
+  setTableData: SetTableData;
+  tableData: TableData;
+  totalSaved: TotalSaved;
+}
+
+const MonthlySavingAmount: FunctionComponent<Props> = ({ tableData, setTableData, totalSaved }) => {
   const [monthlySavingAmount, setMonthlySavingAmount] = useState(500);
   const [input, setInput] = useState(500);
   const [isEditing, setIsEditing] = useState(false);
@@ -56,7 +61,7 @@ const MonthlySavingAmount = ({ tableData, setTableData, totalSaved }) => {
       return monthObj.month === `${month} ${year}`;
     });
 
-    if (foundObj.savingGoals.length > 0) {
+    if (foundObj && foundObj.savingGoals.length > 0) {
       const goals = foundObj.savingGoals.map((obj) => ({ month: curr, goal: obj.itemToSaveFor }));
       return [...acc, ...goals];
     }
@@ -70,7 +75,7 @@ const MonthlySavingAmount = ({ tableData, setTableData, totalSaved }) => {
     setIsEditing(true);
   };
 
-  const handleChange = (e) => {
+  const handleChange: ChangeEventHandler<HTMLInputElement> = (e) => {
     e.preventDefault();
     const { value } = e.target;
     setInput(Number(value));
@@ -118,14 +123,14 @@ const MonthlySavingAmount = ({ tableData, setTableData, totalSaved }) => {
                   color="success"
                   disabled={isConfirmDisabled}
                   onClick={handleConfirm}>
-                  <CheckIcon size="small" />
+                  <CheckIcon />
                 </IconButton>
               </ConfirmContainer>
             </Tooltip>
 
             <Tooltip placement="right-start" title="Cancel">
               <IconButton aria-label="cancel" color="error" onClick={handleCancel}>
-                <CloseIcon size="small" />
+                <CloseIcon />
               </IconButton>
             </Tooltip>
           </EditingContainer>

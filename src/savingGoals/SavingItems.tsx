@@ -7,6 +7,7 @@ import { returnSortedSavingItems, updateSavingItems } from './helpers';
 import { formattedCurrency } from '../utils/helpers';
 // Styles
 import { CardContainer, InfoText } from './styles';
+import { SetTableData, TableData } from '../types';
 
 const StyledBox = styled(Box)({
   minWidth: 225,
@@ -18,8 +19,24 @@ const StyledTypography = styled(Typography)({
   fontFamily: 'Quicksand, sans-serif'
 });
 
-const SavingItems = ({ tableData, setTableData }) => {
-  const deleteItem = ({ itemToSaveFor, itemAmount, monthNeeded, yearNeeded }) => {
+const SavingItems = ({
+  tableData,
+  setTableData
+}: {
+  tableData: TableData;
+  setTableData: SetTableData;
+}) => {
+  const deleteItem = ({
+    itemToSaveFor,
+    itemAmount,
+    monthNeeded,
+    yearNeeded
+  }: {
+    itemToSaveFor: string;
+    itemAmount: string | number;
+    monthNeeded: string;
+    yearNeeded: string;
+  }) => {
     const updatedTableData = updateSavingItems({
       itemAmount,
       itemToSaveFor,
@@ -32,7 +49,7 @@ const SavingItems = ({ tableData, setTableData }) => {
     setTableData(updatedTableData);
   };
 
-  const sortedSavingItems = useMemo(() => returnSortedSavingItems(tableData), [tableData]);
+  const sortedSavingItems = useMemo(() => returnSortedSavingItems({ tableData }), [tableData]);
 
   return (
     <CardContainer>
@@ -42,7 +59,9 @@ const SavingItems = ({ tableData, setTableData }) => {
             <StyledBox key={`${itemToSaveFor}-${itemAmount}-${monthNeeded}-${yearNeeded}`}>
               <Card variant="outlined">
                 <CardContent>
-                  <StyledTypography component="div" variant="h5">
+                  <StyledTypography
+                    // component="div"
+                    variant="h5">
                     {itemToSaveFor}
                   </StyledTypography>
 

@@ -1,9 +1,15 @@
-/* eslint-disable react/prop-types */
+import React from 'react';
 import { AddNewSavingItem, SavingItems } from './index';
-// Styles
 import { Container } from './styles';
+import { SetTableData, TableData } from '../types';
 
-const SavingGoals = ({ tableData, setTableData }) => {
+const SavingGoals = ({
+  tableData,
+  setTableData
+}: {
+  tableData: TableData;
+  setTableData: SetTableData;
+}) => {
   return (
     <Container>
       <AddNewSavingItem tableData={tableData} setTableData={setTableData} />

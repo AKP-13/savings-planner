@@ -1,5 +1,5 @@
 /* eslint-disable react/prop-types */
-import React, { useState } from 'react';
+import React, { FunctionComponent, useState } from 'react';
 import {
   Box,
   Button,
@@ -21,6 +21,7 @@ import { MONTHS, YEARS } from '../utils/constants';
 import { updateSavingItems } from './helpers';
 // Styles
 import { AddContainer, ButtonContainer, DateContainer } from './styles';
+import { TableData } from '../types';
 
 const CardContainer = styled(Box)({
   minWidth: 300,
@@ -37,17 +38,23 @@ const AmountContainer = styled(FormControl)({
   margin: '0.75rem 0 0 0'
 });
 
-const StyledTextField = styled(TextField)(({ width }) => ({
+const StyledTextField = styled(TextField)(({ width }: { width: string }) => ({
   width: width
 }));
 
 const initialInputs = { monthNeeded: '', yearNeeded: '', itemToSaveFor: '', itemAmount: '' };
 
-const AddNewSavingItem = ({ setTableData, tableData }) => {
+interface Props {
+  tableData: TableData;
+  setTableData: React.Dispatch<React.SetStateAction<TableData>>;
+}
+
+const AddNewSavingItem: FunctionComponent<Props> = ({ setTableData, tableData }) => {
   const [formInputs, setFormInputs] = useState(initialInputs);
   const [isAddingNewItem, setIsAddingNewItem] = useState(false);
 
-  const handleFormInputChange = (event) => {
+  // TO DO FIX THIS TYPE
+  const handleFormInputChange = (event: { target: { name: string; value: any } }) => {
     const { name, value } = event.target;
 
     setFormInputs((values) => ({ ...values, [name]: value }));
@@ -58,7 +65,7 @@ const AddNewSavingItem = ({ setTableData, tableData }) => {
     setFormInputs(initialInputs);
   };
 
-  const handleSaveNewItem = (event) => {
+  const handleSaveNewItem: React.MouseEventHandler<HTMLButtonElement> = (event) => {
     event.preventDefault();
     setFormInputs(initialInputs);
 
