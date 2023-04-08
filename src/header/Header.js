@@ -1,6 +1,8 @@
+import { Title } from './styles';
+
 const Header = () => (
   <header className="App-header">
-    <h1 style={{ fontWeight: 500 }}>Savings Planner</h1>
+    <Title>Savings Planner</Title>
   </header>
 );
 

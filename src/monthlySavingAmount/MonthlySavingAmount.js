@@ -1,8 +1,38 @@
 /* eslint-disable react/prop-types */
 import { useState } from 'react';
-import { Button, IconButton, Input, InputAdornment, Tooltip } from '@mui/material';
+import { Button, IconButton, Input, InputAdornment, styled, Tooltip } from '@mui/material';
 import CheckIcon from '@mui/icons-material/Check';
 import CloseIcon from '@mui/icons-material/Close';
+// Styles
+import {
+  Bold,
+  ConfirmContainer,
+  Container,
+  EditingContainer,
+  IssuesExplanation,
+  IssuesTitle,
+  PoundSign,
+  SavingsAmount,
+  SavingsAmountContainer,
+  Title
+} from './styles';
+
+const StyledInput = styled(Input)`
+  color: dodgerblue;
+  font-family: Kaushan Script, cursive;
+  font-size: 2rem;
+`;
+
+const SavingAmountButton = styled(Button)`
+  font-family: Kaushan Script, cursive;
+  font-size: 2rem;
+`;
+
+const startAdornment = (
+  <InputAdornment position="start">
+    <PoundSign>£</PoundSign>
+  </InputAdornment>
+);
 
 const MonthlySavingAmount = ({ tableData, setTableData, totalSaved }) => {
   const [monthlySavingAmount, setMonthlySavingAmount] = useState(500);
@@ -33,6 +63,8 @@ const MonthlySavingAmount = ({ tableData, setTableData, totalSaved }) => {
 
     return acc;
   }, []);
+
+  const numberOfIssues = goalsWithIssues.length;
 
   const handleClick = () => {
     setIsEditing(true);
@@ -65,61 +97,22 @@ const MonthlySavingAmount = ({ tableData, setTableData, totalSaved }) => {
   };
 
   return (
-    <div
-      style={{
-        backgroundColor: 'white',
-        borderRadius: '4px',
-        boxShadow: ' 0px 1px 1px rgba(0, 0, 0, 0.25)',
-        margin: '1rem',
-        padding: '0.5rem',
-        width: '33%'
-      }}>
-      <h2
-        style={{
-          margin: '0.5rem',
-          fontWeight: 400,
-          textAlign: 'left',
-          textDecoration: 'underline'
-        }}>
-        Monthly Saving Amount
-      </h2>
-      <div
-        style={{
-          alignItems: 'center',
-          display: 'flex',
-          height: '4rem',
-          justifyContent: 'space-between'
-        }}>
-        <p style={{ margin: '0.5rem', textAlign: 'left', width: '50%' }}>Each month I can save:</p>
+    <Container>
+      <Title>Monthly Saving Amount</Title>
+      <SavingsAmountContainer>
+        <SavingsAmount>Each month I can save:</SavingsAmount>
         {isEditing ? (
-          <div style={{ display: 'flex', width: '50%' }}>
-            <Input
-              id="standard-adornment-amount"
-              type="number"
-              startAdornment={
-                <InputAdornment position="start">
-                  <span
-                    style={{
-                      fontFamily: 'Kaushan Script, cursive',
-                      fontSize: '2rem',
-                      color: 'dodgerblue'
-                    }}>
-                    £
-                  </span>
-                </InputAdornment>
-              }
+          <EditingContainer>
+            <StyledInput
               name="amountSavedEachMonth"
-              value={input}
               onChange={handleChange}
-              sx={{
-                color: 'dodgerblue',
-                fontFamily: 'Kaushan Script, cursive',
-                fontSize: '2rem'
-              }}
+              startAdornment={startAdornment}
+              type="number"
+              value={input}
             />
 
-            <Tooltip title="Confirm" placement="right-start">
-              <span style={{ alignSelf: 'center' }}>
+            <Tooltip placement="right-start" title="Confirm">
+              <ConfirmContainer>
                 <IconButton
                   aria-label="confirm"
                   color="success"
@@ -127,56 +120,42 @@ const MonthlySavingAmount = ({ tableData, setTableData, totalSaved }) => {
                   onClick={handleConfirm}>
                   <CheckIcon size="small" />
                 </IconButton>
-              </span>
+              </ConfirmContainer>
             </Tooltip>
 
-            <Tooltip title="Cancel" placement="right-start">
+            <Tooltip placement="right-start" title="Cancel">
               <IconButton aria-label="cancel" color="error" onClick={handleCancel}>
                 <CloseIcon size="small" />
               </IconButton>
             </Tooltip>
-          </div>
+          </EditingContainer>
         ) : (
-          <Tooltip title="Edit" placement="right-start">
-            <Button
-              variant="text"
-              size="large"
-              onClick={handleClick}
-              sx={{ fontFamily: 'Kaushan Script, cursive', fontSize: '2rem' }}>
+          <Tooltip placement="right-start" title="Edit">
+            <SavingAmountButton onClick={handleClick} size="large" variant="text">
               {`£${monthlySavingAmount}`}
-            </Button>
+            </SavingAmountButton>
           </Tooltip>
         )}
-      </div>
+      </SavingsAmountContainer>
 
-      {goalsWithIssues.length > 0 && (
+      {numberOfIssues > 0 && (
         <div>
-          <h3
-            style={{
-              color: 'red',
-              margin: '0.5rem',
-              fontWeight: 400,
-              textAlign: 'left',
-              textDecoration: 'underline'
-            }}>
-            {goalsWithIssues.length} Issue{goalsWithIssues.length === 1 ? '' : 's'}
-          </h3>
-          <p style={{ margin: '0.5rem', textAlign: 'left' }}>
+          <IssuesTitle>
+            {numberOfIssues} Issue{numberOfIssues === 1 ? '' : 's'}
+          </IssuesTitle>
+
+          <IssuesExplanation>
             Based on your monthly saving amount and saving goals, you won&apos;t have enough for:
-          </p>
-          {goalsWithIssues.map((issue) => {
-            return (
-              <p
-                key={`${issue.month} - ${issue.goal}`}
-                style={{ margin: '0.5rem', textAlign: 'left' }}>
-                <span style={{ fontWeight: 'bold' }}>{issue.goal}</span> in{' '}
-                <span style={{ fontWeight: 'bold' }}>{issue.month}</span>
-              </p>
-            );
-          })}
+          </IssuesExplanation>
+
+          {goalsWithIssues.map(({ month, goal }) => (
+            <IssuesExplanation key={`${month}-${goal}`}>
+              <Bold>{goal}</Bold> in <Bold>{month}</Bold>
+            </IssuesExplanation>
+          ))}
         </div>
       )}
-    </div>
+    </Container>
   );
 };
 

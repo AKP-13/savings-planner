@@ -1,10 +1,22 @@
 /* eslint-disable react/prop-types */
 import React, { useMemo } from 'react';
-import { Box, Card, CardActions, CardContent, Typography } from '@mui/material';
+import { Box, Card, CardActions, CardContent, styled, Typography } from '@mui/material';
 import IconButton from '@mui/material/IconButton';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { returnSortedSavingItems, updateSavingItems } from './helpers';
 import { formattedCurrency } from '../utils/helpers';
+// Styles
+import { CardContainer, InfoText } from './styles';
+
+const StyledBox = styled(Box)({
+  minWidth: 225,
+  margin: '0 1rem',
+  textAlign: 'left'
+});
+
+const StyledTypography = styled(Typography)({
+  fontFamily: 'Quicksand, sans-serif'
+});
 
 const SavingItems = ({ tableData, setTableData }) => {
   const deleteItem = ({ itemToSaveFor, itemAmount, monthNeeded, yearNeeded }) => {
@@ -23,34 +35,24 @@ const SavingItems = ({ tableData, setTableData }) => {
   const sortedSavingItems = useMemo(() => returnSortedSavingItems(tableData), [tableData]);
 
   return (
-    <div style={{ display: 'flex', overflow: 'auto', width: '100%' }}>
+    <CardContainer>
       {sortedSavingItems.length > 0 ? (
         sortedSavingItems.map(({ itemToSaveFor, itemAmount, monthNeeded, yearNeeded }) => {
           return (
-            <Box
-              key={`${itemToSaveFor}-${itemAmount}-${monthNeeded}-${yearNeeded}`}
-              sx={{ minWidth: 225, margin: '0 1rem', textAlign: 'left' }}>
+            <StyledBox key={`${itemToSaveFor}-${itemAmount}-${monthNeeded}-${yearNeeded}`}>
               <Card variant="outlined">
                 <CardContent>
-                  <Typography
-                    variant="h5"
-                    component="div"
-                    sx={{ fontFamily: 'Quicksand, sans-serif' }}>
+                  <StyledTypography component="div" variant="h5">
                     {itemToSaveFor}
-                  </Typography>
-                  <Typography
-                    sx={{
-                      mb: 1.5,
-                      fontFamily: 'Quicksand, sans-serif'
-                    }}>
+                  </StyledTypography>
+
+                  <StyledTypography sx={{ mb: 1.5 }}>
                     {formattedCurrency.format(itemAmount)}
-                  </Typography>
-                  <Typography
-                    sx={{ fontFamily: 'Quicksand, sans-serif' }}
-                    variant="body2"
-                    color="text.secondary">
+                  </StyledTypography>
+
+                  <StyledTypography color="text.secondary" variant="body2">
                     {monthNeeded} {yearNeeded}
-                  </Typography>
+                  </StyledTypography>
                 </CardContent>
                 <CardActions disableSpacing>
                   <IconButton
@@ -62,13 +64,13 @@ const SavingItems = ({ tableData, setTableData }) => {
                   </IconButton>
                 </CardActions>
               </Card>
-            </Box>
+            </StyledBox>
           );
         })
       ) : (
-        <p style={{ width: '100%' }}> You have no Saving Goals. Add some by clicking the + icon.</p>
+        <InfoText>You have no Saving Goals. Add some by clicking the + icon.</InfoText>
       )}
-    </div>
+    </CardContainer>
   );
 };
 

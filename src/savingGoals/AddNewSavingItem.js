@@ -11,6 +11,7 @@ import {
   InputLabel,
   MenuItem,
   OutlinedInput,
+  styled,
   TextField
 } from '@mui/material';
 import AddIcon from '@mui/icons-material/Add';
@@ -18,6 +19,27 @@ import CloseIcon from '@mui/icons-material/Close';
 import CheckIcon from '@mui/icons-material/Check';
 import { MONTHS, YEARS } from '../utils/constants';
 import { updateSavingItems } from './helpers';
+// Styles
+import { AddContainer, ButtonContainer, DateContainer } from './styles';
+
+const CardContainer = styled(Box)({
+  minWidth: 300,
+  margin: '0 1rem',
+  width: '300px'
+});
+
+const Content = styled(CardContent)({
+  display: 'flex',
+  flexDirection: 'column'
+});
+
+const AmountContainer = styled(FormControl)({
+  margin: '0.75rem 0 0 0'
+});
+
+const StyledTextField = styled(TextField)(({ width }) => ({
+  width: width
+}));
 
 const initialInputs = { monthNeeded: '', yearNeeded: '', itemToSaveFor: '', itemAmount: '' };
 
@@ -68,100 +90,100 @@ const AddNewSavingItem = ({ setTableData, tableData }) => {
   };
 
   return isAddingNewItem ? (
-    <Box sx={{ minWidth: 300, margin: '0 1rem', width: '300px' }}>
+    <CardContainer>
       <Card variant="outlined">
-        <CardContent sx={{ display: 'flex', flexDirection: 'column' }}>
+        <Content>
           <TextField
-            label="Item to save for"
-            onChange={handleFormInputChange}
-            value={formInputs.itemToSaveFor}
-            name="itemToSaveFor"
-            size="small"
             InputLabelProps={{
               shrink: true
             }}
+            label="Item to save for"
+            name="itemToSaveFor"
+            onChange={handleFormInputChange}
+            size="small"
+            value={formInputs.itemToSaveFor}
           />
 
-          <FormControl fullWidth sx={{ margin: '0.75rem 0 0 0' }}>
+          <AmountContainer fullWidth>
             <InputLabel htmlFor="amount">Amount</InputLabel>
             <OutlinedInput
               id="amount"
-              startAdornment={<InputAdornment position="start">£</InputAdornment>}
               label="Amount"
-              value={formInputs.itemAmount}
-              onChange={handleFormInputChange}
               name="itemAmount"
-              size="small"
-            />
-          </FormControl>
-
-          <div style={{ margin: '0.75rem 0', display: 'flex', justifyContent: 'space-between' }}>
-            <TextField
-              select
-              label="Month"
-              name="monthNeeded"
-              value={formInputs.monthNeeded}
               onChange={handleFormInputChange}
-              sx={{ width: '56%' }}
               size="small"
+              startAdornment={<InputAdornment position="start">£</InputAdornment>}
+              value={formInputs.itemAmount}
+            />
+          </AmountContainer>
+
+          <DateContainer>
+            <StyledTextField
               InputLabelProps={{
                 shrink: true
-              }}>
+              }}
+              label="Month"
+              name="monthNeeded"
+              onChange={handleFormInputChange}
+              select
+              size="small"
+              value={formInputs.monthNeeded}
+              width="56%">
               {MONTHS.map((month) => (
                 <MenuItem key={month} value={month}>
                   {month}
                 </MenuItem>
               ))}
-            </TextField>
+            </StyledTextField>
 
-            <TextField
-              select
-              label="Year"
-              name="yearNeeded"
-              value={formInputs.yearNeeded}
-              onChange={handleFormInputChange}
-              sx={{ width: '40%' }}
-              size="small"
+            <StyledTextField
               InputLabelProps={{
                 shrink: true
-              }}>
+              }}
+              label="Year"
+              name="yearNeeded"
+              onChange={handleFormInputChange}
+              select
+              size="small"
+              value={formInputs.yearNeeded}
+              width="40%">
               {YEARS.map((year) => (
                 <MenuItem key={year} value={year}>
                   {year}
                 </MenuItem>
               ))}
-            </TextField>
-          </div>
+            </StyledTextField>
+          </DateContainer>
 
-          <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+          <ButtonContainer>
             <Button
               color="error"
-              variant="outlined"
+              size="small"
               startIcon={<CloseIcon />}
               onClick={handleCloseAddNewItem}
-              size="small">
+              variant="outlined">
               Cancel
             </Button>
 
             <Button
               color="success"
-              variant="outlined"
-              startIcon={<CheckIcon />}
               disabled={isDisabled}
               onClick={handleSaveNewItem}
-              size="small">
+              size="small"
+              startIcon={<CheckIcon />}
+              variant="outlined">
               Confirm
             </Button>
-          </div>
-        </CardContent>
+          </ButtonContainer>
+        </Content>
       </Card>
-    </Box>
+    </CardContainer>
   ) : (
-    <div style={{ minWidth: 50, display: 'flex', width: '50px', margin: '0 1rem' }}>
-      <Fab aria-label="Add" color="primary" size="small" onClick={handleAddNewItem}>
+    <AddContainer>
+      <Fab aria-label="Add" color="primary" onClick={handleAddNewItem} size="small">
         <AddIcon />
       </Fab>
-    </div>
+    </AddContainer>
   );
 };
 

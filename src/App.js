@@ -1,13 +1,19 @@
 import { useMemo, useState } from 'react';
+import styled from 'styled-components';
 // Components
 import GraphDisplay from './graph/GraphDisplay';
 import Header from './header/Header';
 import MonthlySavingAmount from './monthlySavingAmount/MonthlySavingAmount';
 import SavingGoals from './savingGoals/SavingGoals';
 import SavingsProjectionsTable from './savingsProjections/SavingsProjectionsTable';
+// Utils
+import { returnTotals } from './utils/helpers';
 // Styles
 import './App.css';
-import { returnTotals } from './utils/helpers';
+
+const SavingsContainer = styled.div`
+  display: flex;
+`;
 
 function App() {
   const [tableData, setTableData] = useState([
@@ -52,7 +58,7 @@ function App() {
     <div className="App">
       <Header />
 
-      <div style={{ display: 'flex' }}>
+      <SavingsContainer>
         <MonthlySavingAmount
           tableData={tableData}
           setTableData={setTableData}
@@ -60,7 +66,7 @@ function App() {
         />
 
         <SavingGoals tableData={tableData} setTableData={setTableData} />
-      </div>
+      </SavingsContainer>
 
       <SavingsProjectionsTable tableData={tableData} totalSaved={totalSaved} />
 

@@ -10,7 +10,10 @@ import {
   TableHead,
   TableRow
 } from '@mui/material';
+// Utils
 import { formattedCurrency } from '../utils/helpers';
+// Styles
+import { SavingGoal, SavingItem, TotalAmount, TotalText } from './styles';
 
 const StickyCell = styled(TableCell)(() => ({
   position: 'sticky',
@@ -24,13 +27,22 @@ const StyledTableRow = styled(TableRow)(() => ({
   }
 }));
 
+const StyledTable = styled(Table)(() => ({
+  minWidth: 650
+}));
+
+const TotalCell = styled(TableCell)(({ color }) => ({
+  color: color
+}));
+
 export default function SavingsProjectionsTable({ tableData, totalSaved }) {
   return (
     <TableContainer component={Paper}>
-      <Table sx={{ minWidth: 650 }} size="small" aria-label="a dense table">
+      <StyledTable aria-label="a dense table" size="small">
         <TableHead>
           <TableRow>
             <StickyCell />
+
             {tableData.map(({ month }) => (
               <TableCell key={month} sx={{ minWidth: '115px' }}>
                 {month}
@@ -43,6 +55,7 @@ export default function SavingsProjectionsTable({ tableData, totalSaved }) {
             <StickyCell component="th" scope="row">
               Saved
             </StickyCell>
+
             {tableData.map(({ month, saved }) => (
               <TableCell key={`${month}-saved`}>{`+${formattedCurrency.format(saved)}`}</TableCell>
             ))}
@@ -58,41 +71,21 @@ export default function SavingsProjectionsTable({ tableData, totalSaved }) {
                 {savingGoals.map(({ itemToSaveFor, itemAmount }) => (
                   // Mapping over the savingGoals in the month
                   <div key={`${itemToSaveFor}-${itemAmount}`}>
-                    <p style={{ margin: '0' }}>
+                    <SavingGoal>
                       {`-${formattedCurrency.format(itemAmount)}`}
-                      <span
-                        style={{
-                          color: 'grey',
-                          fontSize: '10px',
-                          margin: '0'
-                        }}>{` ${itemToSaveFor}`}</span>
-                    </p>
+                      <SavingItem>{` ${itemToSaveFor}`}</SavingItem>
+                    </SavingGoal>
                   </div>
                 ))}
-                {
-                  // If more than 1 goal, sum the total and display as Total
-                  savingGoals.length > 1 && (
-                    <p
-                      style={{
-                        borderTop: '1px solid black',
-                        fontWeight: 'bold',
-                        margin: '0'
-                      }}>
-                      {`-${formattedCurrency.format(
-                        savingGoals.reduce((acc, curr) => {
-                          return acc + curr.itemAmount;
-                        }, 0)
-                      )}`}
-                      <span
-                        style={{
-                          color: 'grey',
-                          fontSize: '10px',
-                          margin: '0',
-                          fontWeight: 'bold'
-                        }}>{` Total`}</span>
-                    </p>
-                  )
-                }
+
+                {savingGoals.length > 1 && (
+                  <TotalAmount>
+                    {`-${formattedCurrency.format(
+                      savingGoals.reduce((acc, curr) => acc + curr.itemAmount, 0)
+                    )}`}
+                    <TotalText>{` Total`}</TotalText>
+                  </TotalAmount>
+                )}
               </TableCell>
             ))}
           </StyledTableRow>
@@ -101,14 +94,17 @@ export default function SavingsProjectionsTable({ tableData, totalSaved }) {
             <StickyCell component="th" scope="row">
               Total
             </StickyCell>
+
             {totalSaved.map(({ month, total }) => (
-              <TableCell
-                sx={{ color: total === 0 ? 'grey' : total < 0 ? 'red' : 'green' }}
-                key={`${month}-total`}>{`${formattedCurrency.format(total)}`}</TableCell>
+              <TotalCell
+                key={`${month}-total`}
+                color={
+                  total === 0 ? 'grey' : total < 0 ? 'red' : 'green'
+                }>{`${formattedCurrency.format(total)}`}</TotalCell>
             ))}
           </StyledTableRow>
         </TableBody>
-      </Table>
+      </StyledTable>
     </TableContainer>
   );
 }
