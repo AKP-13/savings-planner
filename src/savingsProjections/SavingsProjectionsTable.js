@@ -27,10 +27,18 @@ const StyledTableRow = styled(TableRow)(() => ({
   }
 }));
 
+const StyledTable = styled(Table)(() => ({
+  minWidth: 650
+}));
+
+const TotalCell = styled(TableCell)(({ color }) => ({
+  color: color
+}));
+
 export default function SavingsProjectionsTable({ tableData, totalSaved }) {
   return (
     <TableContainer component={Paper}>
-      <Table aria-label="a dense table" size="small" sx={{ minWidth: 650 }}>
+      <StyledTable aria-label="a dense table" size="small">
         <TableHead>
           <TableRow>
             <StickyCell />
@@ -88,15 +96,15 @@ export default function SavingsProjectionsTable({ tableData, totalSaved }) {
             </StickyCell>
 
             {totalSaved.map(({ month, total }) => (
-              <TableCell
+              <TotalCell
                 key={`${month}-total`}
-                sx={{
-                  color: total === 0 ? 'grey' : total < 0 ? 'red' : 'green'
-                }}>{`${formattedCurrency.format(total)}`}</TableCell>
+                color={
+                  total === 0 ? 'grey' : total < 0 ? 'red' : 'green'
+                }>{`${formattedCurrency.format(total)}`}</TotalCell>
             ))}
           </StyledTableRow>
         </TableBody>
-      </Table>
+      </StyledTable>
     </TableContainer>
   );
 }

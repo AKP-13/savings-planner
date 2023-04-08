@@ -11,6 +11,7 @@ import {
   InputLabel,
   MenuItem,
   OutlinedInput,
+  styled,
   TextField
 } from '@mui/material';
 import AddIcon from '@mui/icons-material/Add';
@@ -20,6 +21,25 @@ import { MONTHS, YEARS } from '../utils/constants';
 import { updateSavingItems } from './helpers';
 // Styles
 import { AddContainer, ButtonContainer, DateContainer } from './styles';
+
+const CardContainer = styled(Box)({
+  minWidth: 300,
+  margin: '0 1rem',
+  width: '300px'
+});
+
+const Content = styled(CardContent)({
+  display: 'flex',
+  flexDirection: 'column'
+});
+
+const AmountContainer = styled(FormControl)({
+  margin: '0.75rem 0 0 0'
+});
+
+const StyledTextField = styled(TextField)(({ width }) => ({
+  width: width
+}));
 
 const initialInputs = { monthNeeded: '', yearNeeded: '', itemToSaveFor: '', itemAmount: '' };
 
@@ -70,9 +90,9 @@ const AddNewSavingItem = ({ setTableData, tableData }) => {
   };
 
   return isAddingNewItem ? (
-    <Box sx={{ minWidth: 300, margin: '0 1rem', width: '300px' }}>
+    <CardContainer>
       <Card variant="outlined">
-        <CardContent sx={{ display: 'flex', flexDirection: 'column' }}>
+        <Content>
           <TextField
             InputLabelProps={{
               shrink: true
@@ -84,7 +104,7 @@ const AddNewSavingItem = ({ setTableData, tableData }) => {
             value={formInputs.itemToSaveFor}
           />
 
-          <FormControl fullWidth sx={{ margin: '0.75rem 0 0 0' }}>
+          <AmountContainer fullWidth>
             <InputLabel htmlFor="amount">Amount</InputLabel>
             <OutlinedInput
               id="amount"
@@ -95,10 +115,10 @@ const AddNewSavingItem = ({ setTableData, tableData }) => {
               startAdornment={<InputAdornment position="start">£</InputAdornment>}
               value={formInputs.itemAmount}
             />
-          </FormControl>
+          </AmountContainer>
 
           <DateContainer>
-            <TextField
+            <StyledTextField
               InputLabelProps={{
                 shrink: true
               }}
@@ -107,16 +127,16 @@ const AddNewSavingItem = ({ setTableData, tableData }) => {
               onChange={handleFormInputChange}
               select
               size="small"
-              sx={{ width: '56%' }}
-              value={formInputs.monthNeeded}>
+              value={formInputs.monthNeeded}
+              width="56%">
               {MONTHS.map((month) => (
                 <MenuItem key={month} value={month}>
                   {month}
                 </MenuItem>
               ))}
-            </TextField>
+            </StyledTextField>
 
-            <TextField
+            <StyledTextField
               InputLabelProps={{
                 shrink: true
               }}
@@ -125,14 +145,14 @@ const AddNewSavingItem = ({ setTableData, tableData }) => {
               onChange={handleFormInputChange}
               select
               size="small"
-              sx={{ width: '40%' }}
-              value={formInputs.yearNeeded}>
+              value={formInputs.yearNeeded}
+              width="40%">
               {YEARS.map((year) => (
                 <MenuItem key={year} value={year}>
                   {year}
                 </MenuItem>
               ))}
-            </TextField>
+            </StyledTextField>
           </DateContainer>
 
           <ButtonContainer>
@@ -155,9 +175,9 @@ const AddNewSavingItem = ({ setTableData, tableData }) => {
               Confirm
             </Button>
           </ButtonContainer>
-        </CardContent>
+        </Content>
       </Card>
-    </Box>
+    </CardContainer>
   ) : (
     <AddContainer>
       <Fab aria-label="Add" color="primary" onClick={handleAddNewItem} size="small">
