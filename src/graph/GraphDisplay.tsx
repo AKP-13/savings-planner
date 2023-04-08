@@ -1,3 +1,5 @@
+import React from 'react';
+
 const GraphDisplay = () => (
   <div>
     <h1>Graph Goes Here</h1>

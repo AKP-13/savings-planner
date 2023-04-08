@@ -14,6 +14,7 @@ import {
 import { formattedCurrency } from '../utils/helpers';
 // Styles
 import { SavingGoal, SavingItem, TotalAmount, TotalText } from './styles';
+import { TableData, TotalSaved } from '../types';
 
 const StickyCell = styled(TableCell)(() => ({
   position: 'sticky',
@@ -35,7 +36,13 @@ const TotalCell = styled(TableCell)(({ color }) => ({
   color: color
 }));
 
-export default function SavingsProjectionsTable({ tableData, totalSaved }) {
+export default function SavingsProjectionsTable({
+  tableData,
+  totalSaved
+}: {
+  tableData: TableData;
+  totalSaved: TotalSaved;
+}) {
   return (
     <TableContainer component={Paper}>
       <StyledTable aria-label="a dense table" size="small">

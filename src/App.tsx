@@ -1,22 +1,20 @@
-import { useMemo, useState } from 'react';
+import React, { useMemo, useState } from 'react';
 import styled from 'styled-components';
-// Components
 import GraphDisplay from './graph/GraphDisplay';
 import Header from './header/Header';
 import MonthlySavingAmount from './monthlySavingAmount/MonthlySavingAmount';
-import SavingGoals from './savingGoals/SavingGoals';
 import SavingsProjectionsTable from './savingsProjections/SavingsProjectionsTable';
-// Utils
 import { returnTotals } from './utils/helpers';
-// Styles
 import './App.css';
+import SavingGoals from './savingGoals/SavingGoals';
+import { TableData } from './types';
 
 const SavingsContainer = styled.div`
   display: flex;
 `;
 
 function App() {
-  const [tableData, setTableData] = useState([
+  const [tableData, setTableData] = useState<TableData>([
     { month: 'April 2023', saved: 500, savingGoals: [] },
     { month: 'May 2023', saved: 500, savingGoals: [] },
     { month: 'June 2023', saved: 500, savingGoals: [] },

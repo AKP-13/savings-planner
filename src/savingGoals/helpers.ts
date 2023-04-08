@@ -1,20 +1,29 @@
-/**
- * Update the `savingGoals` array for a particaular month
- */
+import { SavingGoals, TableData } from '../types';
+
 const updateSavingItems = ({
-  itemAmount,
+  itemAmount, // MAKE THIS JUST STRING OR NUMBER
   itemToSaveFor,
   method,
   monthNeeded,
   tableData,
   yearNeeded
-}) => {
+}: {
+  itemAmount: number | string;
+  itemToSaveFor: string;
+  method: 'add' | 'delete';
+  monthNeeded: string;
+  tableData: TableData;
+  yearNeeded: string;
+}): TableData => {
   return tableData.map((monthObj) => {
     // The month we want to update the savingGoals for
     if (monthObj.month === `${monthNeeded} ${yearNeeded}`) {
       const updatedSavingGoals =
         method === 'add'
-          ? [...monthObj.savingGoals, { itemToSaveFor, itemAmount: Number(itemAmount) }]
+          ? [
+              ...monthObj.savingGoals,
+              { itemToSaveFor, itemAmount: Number(itemAmount), monthNeeded, yearNeeded }
+            ]
           : monthObj.savingGoals.filter(
               (goal) => goal.itemAmount !== itemAmount && goal.itemToSaveFor !== itemToSaveFor
             );
@@ -29,8 +38,8 @@ const updateSavingItems = ({
 /**
  * Returns an array of the saving items
  */
-const returnSortedSavingItems = (tableData) => {
-  const savingGoals = [];
+const returnSortedSavingItems = ({ tableData }: { tableData: TableData }) => {
+  const savingGoals: SavingGoals = [];
 
   tableData.forEach((monthObj) => {
     monthObj.savingGoals.forEach((goal) => {
