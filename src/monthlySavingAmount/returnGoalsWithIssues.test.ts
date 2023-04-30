@@ -1,4 +1,5 @@
 import { TableData } from '../types';
+import { returnTotals } from '../utils/helpers';
 import { returnGoalsWithIssues } from './helpers';
 
 test('This test runs!', () => {
@@ -25,14 +26,7 @@ test('Correctly calculates when no goals have issues', () => {
     { month: 'September 2023', saved: 500, savingGoals: [] }
   ];
 
-  const totalSaved = [
-    { month: 'April 2023', total: 500 },
-    { month: 'May 2023', total: 400 },
-    { month: 'April 2023', total: 900 },
-    { month: 'April 2023', total: 1300 },
-    { month: 'April 2023', total: 1800 },
-    { month: 'April 2023', total: 2300 }
-  ];
+  const totalSaved = returnTotals({ tableData });
 
   const expected: [] = [];
   const actual = returnGoalsWithIssues({ tableData, totalSaved });
@@ -57,14 +51,7 @@ test('Correctly calculates goals with issues', () => {
     { month: 'September 2023', saved: 500, savingGoals: [] }
   ];
 
-  const totalSaved = [
-    { month: 'April 2023', total: 500 },
-    { month: 'May 2023', total: -1600 },
-    { month: 'June 2023', total: -1100 },
-    { month: 'July 2023', total: -1100 },
-    { month: 'August 2023', total: -600 },
-    { month: 'August 2023', total: -100 }
-  ];
+  const totalSaved = returnTotals({ tableData });
 
   const expected = [
     { month: 'May 2023', goal: 'MacBook Pro' },
