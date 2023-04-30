@@ -15,7 +15,7 @@ import {
   Title
 } from './styles';
 import { SetTableData, TableData, TotalSaved } from '../types';
-import { returnMonthsWithNegativeTotals, returnGoalsWithIssues } from './helpers';
+import { returnGoalsWithIssues } from './helpers';
 
 const StyledInput = styled(Input)`
   color: dodgerblue;
