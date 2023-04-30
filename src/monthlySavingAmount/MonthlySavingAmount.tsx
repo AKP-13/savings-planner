@@ -15,6 +15,7 @@ import {
   Title
 } from './styles';
 import { SetTableData, TableData, TotalSaved } from '../types';
+import { returnMonthsWithNegativeTotals, returnGoalsWithIssues } from './helpers';
 
 const StyledInput = styled(Input)`
   color: dodgerblue;
@@ -46,28 +47,9 @@ const MonthlySavingAmount: FunctionComponent<Props> = ({ tableData, setTableData
 
   const isConfirmDisabled = input === monthlySavingAmount;
 
-  const monthsWithNegativeTotalValues = totalSaved.reduce((acc, curr) => {
-    if (curr.total < 0) {
-      return [...acc, curr.month];
-    }
-    return acc;
-  }, []);
+  const monthsWithNegativeTotalValues = returnMonthsWithNegativeTotals({ totalSaved });
 
-  const goalsWithIssues = monthsWithNegativeTotalValues.reduce((acc, curr) => {
-    const [month, year] = curr.split(' ');
-
-    // find the tableData object with this month
-    const foundObj = tableData.find((monthObj) => {
-      return monthObj.month === `${month} ${year}`;
-    });
-
-    if (foundObj && foundObj.savingGoals.length > 0) {
-      const goals = foundObj.savingGoals.map((obj) => ({ month: curr, goal: obj.itemToSaveFor }));
-      return [...acc, ...goals];
-    }
-
-    return acc;
-  }, []);
+  const goalsWithIssues = returnGoalsWithIssues({ monthsWithNegativeTotalValues, tableData });
 
   const numberOfIssues = goalsWithIssues.length;
 
@@ -85,12 +67,10 @@ const MonthlySavingAmount: FunctionComponent<Props> = ({ tableData, setTableData
     const newVal = Number(input);
     setMonthlySavingAmount(newVal);
 
-    const newTableData = tableData.map((monthConfig) => {
-      return {
-        ...monthConfig,
-        saved: newVal
-      };
-    });
+    const newTableData = tableData.map((monthConfig) => ({
+      ...monthConfig,
+      saved: newVal
+    }));
 
     setTableData(newTableData);
 
@@ -153,7 +133,7 @@ const MonthlySavingAmount: FunctionComponent<Props> = ({ tableData, setTableData
             Based on your monthly saving amount and saving goals, you won&apos;t have enough for:
           </IssuesExplanation>
 
-          {goalsWithIssues.map(({ month, goal }) => (
+          {goalsWithIssues.map(({ month, goal }: { month: string; goal: string }) => (
             <IssuesExplanation key={`${month}-${goal}`}>
               <Bold>{goal}</Bold> in <Bold>{month}</Bold>
             </IssuesExplanation>
