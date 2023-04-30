@@ -25,10 +25,17 @@ test('Correctly calculates when no goals have issues', () => {
     { month: 'September 2023', saved: 500, savingGoals: [] }
   ];
 
-  const monthsWithNegativeTotalValues: [] = [];
+  const totalSaved = [
+    { month: 'April 2023', total: 500 },
+    { month: 'May 2023', total: 400 },
+    { month: 'April 2023', total: 900 },
+    { month: 'April 2023', total: 1300 },
+    { month: 'April 2023', total: 1800 },
+    { month: 'April 2023', total: 2300 }
+  ];
 
   const expected: [] = [];
-  const actual = returnGoalsWithIssues({ tableData, monthsWithNegativeTotalValues });
+  const actual = returnGoalsWithIssues({ tableData, totalSaved });
 
   expect(expected).toStrictEqual(actual);
 });
@@ -50,14 +57,21 @@ test('Correctly calculates goals with issues', () => {
     { month: 'September 2023', saved: 500, savingGoals: [] }
   ];
 
-  const monthsWithNegativeTotalValues = ['May 2023', 'June 2023', 'July 2023', 'August 2023'];
+  const totalSaved = [
+    { month: 'April 2023', total: 500 },
+    { month: 'May 2023', total: -1600 },
+    { month: 'June 2023', total: -1100 },
+    { month: 'July 2023', total: -1100 },
+    { month: 'August 2023', total: -600 },
+    { month: 'August 2023', total: -100 }
+  ];
 
   const expected = [
     { month: 'May 2023', goal: 'MacBook Pro' },
     { month: 'May 2023', goal: 'Holiday' }
   ];
 
-  const actual = returnGoalsWithIssues({ tableData, monthsWithNegativeTotalValues });
+  const actual = returnGoalsWithIssues({ tableData, totalSaved });
 
   expect(expected).toStrictEqual(actual);
 });

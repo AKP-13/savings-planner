@@ -10,13 +10,15 @@ const returnMonthsWithNegativeTotals = ({ totalSaved }: { totalSaved: TotalSaved
   }, []);
 
 const returnGoalsWithIssues = ({
-  monthsWithNegativeTotalValues,
-  tableData
+  tableData,
+  totalSaved
 }: {
-  monthsWithNegativeTotalValues: string[];
   tableData: TableData;
-}) =>
-  monthsWithNegativeTotalValues.reduce((acc: any, curr: any) => {
+  totalSaved: TotalSaved;
+}) => {
+  const monthsWithNegativeTotalValues = returnMonthsWithNegativeTotals({ totalSaved });
+
+  const goalsWithIssues = monthsWithNegativeTotalValues.reduce((acc: any, curr: any) => {
     const [month, year] = curr.split(' ');
 
     // find the tableData object with this month
@@ -30,5 +32,8 @@ const returnGoalsWithIssues = ({
 
     return acc;
   }, []);
+
+  return goalsWithIssues;
+};
 
 export { returnMonthsWithNegativeTotals, returnGoalsWithIssues };

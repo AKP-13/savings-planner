@@ -47,9 +47,10 @@ const MonthlySavingAmount: FunctionComponent<Props> = ({ tableData, setTableData
 
   const isConfirmDisabled = input === monthlySavingAmount;
 
-  const monthsWithNegativeTotalValues = returnMonthsWithNegativeTotals({ totalSaved });
-
-  const goalsWithIssues = returnGoalsWithIssues({ monthsWithNegativeTotalValues, tableData });
+  const goalsWithIssues = returnGoalsWithIssues({
+    tableData,
+    totalSaved
+  });
 
   const numberOfIssues = goalsWithIssues.length;
 
