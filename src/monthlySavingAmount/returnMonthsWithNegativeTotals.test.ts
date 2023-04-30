@@ -15,10 +15,12 @@ test('Returns an empty array if all totals are non-negative', () => {
     { month: 'April 2023', total: 1500 }
   ];
 
-  const expected = 0;
-  const actual = returnMonthsWithNegativeTotals({ totalSaved }).length;
+  const monthsWithNegativeTotals = returnMonthsWithNegativeTotals({ totalSaved });
 
-  expect(expected).toBe(actual);
+  const expected: [] = [];
+  const actual = monthsWithNegativeTotals;
+
+  expect(expected).toStrictEqual(actual);
 });
 
 test('Correctly returns months with negative totals values', () => {
