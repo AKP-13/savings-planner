@@ -9,14 +9,12 @@ const SavingGoals = ({
 }: {
   tableData: TableData;
   setTableData: SetTableData;
-}) => {
-  return (
-    <Container>
-      <AddNewSavingItem tableData={tableData} setTableData={setTableData} />
+}) => (
+  <Container>
+    <AddNewSavingItem tableData={tableData} setTableData={setTableData} />
 
-      <SavingItems tableData={tableData} setTableData={setTableData} />
-    </Container>
-  );
-};
+    <SavingItems tableData={tableData} setTableData={setTableData} />
+  </Container>
+);
 
 export default SavingGoals;

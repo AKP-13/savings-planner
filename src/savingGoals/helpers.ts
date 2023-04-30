@@ -14,8 +14,8 @@ const updateSavingItems = ({
   monthNeeded: string;
   tableData: TableData;
   yearNeeded: string;
-}): TableData => {
-  return tableData.map((monthObj) => {
+}): TableData =>
+  tableData.map((monthObj) => {
     // The month we want to update the savingGoals for
     if (monthObj.month === `${monthNeeded} ${yearNeeded}`) {
       const updatedSavingGoals =
@@ -33,7 +33,6 @@ const updateSavingItems = ({
       return { ...monthObj };
     }
   });
-};
 
 /**
  * Returns an array of the saving items
