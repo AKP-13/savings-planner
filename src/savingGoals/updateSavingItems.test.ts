@@ -53,3 +53,49 @@ test('Correctly adds a new saving goal', () => {
 
   expect(expected).toStrictEqual(actual);
 });
+
+test('Correctly deletes a saving goal', () => {
+  const itemAmount = '2500';
+  const itemToSaveFor = 'MacBook Pro';
+  const method = 'delete';
+  const monthNeeded = 'November';
+  const yearNeeded = '2023';
+  const tableData: TableData = [
+    { month: 'April 2023', saved: 500, savingGoals: [] },
+    { month: 'May 2023', saved: 500, savingGoals: [] },
+    { month: 'June 2023', saved: 500, savingGoals: [] },
+    { month: 'July 2023', saved: 500, savingGoals: [] },
+    { month: 'August 2023', saved: 500, savingGoals: [] },
+    { month: 'September 2023', saved: 500, savingGoals: [] },
+    { month: 'October 2023', saved: 500, savingGoals: [] },
+    {
+      month: 'November 2023',
+      saved: 500,
+      savingGoals: [{ itemToSaveFor, itemAmount, monthNeeded, yearNeeded }]
+    },
+    { month: 'December 2023', saved: 500, savingGoals: [] }
+  ];
+
+  const expected: TableData = [
+    { month: 'April 2023', saved: 500, savingGoals: [] },
+    { month: 'May 2023', saved: 500, savingGoals: [] },
+    { month: 'June 2023', saved: 500, savingGoals: [] },
+    { month: 'July 2023', saved: 500, savingGoals: [] },
+    { month: 'August 2023', saved: 500, savingGoals: [] },
+    { month: 'September 2023', saved: 500, savingGoals: [] },
+    { month: 'October 2023', saved: 500, savingGoals: [] },
+    { month: 'November 2023', saved: 500, savingGoals: [] },
+    { month: 'December 2023', saved: 500, savingGoals: [] }
+  ];
+
+  const actual = updateSavingItems({
+    itemAmount,
+    itemToSaveFor,
+    method,
+    monthNeeded,
+    tableData,
+    yearNeeded
+  });
+
+  expect(expected).toStrictEqual(actual);
+});
