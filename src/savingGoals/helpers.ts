@@ -35,11 +35,11 @@ const updateSavingItems = ({
  * Returns an array of the saving items
  */
 const returnSortedSavingItems = ({ tableData }: { tableData: TableData }) => {
-  const savingGoals: SavingGoals = [];
+  const sortedGoals: SavingGoals = [];
 
   tableData.forEach((monthObj) => {
     monthObj.savingGoals.forEach((goal) => {
-      savingGoals.push({
+      sortedGoals.push({
         itemToSaveFor: goal.itemToSaveFor,
         itemAmount: goal.itemAmount,
         monthNeeded: monthObj.month.split(' ')[0],
@@ -48,7 +48,7 @@ const returnSortedSavingItems = ({ tableData }: { tableData: TableData }) => {
     });
   });
 
-  return savingGoals;
+  return sortedGoals;
 };
 
 export { updateSavingItems, returnSortedSavingItems };
