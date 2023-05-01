@@ -10,7 +10,7 @@ const returnTotals = ({ tableData }: { tableData: TableData }): TotalSaved => {
   let accumulatedWithdrawn = 0;
 
   const totalSaved = tableData.map(({ month, saved, savingGoals }) => {
-    const withdrawn = savingGoals.reduce((acc, curr) => acc + curr.itemAmount, 0);
+    const withdrawn = savingGoals.reduce((acc, curr) => acc + Number(curr.itemAmount), 0);
 
     accumulatedSaved += saved;
     accumulatedWithdrawn += withdrawn;

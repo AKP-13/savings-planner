@@ -16,8 +16,8 @@ test('Correctly calculates when no goals have issues', () => {
       month: 'May 2023',
       saved: 500,
       savingGoals: [
-        { itemToSaveFor: 'MacBook Pro', itemAmount: 500, monthNeeded: 'May', yearNeeded: '2023' },
-        { itemToSaveFor: 'Holiday', itemAmount: 100, monthNeeded: 'May', yearNeeded: '2023' }
+        { itemToSaveFor: 'MacBook Pro', itemAmount: '500', monthNeeded: 'May', yearNeeded: '2023' },
+        { itemToSaveFor: 'Holiday', itemAmount: '100', monthNeeded: 'May', yearNeeded: '2023' }
       ]
     },
     { month: 'June 2023', saved: 500, savingGoals: [] },
@@ -41,8 +41,13 @@ test('Correctly calculates goals with issues', () => {
       month: 'May 2023',
       saved: 500,
       savingGoals: [
-        { itemToSaveFor: 'MacBook Pro', itemAmount: 2500, monthNeeded: 'May', yearNeeded: '2023' },
-        { itemToSaveFor: 'Holiday', itemAmount: 100, monthNeeded: 'May', yearNeeded: '2023' }
+        {
+          itemToSaveFor: 'MacBook Pro',
+          itemAmount: '2500',
+          monthNeeded: 'May',
+          yearNeeded: '2023'
+        },
+        { itemToSaveFor: 'Holiday', itemAmount: '100', monthNeeded: 'May', yearNeeded: '2023' }
       ]
     },
     { month: 'June 2023', saved: 500, savingGoals: [] },

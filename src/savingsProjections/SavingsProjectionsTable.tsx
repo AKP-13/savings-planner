@@ -77,7 +77,7 @@ const SavingsProjectionsTable: FunctionComponent<Props> = ({ tableData, totalSav
                 // Mapping over the savingGoals in the month
                 <div key={`${itemToSaveFor}-${itemAmount}`}>
                   <SavingGoal>
-                    {`-${formattedCurrency.format(itemAmount)}`}
+                    {`-${formattedCurrency.format(Number(itemAmount))}`}
                     <SavingItem>{` ${itemToSaveFor}`}</SavingItem>
                   </SavingGoal>
                 </div>
@@ -86,7 +86,7 @@ const SavingsProjectionsTable: FunctionComponent<Props> = ({ tableData, totalSav
               {savingGoals.length > 1 && (
                 <TotalAmount>
                   {`-${formattedCurrency.format(
-                    savingGoals.reduce((acc, curr) => acc + curr.itemAmount, 0)
+                    savingGoals.reduce((acc, curr) => acc + Number(curr.itemAmount), 0)
                   )}`}
                   <TotalText>{` Total`}</TotalText>
                 </TotalAmount>

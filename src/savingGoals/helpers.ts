@@ -8,7 +8,7 @@ const updateSavingItems = ({
   tableData,
   yearNeeded
 }: {
-  itemAmount: number | string;
+  itemAmount: string;
   itemToSaveFor: string;
   method: 'add' | 'delete';
   monthNeeded: string;
@@ -20,10 +20,7 @@ const updateSavingItems = ({
     if (monthObj.month === `${monthNeeded} ${yearNeeded}`) {
       const updatedSavingGoals =
         method === 'add'
-          ? [
-              ...monthObj.savingGoals,
-              { itemToSaveFor, itemAmount: Number(itemAmount), monthNeeded, yearNeeded }
-            ]
+          ? [...monthObj.savingGoals, { itemToSaveFor, itemAmount, monthNeeded, yearNeeded }]
           : monthObj.savingGoals.filter(
               (goal) => goal.itemAmount !== itemAmount && goal.itemToSaveFor !== itemToSaveFor
             );

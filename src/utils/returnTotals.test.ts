@@ -111,7 +111,7 @@ test('Monthly savings of 500 with one saving goal.', () => {
       savingGoals: [
         {
           itemToSaveFor: 'MacBook Pro',
-          itemAmount: 2500,
+          itemAmount: '2500',
           monthNeeded: 'November',
           yearNeeded: '2023'
         }
@@ -151,13 +151,13 @@ test('Monthly savings of 500 with multiple saving goals.', () => {
       savingGoals: [
         {
           itemToSaveFor: 'MacBook Pro',
-          itemAmount: 2500,
+          itemAmount: '2500',
           monthNeeded: 'November',
           yearNeeded: '2023'
         },
         {
           itemToSaveFor: 'Holiday',
-          itemAmount: 1500,
+          itemAmount: '1500',
           monthNeeded: 'November',
           yearNeeded: '2023'
         }
@@ -169,7 +169,7 @@ test('Monthly savings of 500 with multiple saving goals.', () => {
       savingGoals: [
         {
           itemToSaveFor: 'Christmas',
-          itemAmount: 300,
+          itemAmount: '300',
           monthNeeded: 'December',
           yearNeeded: '2023'
         }

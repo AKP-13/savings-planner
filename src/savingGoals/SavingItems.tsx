@@ -33,7 +33,7 @@ const SavingItems = ({
     yearNeeded
   }: {
     itemToSaveFor: string;
-    itemAmount: string | number;
+    itemAmount: string;
     monthNeeded: string;
     yearNeeded: string;
   }) => {
@@ -61,7 +61,7 @@ const SavingItems = ({
                 <StyledTypography variant="h5">{itemToSaveFor}</StyledTypography>
 
                 <StyledTypography sx={{ mb: 1.5 }}>
-                  {formattedCurrency.format(itemAmount)}
+                  {formattedCurrency.format(Number(itemAmount))}
                 </StyledTypography>
 
                 <StyledTypography color="text.secondary" variant="body2">
