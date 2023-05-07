@@ -13,7 +13,7 @@ const SavingsContainer = styled.div`
   display: flex;
 `;
 
-function App() {
+const App = () => {
   const [tableData, setTableData] = useState<TableData>([
     { month: 'April 2023', saved: 500, savingGoals: [] },
     { month: 'May 2023', saved: 500, savingGoals: [] },
@@ -71,6 +71,6 @@ function App() {
       <GraphDisplay />
     </div>
   );
-}
+};
 
 export default App;

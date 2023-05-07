@@ -1,5 +1,5 @@
 /* eslint-disable react/prop-types */
-import React from 'react';
+import React, { FunctionComponent } from 'react';
 import {
   Paper,
   styled,
@@ -36,82 +36,81 @@ const TotalCell = styled(TableCell)(({ color }) => ({
   color: color
 }));
 
-export default function SavingsProjectionsTable({
-  tableData,
-  totalSaved
-}: {
+interface Props {
   tableData: TableData;
   totalSaved: TotalSaved;
-}) {
-  return (
-    <TableContainer component={Paper}>
-      <StyledTable aria-label="a dense table" size="small">
-        <TableHead>
-          <TableRow>
-            <StickyCell />
-
-            {tableData.map(({ month }) => (
-              <TableCell key={month} sx={{ minWidth: '115px' }}>
-                {month}
-              </TableCell>
-            ))}
-          </TableRow>
-        </TableHead>
-        <TableBody>
-          <StyledTableRow key="Saved">
-            <StickyCell component="th" scope="row">
-              Saved
-            </StickyCell>
-
-            {tableData.map(({ month, saved }) => (
-              <TableCell key={`${month}-saved`}>{`+${formattedCurrency.format(saved)}`}</TableCell>
-            ))}
-          </StyledTableRow>
-
-          <StyledTableRow key="Withdrawn">
-            <StickyCell component="th" scope="row">
-              Withdrawn
-            </StickyCell>
-            {tableData.map(({ month, savingGoals }) => (
-              // Mapping over the months
-              <TableCell key={`${month}-withdrawn`} sx={{ verticalAlign: 'baseline' }}>
-                {savingGoals.map(({ itemToSaveFor, itemAmount }) => (
-                  // Mapping over the savingGoals in the month
-                  <div key={`${itemToSaveFor}-${itemAmount}`}>
-                    <SavingGoal>
-                      {`-${formattedCurrency.format(itemAmount)}`}
-                      <SavingItem>{` ${itemToSaveFor}`}</SavingItem>
-                    </SavingGoal>
-                  </div>
-                ))}
-
-                {savingGoals.length > 1 && (
-                  <TotalAmount>
-                    {`-${formattedCurrency.format(
-                      savingGoals.reduce((acc, curr) => acc + curr.itemAmount, 0)
-                    )}`}
-                    <TotalText>{` Total`}</TotalText>
-                  </TotalAmount>
-                )}
-              </TableCell>
-            ))}
-          </StyledTableRow>
-
-          <StyledTableRow key="Total">
-            <StickyCell component="th" scope="row">
-              Total
-            </StickyCell>
-
-            {totalSaved.map(({ month, total }) => (
-              <TotalCell
-                key={`${month}-total`}
-                color={
-                  total === 0 ? 'grey' : total < 0 ? 'red' : 'green'
-                }>{`${formattedCurrency.format(total)}`}</TotalCell>
-            ))}
-          </StyledTableRow>
-        </TableBody>
-      </StyledTable>
-    </TableContainer>
-  );
 }
+
+const SavingsProjectionsTable: FunctionComponent<Props> = ({ tableData, totalSaved }) => (
+  <TableContainer component={Paper}>
+    <StyledTable aria-label="a dense table" size="small">
+      <TableHead>
+        <TableRow>
+          <StickyCell />
+
+          {tableData.map(({ month }) => (
+            <TableCell key={month} sx={{ minWidth: '115px' }}>
+              {month}
+            </TableCell>
+          ))}
+        </TableRow>
+      </TableHead>
+      <TableBody>
+        <StyledTableRow key="Saved">
+          <StickyCell component="th" scope="row">
+            Saved
+          </StickyCell>
+
+          {tableData.map(({ month, saved }) => (
+            <TableCell key={`${month}-saved`}>{`+${formattedCurrency.format(saved)}`}</TableCell>
+          ))}
+        </StyledTableRow>
+
+        <StyledTableRow key="Withdrawn">
+          <StickyCell component="th" scope="row">
+            Withdrawn
+          </StickyCell>
+          {tableData.map(({ month, savingGoals }) => (
+            // Mapping over the months
+            <TableCell key={`${month}-withdrawn`} sx={{ verticalAlign: 'baseline' }}>
+              {savingGoals.map(({ itemToSaveFor, itemAmount }) => (
+                // Mapping over the savingGoals in the month
+                <div key={`${itemToSaveFor}-${itemAmount}`}>
+                  <SavingGoal>
+                    {`-${formattedCurrency.format(Number(itemAmount))}`}
+                    <SavingItem>{` ${itemToSaveFor}`}</SavingItem>
+                  </SavingGoal>
+                </div>
+              ))}
+
+              {savingGoals.length > 1 && (
+                <TotalAmount>
+                  {`-${formattedCurrency.format(
+                    savingGoals.reduce((acc, curr) => acc + Number(curr.itemAmount), 0)
+                  )}`}
+                  <TotalText>{` Total`}</TotalText>
+                </TotalAmount>
+              )}
+            </TableCell>
+          ))}
+        </StyledTableRow>
+
+        <StyledTableRow key="Total">
+          <StickyCell component="th" scope="row">
+            Total
+          </StickyCell>
+
+          {totalSaved.map(({ month, total }) => (
+            <TotalCell
+              key={`${month}-total`}
+              color={
+                total === 0 ? 'grey' : total < 0 ? 'red' : 'green'
+              }>{`${formattedCurrency.format(total)}`}</TotalCell>
+          ))}
+        </StyledTableRow>
+      </TableBody>
+    </StyledTable>
+  </TableContainer>
+);
+
+export default SavingsProjectionsTable;

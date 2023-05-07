@@ -1,6 +1,6 @@
 interface SavingGoal {
   itemToSaveFor: string;
-  itemAmount: number;
+  itemAmount: string;
   monthNeeded: string;
   yearNeeded: string;
 }

@@ -33,7 +33,7 @@ const SavingItems = ({
     yearNeeded
   }: {
     itemToSaveFor: string;
-    itemAmount: string | number;
+    itemAmount: string;
     monthNeeded: string;
     yearNeeded: string;
   }) => {
@@ -54,38 +54,32 @@ const SavingItems = ({
   return (
     <CardContainer>
       {sortedSavingItems.length > 0 ? (
-        sortedSavingItems.map(({ itemToSaveFor, itemAmount, monthNeeded, yearNeeded }) => {
-          return (
-            <StyledBox key={`${itemToSaveFor}-${itemAmount}-${monthNeeded}-${yearNeeded}`}>
-              <Card variant="outlined">
-                <CardContent>
-                  <StyledTypography
-                    // component="div"
-                    variant="h5">
-                    {itemToSaveFor}
-                  </StyledTypography>
+        sortedSavingItems.map(({ itemToSaveFor, itemAmount, monthNeeded, yearNeeded }) => (
+          <StyledBox key={`${itemToSaveFor}-${itemAmount}-${monthNeeded}-${yearNeeded}`}>
+            <Card variant="outlined">
+              <CardContent>
+                <StyledTypography variant="h5">{itemToSaveFor}</StyledTypography>
 
-                  <StyledTypography sx={{ mb: 1.5 }}>
-                    {formattedCurrency.format(itemAmount)}
-                  </StyledTypography>
+                <StyledTypography sx={{ mb: 1.5 }}>
+                  {formattedCurrency.format(Number(itemAmount))}
+                </StyledTypography>
 
-                  <StyledTypography color="text.secondary" variant="body2">
-                    {monthNeeded} {yearNeeded}
-                  </StyledTypography>
-                </CardContent>
-                <CardActions disableSpacing>
-                  <IconButton
-                    aria-label="delete"
-                    onClick={() =>
-                      deleteItem({ itemToSaveFor, itemAmount, monthNeeded, yearNeeded })
-                    }>
-                    <DeleteIcon />
-                  </IconButton>
-                </CardActions>
-              </Card>
-            </StyledBox>
-          );
-        })
+                <StyledTypography color="text.secondary" variant="body2">
+                  {monthNeeded} {yearNeeded}
+                </StyledTypography>
+              </CardContent>
+              <CardActions disableSpacing>
+                <IconButton
+                  aria-label="delete"
+                  onClick={() =>
+                    deleteItem({ itemToSaveFor, itemAmount, monthNeeded, yearNeeded })
+                  }>
+                  <DeleteIcon />
+                </IconButton>
+              </CardActions>
+            </Card>
+          </StyledBox>
+        ))
       ) : (
         <InfoText>You have no Saving Goals. Add some by clicking the + icon.</InfoText>
       )}

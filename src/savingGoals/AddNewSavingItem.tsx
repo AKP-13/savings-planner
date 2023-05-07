@@ -53,8 +53,7 @@ const AddNewSavingItem: FunctionComponent<Props> = ({ setTableData, tableData })
   const [formInputs, setFormInputs] = useState(initialInputs);
   const [isAddingNewItem, setIsAddingNewItem] = useState(false);
 
-  // TO DO FIX THIS TYPE
-  const handleFormInputChange = (event: { target: { name: string; value: any } }) => {
+  const handleFormInputChange = (event: { target: { name: string; value: string } }) => {
     const { name, value } = event.target;
 
     setFormInputs((values) => ({ ...values, [name]: value }));
@@ -120,6 +119,7 @@ const AddNewSavingItem: FunctionComponent<Props> = ({ setTableData, tableData })
               onChange={handleFormInputChange}
               size="small"
               startAdornment={<InputAdornment position="start">£</InputAdornment>}
+              type="number"
               value={formInputs.itemAmount}
             />
           </AmountContainer>
