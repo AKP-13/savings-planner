@@ -239,7 +239,7 @@ const App = () => {
 
       <SavingsProjectionsTable tableData={tableData} totalSaved={totalSaved} />
 
-      <GraphDisplay />
+      <GraphDisplay totalSaved={totalSaved} />
     </div>
   );
 };

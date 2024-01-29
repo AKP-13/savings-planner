@@ -10,40 +10,56 @@ import {
   Legend
 } from 'chart.js';
 import { Line } from 'react-chartjs-2';
+import { TotalSaved } from '../types';
 
 ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend);
 
-const GraphDisplay = () => {
-  const options = {
-    responsive: true,
-    plugins: {
-      legend: {
-        position: 'top' as const
-      },
-      title: {
-        display: true,
-        text: 'Chart.js Line Chart'
-      }
-    }
-  };
+type Params = {
+  totalSaved: TotalSaved;
+};
 
-  const labels = ['January', 'February', 'March', 'April', 'May', 'June', 'July'];
+const options = {
+  responsive: true,
+  plugins: {
+    legend: {
+      position: 'bottom' as const
+    }
+  },
+  elements: {
+    line: {
+      tension: 0.4
+    }
+  }
+};
+
+const GraphDisplay = ({ totalSaved }: Params) => {
+  const labels = totalSaved.map(({ month }) => month);
+
+  const formattedGraphData = totalSaved.map(({ month, total }) => {
+    return {
+      x: month,
+      y: total
+    };
+  });
 
   const graphData = {
     labels,
     datasets: [
       {
-        label: 'Dataset 1',
-        data: [1, 2, 3, 4, 5, 6],
-        borderColor: 'rgb(255, 99, 132)',
-        backgroundColor: 'rgba(255, 99, 132, 0.5)'
+        data: formattedGraphData,
+        backgroundColor: '#1976d2',
+        borderColor: '#1976d2',
+        label: 'Total',
+        pointStyle: 'circle',
+        pointRadius: 5,
+        pointHoverRadius: 10
       }
     ]
   };
+
   return (
-    <div>
-      <h1>Graph Goes Here</h1>
-      <Line options={options} data={graphData} />;
+    <div style={{ backgroundColor: 'white', borderRadius: '4px', margin: '1rem', padding: '1rem' }}>
+      <Line options={options} data={graphData} />
     </div>
   );
 };
