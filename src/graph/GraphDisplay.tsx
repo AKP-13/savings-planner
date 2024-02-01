@@ -10,46 +10,16 @@ import {
   Legend
 } from 'chart.js';
 import { Line } from 'react-chartjs-2';
+// Utils
+import options from './options';
 // Types
-import type { InteractionMode, ScriptableContext, ScriptableScaleContext } from 'chart.js';
+import type { ScriptableContext } from 'chart.js';
 import { TotalSaved } from '../types';
 
 ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend);
 
 type Params = {
   totalSaved: TotalSaved;
-};
-
-const options = {
-  elements: {
-    line: {
-      tension: 0.1
-    }
-  },
-  interaction: {
-    intersect: false,
-    mode: 'index' as InteractionMode
-  },
-  maintainAspectRatio: false,
-  plugins: {
-    legend: {
-      position: 'bottom' as const
-    }
-  },
-  scales: {
-    x: {
-      grid: {
-        display: false
-      }
-    },
-    y: {
-      grid: {
-        color: (context: ScriptableScaleContext) =>
-          context.tick.value === 0 ? 'black' : 'rgba(0, 0, 0, 0.54)',
-        lineWidth: (context: ScriptableScaleContext) => (context.tick.value === 0 ? 1 : 0.25)
-      }
-    }
-  }
 };
 
 const GraphDisplay = ({ totalSaved }: Params) => {
