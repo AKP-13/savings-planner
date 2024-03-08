@@ -12,55 +12,13 @@ const MONTHS = [
   'November',
   'December'
 ];
-const YEARS = ['2023', '2024', '2025'];
+const YEARS = ['2024', '2025', '2026'];
 
 const initialTableData = [
   {
-    month: 'February 2024',
-    saved: 3200,
-    savingGoals: [
-      {
-        itemToSaveFor: "Kinte's Parents' Birthdays",
-        itemAmount: '150',
-        monthNeeded: 'February',
-        yearNeeded: '2024'
-      },
-      {
-        itemToSaveFor: "Valentine's Day",
-        itemAmount: '50',
-        monthNeeded: 'February',
-        yearNeeded: '2024'
-      },
-      {
-        itemToSaveFor: "Kinte's Birthday",
-        itemAmount: '100',
-        monthNeeded: 'February',
-        yearNeeded: '2024'
-      },
-      {
-        itemToSaveFor: 'Lithuania',
-        itemAmount: '100',
-        monthNeeded: 'February',
-        yearNeeded: '2024'
-      },
-      {
-        itemToSaveFor: "Jord's Stag 2nd Payment",
-        itemAmount: '85',
-        monthNeeded: 'February',
-        yearNeeded: '2024'
-      }
-    ]
-  },
-  {
     month: 'March 2024',
-    saved: 500,
+    saved: 688,
     savingGoals: [
-      {
-        itemToSaveFor: "Jord's Stag Spending",
-        itemAmount: '300',
-        monthNeeded: 'March',
-        yearNeeded: '2024'
-      },
       {
         itemToSaveFor: 'Suit',
         itemAmount: '300',
@@ -69,13 +27,13 @@ const initialTableData = [
       },
       {
         itemToSaveFor: "Mother's Day",
-        itemAmount: '20',
+        itemAmount: '40',
         monthNeeded: 'March',
         yearNeeded: '2024'
       },
       {
         itemToSaveFor: "Jord's mini stag",
-        itemAmount: '50',
+        itemAmount: '60',
         monthNeeded: 'March',
         yearNeeded: '2024'
       }
@@ -85,12 +43,6 @@ const initialTableData = [
     month: 'April 2024',
     saved: 500,
     savingGoals: [
-      {
-        itemToSaveFor: 'LISA 2024',
-        itemAmount: '3160',
-        monthNeeded: 'April',
-        yearNeeded: '2024'
-      },
       {
         itemToSaveFor: "Jord and Megan's Wedding",
         itemAmount: '100',
