@@ -27,6 +27,9 @@ const options = {
         color: (context: ScriptableScaleContext) =>
           context.tick.value === 0 ? 'black' : 'rgba(0, 0, 0, 0.54)',
         lineWidth: (context: ScriptableScaleContext) => (context.tick.value === 0 ? 1 : 0.25)
+      },
+      ticks: {
+        callback: (value: string) => `£${value}`
       }
     }
   }
