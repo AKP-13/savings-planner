@@ -1,6 +1,7 @@
 .App {
   background-color: #f8f8f8;
   font-family: 'Quicksand', sans-serif;
+  height: 100vh;
   text-align: center;
 }
 
@@ -11,4 +12,23 @@
   justify-content: flex-start;
   font-size: calc(10px + 2vmin);
   color: black;
+}
+
+::-webkit-scrollbar {
+  height: 5px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #888;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
 }
