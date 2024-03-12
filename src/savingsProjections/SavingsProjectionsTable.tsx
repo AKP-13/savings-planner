@@ -12,7 +12,7 @@ import {
 // Utils
 import { formattedCurrency } from '../utils/helpers';
 // Styles
-import { SavingGoal, SavingItem, TotalAmount, TotalText } from './styles';
+import { SavingGoal, SavingItem, TotalAmount } from './styles';
 import { TableData, TotalSaved } from '../types';
 
 const StickyCell = styled(TableCell)(() => ({
@@ -32,7 +32,8 @@ const StyledTable = styled(Table)(() => ({
 }));
 
 const TotalCell = styled(TableCell)(({ color }) => ({
-  color: color
+  color: color,
+  fontWeight: 'bold'
 }));
 
 interface Props {
@@ -48,7 +49,7 @@ const SavingsProjectionsTable: FunctionComponent<Props> = ({ tableData, totalSav
           <StickyCell />
 
           {tableData.map(({ month }) => (
-            <TableCell key={month} sx={{ minWidth: '115px' }}>
+            <TableCell key={month} sx={{ minWidth: '115px', fontWeight: 'bold' }}>
               {month}
             </TableCell>
           ))}
@@ -61,7 +62,11 @@ const SavingsProjectionsTable: FunctionComponent<Props> = ({ tableData, totalSav
           </StickyCell>
 
           {tableData.map(({ month, saved }) => (
-            <TableCell key={`${month}-saved`}>{`+${formattedCurrency.format(saved)}`}</TableCell>
+            <TableCell
+              key={`${month}-saved`}
+              sx={{ fontWeight: 'bold', color: 'green' }}>{`+${formattedCurrency.format(
+              saved
+            )}`}</TableCell>
           ))}
         </StyledTableRow>
 
@@ -71,7 +76,7 @@ const SavingsProjectionsTable: FunctionComponent<Props> = ({ tableData, totalSav
           </StickyCell>
           {tableData.map(({ month, savingGoals }) => (
             // Mapping over the months
-            <TableCell key={`${month}-withdrawn`} sx={{ verticalAlign: 'baseline' }}>
+            <TableCell key={`${month}-withdrawn`} sx={{ verticalAlign: 'baseline', color: 'red' }}>
               {savingGoals.map(({ itemToSaveFor, itemAmount }) => (
                 // Mapping over the savingGoals in the month
                 <div key={`${itemToSaveFor}-${itemAmount}`}>
@@ -87,7 +92,6 @@ const SavingsProjectionsTable: FunctionComponent<Props> = ({ tableData, totalSav
                   {`-${formattedCurrency.format(
                     savingGoals.reduce((acc, curr) => acc + Number(curr.itemAmount), 0)
                   )}`}
-                  <TotalText>{` Total`}</TotalText>
                 </TotalAmount>
               )}
             </TableCell>
