@@ -52,7 +52,7 @@ const SavingItems = ({
   const sortedSavingItems = useMemo(() => returnSortedSavingItems({ tableData }), [tableData]);
 
   return (
-    <CardContainer>
+    <CardContainer style={{ alignItems: 'center' }}>
       {sortedSavingItems.length > 0 ? (
         sortedSavingItems.map(({ itemToSaveFor, itemAmount, monthNeeded, yearNeeded }) => (
           <StyledBox key={`${itemToSaveFor}-${itemAmount}-${monthNeeded}-${yearNeeded}`}>

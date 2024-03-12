@@ -1,4 +1,3 @@
-/* eslint-disable react/prop-types */
 import React, { FunctionComponent, useState } from 'react';
 import {
   Box,

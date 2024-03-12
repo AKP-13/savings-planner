@@ -1,4 +1,3 @@
-/* eslint-disable react/prop-types */
 import React, { FunctionComponent } from 'react';
 import {
   Paper,
@@ -42,7 +41,7 @@ interface Props {
 }
 
 const SavingsProjectionsTable: FunctionComponent<Props> = ({ tableData, totalSaved }) => (
-  <TableContainer component={Paper}>
+  <TableContainer component={Paper} style={{ margin: '1rem', overflow: 'auto', width: 'auto' }}>
     <StyledTable aria-label="a dense table" size="small">
       <TableHead>
         <TableRow>
