@@ -15,10 +15,3 @@ export const TotalAmount = styled.p`
   font-weight: bold;
   margin: 0;
 `;
-
-export const TotalText = styled.span`
-  color: grey;
-  font-size: 10px;
-  font-weight: bold;
-  margin: 0;
-`;

@@ -1,5 +1,9 @@
 import styled from 'styled-components';
 
+type StyleProps = {
+  $type: 'success' | 'error' | 'warning';
+};
+
 export const Container = styled.div`
   background-color: white;
   border-radius: 4px;
@@ -44,8 +48,8 @@ export const ConfirmContainer = styled.span`
   align-self: center;
 `;
 
-export const IssuesTitle = styled.h3`
-  color: red;
+export const ExplanationText = styled.h3<StyleProps>`
+  color: ${({ $type }) => ($type === 'success' ? 'green' : $type === 'error' ? 'red' : 'yellow')};
   margin: 0.5rem;
   font-weight: 400;
   text-align: left;

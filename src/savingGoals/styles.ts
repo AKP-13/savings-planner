@@ -26,7 +26,6 @@ export const Container = styled.div`
   display: flex;
   height: 250px;
   margin: 1rem;
-  padding: 0.5rem;
   width: 66%;
 `;
 

@@ -8,7 +8,7 @@ import {
   Container,
   EditingContainer,
   IssuesExplanation,
-  IssuesTitle,
+  ExplanationText,
   PoundSign,
   SavingsAmount,
   SavingsAmountContainer,
@@ -124,11 +124,11 @@ const MonthlySavingAmount: FunctionComponent<Props> = ({ tableData, setTableData
         )}
       </SavingsAmountContainer>
 
-      {numberOfIssues > 0 && (
+      {numberOfIssues > 0 ? (
         <div>
-          <IssuesTitle>
+          <ExplanationText $type="error">
             {numberOfIssues} Issue{numberOfIssues === 1 ? '' : 's'}
-          </IssuesTitle>
+          </ExplanationText>
 
           <IssuesExplanation>
             Based on your monthly saving amount and saving goals, you won&apos;t have enough for:
@@ -139,6 +139,12 @@ const MonthlySavingAmount: FunctionComponent<Props> = ({ tableData, setTableData
               <Bold>{goal}</Bold> in <Bold>{month}</Bold>
             </IssuesExplanation>
           ))}
+        </div>
+      ) : (
+        <div>
+          <ExplanationText $type="success">
+            No issues. Looks like you&apos;ll have enough savings for all of your goals!
+          </ExplanationText>
         </div>
       )}
     </Container>
