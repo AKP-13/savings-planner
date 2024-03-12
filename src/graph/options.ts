@@ -1,4 +1,10 @@
-import { InteractionMode, ScriptableScaleContext } from 'chart.js';
+import { InteractionMode, ScriptableScaleContext, TooltipItem } from 'chart.js';
+
+const locales = 'en-GB';
+const numOptions = {
+  style: 'currency',
+  currency: 'GBP'
+};
 
 const options = {
   elements: {
@@ -14,6 +20,23 @@ const options = {
   plugins: {
     legend: {
       position: 'bottom' as const
+    },
+    tooltip: {
+      callbacks: {
+        label: function (context: TooltipItem<'line'>) {
+          let label = context.dataset.label || '';
+
+          if (label) {
+            label += ': ';
+          }
+
+          if (context.parsed.y !== null) {
+            label += new Intl.NumberFormat(locales, numOptions).format(context.parsed.y);
+          }
+
+          return label;
+        }
+      }
     }
   },
   scales: {
@@ -29,17 +52,7 @@ const options = {
         lineWidth: (context: ScriptableScaleContext) => (context.tick.value === 0 ? 1 : 0.25)
       },
       ticks: {
-        callback: (value: number) => {
-          const locales = 'en-GB';
-          const options = {
-            style: 'currency',
-            currency: 'GBP'
-          };
-
-          const formattedValue = new Intl.NumberFormat(locales, options).format(value);
-
-          return formattedValue;
-        }
+        callback: (value: number) => Intl.NumberFormat(locales, numOptions).format(value)
       }
     }
   }
