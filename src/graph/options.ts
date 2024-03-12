@@ -29,7 +29,17 @@ const options = {
         lineWidth: (context: ScriptableScaleContext) => (context.tick.value === 0 ? 1 : 0.25)
       },
       ticks: {
-        callback: (value: string) => `£${value}`
+        callback: (value: number) => {
+          const locales = 'en-GB';
+          const options = {
+            style: 'currency',
+            currency: 'GBP'
+          };
+
+          const formattedValue = new Intl.NumberFormat(locales, options).format(value);
+
+          return formattedValue;
+        }
       }
     }
   }
