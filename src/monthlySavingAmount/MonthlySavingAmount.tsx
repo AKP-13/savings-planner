@@ -5,20 +5,21 @@ import CloseIcon from '@mui/icons-material/Close';
 import {
   Bold,
   ConfirmContainer,
-  Container,
   EditingContainer,
   IssuesExplanation,
   ExplanationText,
   PoundSign,
   SavingsAmount,
   SavingsAmountContainer,
-  Title
+  Title,
+  Container
 } from './styles';
 import { SetTableData, TableData, TotalSaved } from '../types';
 import { returnGoalsWithIssues } from './helpers';
+import { initialMonthlySavingAmount } from '../utils/constants';
 
 const StyledInput = styled(Input)`
-  color: dodgerblue;
+  color: #0079ff;
   font-family: Kaushan Script, cursive;
   font-size: 2rem;
 `;
@@ -26,6 +27,7 @@ const StyledInput = styled(Input)`
 const SavingAmountButton = styled(Button)`
   font-family: Kaushan Script, cursive;
   font-size: 2rem;
+  color: #0079ff;
 `;
 
 const startAdornment = (
@@ -41,8 +43,8 @@ interface Props {
 }
 
 const MonthlySavingAmount: FunctionComponent<Props> = ({ tableData, setTableData, totalSaved }) => {
-  const [monthlySavingAmount, setMonthlySavingAmount] = useState(500);
-  const [input, setInput] = useState(500);
+  const [monthlySavingAmount, setMonthlySavingAmount] = useState(initialMonthlySavingAmount);
+  const [input, setInput] = useState(initialMonthlySavingAmount);
   const [isEditing, setIsEditing] = useState(false);
 
   const isConfirmDisabled = input === monthlySavingAmount;
@@ -142,7 +144,7 @@ const MonthlySavingAmount: FunctionComponent<Props> = ({ tableData, setTableData
         </div>
       ) : (
         <div>
-          <ExplanationText $type="success">
+          <ExplanationText>
             No issues. Looks like you&apos;ll have enough savings for all of your goals!
           </ExplanationText>
         </div>

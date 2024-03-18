@@ -20,11 +20,10 @@ export const AddContainer = styled.div`
 
 export const Container = styled.div`
   align-items: center;
-  background-color: white;
+  background-color: rgba(255, 255, 255, 0.7);
   border-radius: 8px;
-  box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.25);
+  box-shadow: rgba(0, 0, 0, 0.15) 0px 0px 5px;
   display: flex;
-  height: 250px;
   margin: 1rem;
   width: 66%;
 `;

@@ -12,6 +12,7 @@ import { initialTableData } from './utils/constants';
 
 const SavingsContainer = styled.div`
   display: flex;
+  margin: 0 3rem;
 `;
 
 const App = () => {

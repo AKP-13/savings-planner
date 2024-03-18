@@ -1,5 +1,4 @@
 .App {
-  background-color: #f8f8f8;
   font-family: 'Quicksand', sans-serif;
   height: 100vh;
   text-align: center;
@@ -16,6 +15,7 @@
 
 ::-webkit-scrollbar {
   height: 5px;
+  width: 5px;
 }
 
 /* Track */
