@@ -12,13 +12,14 @@ import {
 // Utils
 import { formattedCurrency } from '../utils/helpers';
 // Styles
-import { SavingGoal, SavingItem, TotalAmount, TotalText } from './styles';
+import { SavingGoal, SavingItem, TotalAmount } from './styles';
 import { TableData, TotalSaved } from '../types';
 
 const StickyCell = styled(TableCell)(() => ({
-  position: 'sticky',
+  background: 'white',
+  fontWeight: 'bold',
   left: 0,
-  background: 'white'
+  position: 'sticky'
 }));
 
 const StyledTableRow = styled(TableRow)(() => ({
@@ -28,11 +29,13 @@ const StyledTableRow = styled(TableRow)(() => ({
 }));
 
 const StyledTable = styled(Table)(() => ({
+  backgroundColor: 'rgba(255, 255, 255, 0.7)',
   minWidth: 650
 }));
 
 const TotalCell = styled(TableCell)(({ color }) => ({
-  color: color
+  color: color,
+  fontWeight: 'bold'
 }));
 
 interface Props {
@@ -41,14 +44,23 @@ interface Props {
 }
 
 const SavingsProjectionsTable: FunctionComponent<Props> = ({ tableData, totalSaved }) => (
-  <TableContainer component={Paper} style={{ margin: '1rem', overflow: 'auto', width: 'auto' }}>
+  <TableContainer
+    component={Paper}
+    style={{
+      backgroundColor: 'rgba(255, 255, 255, 0.7)',
+      borderRadius: '8px',
+      boxShadow: 'rgba(0, 0, 0, 0.15) 0px 0px 5px',
+      margin: '3rem',
+      overflow: 'auto',
+      width: 'auto'
+    }}>
     <StyledTable aria-label="a dense table" size="small">
       <TableHead>
         <TableRow>
           <StickyCell />
 
           {tableData.map(({ month }) => (
-            <TableCell key={month} sx={{ minWidth: '115px' }}>
+            <TableCell key={month} sx={{ minWidth: '115px', fontWeight: 'bold' }}>
               {month}
             </TableCell>
           ))}
@@ -61,7 +73,11 @@ const SavingsProjectionsTable: FunctionComponent<Props> = ({ tableData, totalSav
           </StickyCell>
 
           {tableData.map(({ month, saved }) => (
-            <TableCell key={`${month}-saved`}>{`+${formattedCurrency.format(saved)}`}</TableCell>
+            <TableCell
+              key={`${month}-saved`}
+              sx={{ fontWeight: 'bold', color: '#00DFA2' }}>{`+${formattedCurrency.format(
+              saved
+            )}`}</TableCell>
           ))}
         </StyledTableRow>
 
@@ -71,7 +87,9 @@ const SavingsProjectionsTable: FunctionComponent<Props> = ({ tableData, totalSav
           </StickyCell>
           {tableData.map(({ month, savingGoals }) => (
             // Mapping over the months
-            <TableCell key={`${month}-withdrawn`} sx={{ verticalAlign: 'baseline' }}>
+            <TableCell
+              key={`${month}-withdrawn`}
+              sx={{ verticalAlign: 'baseline', color: '#EB4444' }}>
               {savingGoals.map(({ itemToSaveFor, itemAmount }) => (
                 // Mapping over the savingGoals in the month
                 <div key={`${itemToSaveFor}-${itemAmount}`}>
@@ -87,7 +105,6 @@ const SavingsProjectionsTable: FunctionComponent<Props> = ({ tableData, totalSav
                   {`-${formattedCurrency.format(
                     savingGoals.reduce((acc, curr) => acc + Number(curr.itemAmount), 0)
                   )}`}
-                  <TotalText>{` Total`}</TotalText>
                 </TotalAmount>
               )}
             </TableCell>
@@ -103,7 +120,7 @@ const SavingsProjectionsTable: FunctionComponent<Props> = ({ tableData, totalSav
             <TotalCell
               key={`${month}-total`}
               color={
-                total === 0 ? 'grey' : total < 0 ? 'red' : 'green'
+                total === 0 ? 'grey' : total < 0 ? '#EB4444' : '#00DFA2'
               }>{`${formattedCurrency.format(total)}`}</TotalCell>
           ))}
         </StyledTableRow>

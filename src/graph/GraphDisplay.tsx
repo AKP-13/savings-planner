@@ -50,9 +50,10 @@ const GraphDisplay = ({ totalSaved }: Params) => {
   return (
     <div
       style={{
-        backgroundColor: 'white',
-        borderRadius: '4px',
-        margin: '1rem',
+        backgroundColor: 'rgba(255, 255, 255, 0.7)',
+        borderRadius: '8px',
+        boxShadow: 'rgba(0, 0, 0, 0.15) 0px 0px 5px',
+        margin: '3rem',
         minHeight: '400px',
         padding: '1rem'
       }}>

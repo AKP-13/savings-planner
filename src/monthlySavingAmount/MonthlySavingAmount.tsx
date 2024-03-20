@@ -5,20 +5,21 @@ import CloseIcon from '@mui/icons-material/Close';
 import {
   Bold,
   ConfirmContainer,
-  Container,
   EditingContainer,
   IssuesExplanation,
-  IssuesTitle,
+  ExplanationText,
   PoundSign,
   SavingsAmount,
   SavingsAmountContainer,
   Title
 } from './styles';
+import { Container } from '../globalStyles';
 import { SetTableData, TableData, TotalSaved } from '../types';
 import { returnGoalsWithIssues } from './helpers';
+import { initialMonthlySavingAmount } from '../utils/constants';
 
 const StyledInput = styled(Input)`
-  color: dodgerblue;
+  color: #0079ff;
   font-family: Kaushan Script, cursive;
   font-size: 2rem;
 `;
@@ -26,6 +27,7 @@ const StyledInput = styled(Input)`
 const SavingAmountButton = styled(Button)`
   font-family: Kaushan Script, cursive;
   font-size: 2rem;
+  color: #0079ff;
 `;
 
 const startAdornment = (
@@ -41,8 +43,8 @@ interface Props {
 }
 
 const MonthlySavingAmount: FunctionComponent<Props> = ({ tableData, setTableData, totalSaved }) => {
-  const [monthlySavingAmount, setMonthlySavingAmount] = useState(500);
-  const [input, setInput] = useState(500);
+  const [monthlySavingAmount, setMonthlySavingAmount] = useState(initialMonthlySavingAmount);
+  const [input, setInput] = useState(initialMonthlySavingAmount);
   const [isEditing, setIsEditing] = useState(false);
 
   const isConfirmDisabled = input === monthlySavingAmount;
@@ -83,7 +85,7 @@ const MonthlySavingAmount: FunctionComponent<Props> = ({ tableData, setTableData
   };
 
   return (
-    <Container>
+    <Container $margin="1rem 1rem 1rem 0" $width="33%">
       <Title>Monthly Saving Amount</Title>
       <SavingsAmountContainer>
         <SavingsAmount>Each month I can save:</SavingsAmount>
@@ -124,11 +126,11 @@ const MonthlySavingAmount: FunctionComponent<Props> = ({ tableData, setTableData
         )}
       </SavingsAmountContainer>
 
-      {numberOfIssues > 0 && (
+      {numberOfIssues > 0 ? (
         <div>
-          <IssuesTitle>
+          <ExplanationText $type="error">
             {numberOfIssues} Issue{numberOfIssues === 1 ? '' : 's'}
-          </IssuesTitle>
+          </ExplanationText>
 
           <IssuesExplanation>
             Based on your monthly saving amount and saving goals, you won&apos;t have enough for:
@@ -139,6 +141,12 @@ const MonthlySavingAmount: FunctionComponent<Props> = ({ tableData, setTableData
               <Bold>{goal}</Bold> in <Bold>{month}</Bold>
             </IssuesExplanation>
           ))}
+        </div>
+      ) : (
+        <div>
+          <ExplanationText>
+            No issues. Looks like you&apos;ll have enough savings for all of your goals!
+          </ExplanationText>
         </div>
       )}
     </Container>

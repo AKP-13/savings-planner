@@ -1,19 +1,13 @@
 import styled from 'styled-components';
 
-export const Container = styled.div`
-  background-color: white;
-  border-radius: 4px;
-  box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.25);
-  margin: 1rem;
-  padding: 0.5rem;
-  width: 33%;
-`;
+type StyleProps = {
+  $type?: 'success' | 'error' | 'warning';
+};
 
 export const Title = styled.h2`
   margin: 0.5rem;
   font-weight: 400;
   text-align: left;
-  text-decoration: underline;
 `;
 
 export const SavingsAmountContainer = styled.div`
@@ -23,7 +17,7 @@ export const SavingsAmountContainer = styled.div`
   justify-content: space-between;
 `;
 
-export const SavingsAmount = styled.p`
+export const SavingsAmount = styled.h3`
   margin: 0.5rem;
   text-align: left;
   width: 50%;
@@ -44,12 +38,11 @@ export const ConfirmContainer = styled.span`
   align-self: center;
 `;
 
-export const IssuesTitle = styled.h3`
-  color: red;
+export const ExplanationText = styled.p<StyleProps>`
+  color: ${({ $type }) =>
+    $type === 'success' ? '#00DFA2' : $type === 'error' ? '#EB4444' : 'black'};
   margin: 0.5rem;
-  font-weight: 400;
   text-align: left;
-  text-decoration: underline;
 `;
 
 export const IssuesExplanation = styled.p`
