@@ -10,6 +10,6 @@ export const Container = styled.div<StyleProps>`
   border-radius: 8px;
   box-shadow: rgba(0, 0, 0, 0.15) 0px 0px 5px;
   margin: ${({ $margin }) => $margin};
-  padding: 0.5rem;
+  padding: 1rem 1rem 0 1rem;
   width: ${({ $width }) => $width};
 `;
