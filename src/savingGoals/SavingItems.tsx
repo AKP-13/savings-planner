@@ -1,8 +1,8 @@
-/* eslint-disable react/prop-types */
 import React, { useMemo } from 'react';
-import { Box, Card, CardActions, CardContent, styled, Typography } from '@mui/material';
+import { Box, Card, CardActions, CardContent, styled, Tooltip, Typography } from '@mui/material';
 import IconButton from '@mui/material/IconButton';
-import DeleteIcon from '@mui/icons-material/Delete';
+import DeleteTwoToneIcon from '@mui/icons-material/DeleteTwoTone';
+import EditTwoToneIcon from '@mui/icons-material/EditTwoTone';
 import { returnSortedSavingItems, updateSavingItems } from './helpers';
 import { formattedCurrency } from '../utils/helpers';
 // Styles
@@ -67,14 +67,22 @@ const SavingItems = ({
 
                 <StyledTypography variant="h5">{itemToSaveFor}</StyledTypography>
               </CardContent>
-              <CardActions disableSpacing>
-                <IconButton
-                  aria-label="delete"
-                  onClick={() =>
-                    deleteItem({ itemToSaveFor, itemAmount, monthNeeded, yearNeeded })
-                  }>
-                  <DeleteIcon />
-                </IconButton>
+              <CardActions disableSpacing sx={{ justifyContent: 'space-around' }}>
+                <Tooltip title="Delete">
+                  <IconButton
+                    aria-label="delete"
+                    onClick={() =>
+                      deleteItem({ itemToSaveFor, itemAmount, monthNeeded, yearNeeded })
+                    }>
+                    <DeleteTwoToneIcon />
+                  </IconButton>
+                </Tooltip>
+
+                <Tooltip title="Edit">
+                  <IconButton aria-label="edit" onClick={() => console.log('edit item')}>
+                    <EditTwoToneIcon />
+                  </IconButton>
+                </Tooltip>
               </CardActions>
             </Card>
           </StyledBox>
