@@ -10,9 +10,8 @@ import { CardContainer, InfoText } from './styles';
 import { SetTableData, TableData } from '../types';
 
 const StyledBox = styled(Box)({
-  minWidth: 225,
-  margin: '0 1rem',
-  textAlign: 'left'
+  minWidth: 235,
+  margin: '0 0.5rem'
 });
 
 const StyledTypography = styled(Typography)({
@@ -58,15 +57,15 @@ const SavingItems = ({
           <StyledBox key={`${itemToSaveFor}-${itemAmount}-${monthNeeded}-${yearNeeded}`}>
             <Card variant="outlined">
               <CardContent>
-                <StyledTypography variant="h5">{itemToSaveFor}</StyledTypography>
+                <StyledTypography color="text.secondary" variant="body2">
+                  {monthNeeded} {yearNeeded}
+                </StyledTypography>
 
                 <StyledTypography sx={{ mb: 1.5 }}>
                   {formattedCurrency.format(Number(itemAmount))}
                 </StyledTypography>
 
-                <StyledTypography color="text.secondary" variant="body2">
-                  {monthNeeded} {yearNeeded}
-                </StyledTypography>
+                <StyledTypography variant="h5">{itemToSaveFor}</StyledTypography>
               </CardContent>
               <CardActions disableSpacing>
                 <IconButton
