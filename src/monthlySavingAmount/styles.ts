@@ -4,15 +4,6 @@ type StyleProps = {
   $type?: 'success' | 'error' | 'warning';
 };
 
-export const Container = styled.div`
-  background-color: rgba(255, 255, 255, 0.7);
-  border-radius: 8px;
-  box-shadow: rgba(0, 0, 0, 0.15) 0px 0px 5px;
-  margin: 1rem;
-  padding: 0.5rem;
-  width: 33%;
-`;
-
 export const Title = styled.h2`
   margin: 0.5rem;
   font-weight: 400;

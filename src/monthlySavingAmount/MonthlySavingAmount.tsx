@@ -11,9 +11,9 @@ import {
   PoundSign,
   SavingsAmount,
   SavingsAmountContainer,
-  Title,
-  Container
+  Title
 } from './styles';
+import { Container } from '../globalStyles';
 import { SetTableData, TableData, TotalSaved } from '../types';
 import { returnGoalsWithIssues } from './helpers';
 import { initialMonthlySavingAmount } from '../utils/constants';
@@ -85,7 +85,7 @@ const MonthlySavingAmount: FunctionComponent<Props> = ({ tableData, setTableData
   };
 
   return (
-    <Container>
+    <Container $margin="1rem 1rem 1rem 0" $width="33%">
       <Title>Monthly Saving Amount</Title>
       <SavingsAmountContainer>
         <SavingsAmount>Each month I can save:</SavingsAmount>
