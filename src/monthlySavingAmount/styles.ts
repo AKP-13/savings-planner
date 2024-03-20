@@ -8,7 +8,6 @@ export const Title = styled.h2`
   margin: 0.5rem;
   font-weight: 400;
   text-align: left;
-  text-decoration: underline;
 `;
 
 export const SavingsAmountContainer = styled.div`
