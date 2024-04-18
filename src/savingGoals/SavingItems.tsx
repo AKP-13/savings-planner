@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from 'react';
+import React, { Dispatch, SetStateAction, useMemo, useState } from 'react';
 import {
   Box,
   Button,
@@ -20,12 +20,13 @@ import CheckIcon from '@mui/icons-material/Check';
 import IconButton from '@mui/material/IconButton';
 import DeleteTwoToneIcon from '@mui/icons-material/DeleteTwoTone';
 import EditTwoToneIcon from '@mui/icons-material/EditTwoTone';
-import { returnSortedSavingItems, updateSavingItems } from './helpers';
+import { goalBeingEditedDefault, returnSortedSavingItems, updateSavingItems } from './helpers';
 import { formattedCurrency } from '../utils/helpers';
 // Styles
 import { ButtonContainer, CardContainer, DateContainer, InfoText } from './styles';
 import { SetTableData, TableData } from '../types';
 import { MONTHS, YEARS } from '../utils/constants';
+import { GoalBeingEdited } from './types';
 
 const StyledBox = styled(Box)(({ editing }: { editing?: 'true' }) => ({
   minWidth: 235,
@@ -55,30 +56,16 @@ const StyledTextFieldDupe = styled(TextField)(({ width }: { width: string }) => 
   width: width
 }));
 
-type GoalBeingEdited = {
-  itemToSaveFor: string;
-  itemAmount: string;
-  monthNeeded: string;
-  yearNeeded: string;
-};
-
-const goalBeingEditedDefault = {
-  itemToSaveFor: '',
-  itemAmount: '',
-  monthNeeded: '',
-  yearNeeded: ''
-};
-
 const initialInputs = { monthNeeded: '', yearNeeded: '', itemToSaveFor: '', itemAmount: '' };
 
-const SavingItems = ({
-  tableData,
-  setTableData
-}: {
+type Params = {
+  goalBeingEdited: GoalBeingEdited;
   tableData: TableData;
   setTableData: SetTableData;
-}) => {
-  const [goalBeingEdited, setGoalBeingEdited] = useState<GoalBeingEdited>(goalBeingEditedDefault);
+  setGoalBeingEdited: Dispatch<SetStateAction<GoalBeingEdited>>;
+};
+
+const SavingItems = ({ goalBeingEdited, setGoalBeingEdited, tableData, setTableData }: Params) => {
   const [formInputs, setFormInputs] = useState(initialInputs);
 
   const handleFormInputChange = (event: { target: { name: string; value: string } }) => {

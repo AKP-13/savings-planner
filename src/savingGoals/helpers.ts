@@ -51,4 +51,11 @@ const returnSortedSavingItems = ({ tableData }: { tableData: TableData }) => {
   return sortedGoals;
 };
 
-export { updateSavingItems, returnSortedSavingItems };
+const goalBeingEditedDefault = {
+  itemToSaveFor: '',
+  itemAmount: '',
+  monthNeeded: '',
+  yearNeeded: ''
+};
+
+export { goalBeingEditedDefault, updateSavingItems, returnSortedSavingItems };

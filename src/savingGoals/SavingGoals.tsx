@@ -1,25 +1,39 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { AddNewSavingItem, SavingItems } from './index';
 import { SetTableData, TableData } from '../types';
 import { Title } from '../monthlySavingAmount/styles';
 import { Container } from '../globalStyles';
+import { goalBeingEditedDefault } from './helpers';
+import { GoalBeingEdited } from './types';
 
-const SavingGoals = ({
-  tableData,
-  setTableData
-}: {
+type Params = {
   tableData: TableData;
   setTableData: SetTableData;
-}) => (
-  <Container $width="66%" $margin="1rem 0 1rem 1rem">
-    <Title>Saving Goals</Title>
+};
 
-    <div style={{ alignItems: 'center', display: 'flex' }}>
-      <AddNewSavingItem tableData={tableData} setTableData={setTableData} />
+const SavingGoals = ({ tableData, setTableData }: Params) => {
+  const [goalBeingEdited, setGoalBeingEdited] = useState<GoalBeingEdited>(goalBeingEditedDefault);
 
-      <SavingItems tableData={tableData} setTableData={setTableData} />
-    </div>
-  </Container>
-);
+  return (
+    <Container $width="66%" $margin="1rem 0 1rem 1rem">
+      <Title>Saving Goals</Title>
+
+      <div style={{ alignItems: 'center', display: 'flex' }}>
+        <AddNewSavingItem
+          tableData={tableData}
+          setTableData={setTableData}
+          goalBeingEdited={goalBeingEdited}
+        />
+
+        <SavingItems
+          tableData={tableData}
+          setTableData={setTableData}
+          goalBeingEdited={goalBeingEdited}
+          setGoalBeingEdited={setGoalBeingEdited}
+        />
+      </div>
+    </Container>
+  );
+};
 
 export default SavingGoals;
