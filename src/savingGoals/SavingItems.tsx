@@ -28,9 +28,9 @@ import { SetTableData, TableData } from '../types';
 import { MONTHS, YEARS } from '../utils/constants';
 import { GoalBeingEdited } from './types';
 
-const StyledBox = styled(Box)(({ editing }: { editing?: 'true' }) => ({
+const StyledBox = styled(Box)(() => ({
   minWidth: 235,
-  margin: editing ? '0 5.5rem 0 0' : '0 0.5rem'
+  margin: '0 0.5rem'
 }));
 
 const StyledTypography = styled(Typography)({
@@ -107,12 +107,12 @@ const SavingItems = ({ goalBeingEdited, setGoalBeingEdited, tableData, setTableD
   const handleConfirmEdit = () => {
     const newTableData = [...tableData];
 
-    const monthIndexToUpdate = newTableData.findIndex(
+    const oldMonthIndexValue = newTableData.findIndex(
       (monthYearObj) =>
         monthYearObj.month === `${goalBeingEdited.monthNeeded} ${goalBeingEdited.yearNeeded}`
     );
 
-    const savingIndexToUpdate = newTableData[monthIndexToUpdate].savingGoals.findIndex(
+    const savingIndexToUpdate = newTableData[oldMonthIndexValue].savingGoals.findIndex(
       (goal) =>
         goal.itemToSaveFor === goalBeingEdited.itemToSaveFor &&
         goal.itemAmount === goalBeingEdited.itemAmount &&
@@ -120,12 +120,44 @@ const SavingItems = ({ goalBeingEdited, setGoalBeingEdited, tableData, setTableD
         goal.yearNeeded === goalBeingEdited.yearNeeded
     );
 
-    newTableData[monthIndexToUpdate].savingGoals[savingIndexToUpdate] = {
-      itemToSaveFor: formInputs.itemToSaveFor,
-      itemAmount: formInputs.itemAmount,
-      monthNeeded: formInputs.monthNeeded,
-      yearNeeded: formInputs.yearNeeded
-    };
+    const isMonthOrYearDifferent =
+      newTableData[oldMonthIndexValue].savingGoals[savingIndexToUpdate].monthNeeded !==
+        formInputs.monthNeeded ||
+      newTableData[oldMonthIndexValue].savingGoals[savingIndexToUpdate].yearNeeded !==
+        formInputs.yearNeeded;
+
+    if (isMonthOrYearDifferent) {
+      newTableData[oldMonthIndexValue].savingGoals = newTableData[
+        oldMonthIndexValue
+      ].savingGoals.filter(
+        (goal) =>
+          !(
+            goal.itemToSaveFor === goalBeingEdited.itemToSaveFor &&
+            goal.itemAmount === goalBeingEdited.itemAmount &&
+            goal.monthNeeded === goalBeingEdited.monthNeeded &&
+            goal.yearNeeded === goalBeingEdited.yearNeeded
+          )
+      );
+
+      const newMonthIndexValue = newTableData.findIndex(
+        (monthYearObj) =>
+          monthYearObj.month === `${formInputs.monthNeeded} ${formInputs.yearNeeded}`
+      );
+
+      newTableData[newMonthIndexValue].savingGoals.push({
+        itemToSaveFor: formInputs.itemToSaveFor,
+        itemAmount: formInputs.itemAmount,
+        monthNeeded: formInputs.monthNeeded,
+        yearNeeded: formInputs.yearNeeded
+      });
+    } else {
+      newTableData[oldMonthIndexValue].savingGoals[savingIndexToUpdate] = {
+        itemToSaveFor: formInputs.itemToSaveFor,
+        itemAmount: formInputs.itemAmount,
+        monthNeeded: formInputs.monthNeeded,
+        yearNeeded: formInputs.yearNeeded
+      };
+    }
 
     setTableData(newTableData);
     handleCancel();
@@ -165,7 +197,7 @@ const SavingItems = ({ goalBeingEdited, setGoalBeingEdited, tableData, setTableD
             goalBeingEdited.itemAmount === itemAmount &&
             goalBeingEdited.monthNeeded === monthNeeded &&
             goalBeingEdited.yearNeeded === yearNeeded ? (
-              <StyledBox editing="true">
+              <StyledBox>
                 <CardContainerDupe>
                   <Card variant="outlined">
                     <ContentDupe>
@@ -244,7 +276,6 @@ const SavingItems = ({ goalBeingEdited, setGoalBeingEdited, tableData, setTableD
 
                         <Button
                           color="success"
-                          //   disabled={isDisabled}
                           onClick={handleConfirmEdit}
                           size="small"
                           startIcon={<CheckIcon />}
@@ -296,144 +327,6 @@ const SavingItems = ({ goalBeingEdited, setGoalBeingEdited, tableData, setTableD
               </StyledBox>
             )}
           </div>
-
-          //   <StyledBox key={`${itemToSaveFor}-${itemAmount}-${monthNeeded}-${yearNeeded}`}>
-          //     {goalBeingEdited.itemToSaveFor === itemToSaveFor &&
-          //     goalBeingEdited.itemAmount === itemAmount &&
-          //     goalBeingEdited.monthNeeded === monthNeeded &&
-          //     goalBeingEdited.yearNeeded === yearNeeded ? (
-          //       // COPIED, MAKE REUSABLE
-          //       <>
-          //         <CardContainerDupe>
-          //           <Card variant="outlined">
-          //             <ContentDupe>
-          //               <TextField
-          //                 InputLabelProps={{
-          //                   shrink: true
-          //                 }}
-          //                 label="Item to save for"
-          //                 name="itemToSaveFor"
-          //                 onChange={handleFormInputChange}
-          //                 size="small"
-          //                 value={formInputs.itemToSaveFor}
-          //               />
-
-          //               <AmountContainerDupe fullWidth>
-          //                 <InputLabel htmlFor="amount">Amount</InputLabel>
-          //                 <OutlinedInput
-          //                   id="amount"
-          //                   label="Amount"
-          //                   name="itemAmount"
-          //                   onChange={handleFormInputChange}
-          //                   size="small"
-          //                   startAdornment={<InputAdornment position="start">£</InputAdornment>}
-          //                   type="number"
-          //                   value={formInputs.itemAmount}
-          //                 />
-          //               </AmountContainerDupe>
-
-          //               <DateContainer>
-          //                 <StyledTextFieldDupe
-          //                   InputLabelProps={{
-          //                     shrink: true
-          //                   }}
-          //                   label="Month"
-          //                   name="monthNeeded"
-          //                   onChange={handleFormInputChange}
-          //                   select
-          //                   size="small"
-          //                   value={formInputs.monthNeeded}
-          //                   width="56%">
-          //                   {MONTHS.map((month) => (
-          //                     <MenuItem key={month} value={month}>
-          //                       {month}
-          //                     </MenuItem>
-          //                   ))}
-          //                 </StyledTextFieldDupe>
-
-          //                 <StyledTextFieldDupe
-          //                   InputLabelProps={{
-          //                     shrink: true
-          //                   }}
-          //                   label="Year"
-          //                   name="yearNeeded"
-          //                   onChange={handleFormInputChange}
-          //                   select
-          //                   size="small"
-          //                   value={formInputs.yearNeeded}
-          //                   width="40%">
-          //                   {YEARS.map((year) => (
-          //                     <MenuItem key={year} value={year}>
-          //                       {year}
-          //                     </MenuItem>
-          //                   ))}
-          //                 </StyledTextFieldDupe>
-          //               </DateContainer>
-
-          //               <ButtonContainer>
-          //                 <Button
-          //                   color="error"
-          //                   size="small"
-          //                   startIcon={<CloseIcon />}
-          //                   onClick={handleCancel}
-          //                   variant="outlined">
-          //                   Cancel
-          //                 </Button>
-
-          //                 <Button
-          //                   color="success"
-          //                   //   disabled={isDisabled}
-          //                   onClick={() => {
-          //                     console.log('we wanna update these figures');
-          //                   }}
-          //                   size="small"
-          //                   startIcon={<CheckIcon />}
-          //                   variant="outlined">
-          //                   Confirm
-          //                 </Button>
-          //               </ButtonContainer>
-          //             </ContentDupe>
-          //           </Card>
-          //         </CardContainerDupe>
-          //       </>
-          //     ) : (
-          //       <Card variant="outlined">
-          //         <CardContent>
-          //           <StyledTypography color="text.secondary" variant="body2">
-          //             {monthNeeded} {yearNeeded}
-          //           </StyledTypography>
-
-          //           <StyledTypography sx={{ mb: 1.5 }}>
-          //             {formattedCurrency.format(Number(itemAmount))}
-          //           </StyledTypography>
-
-          //           <StyledTypography variant="h5">{itemToSaveFor}</StyledTypography>
-          //         </CardContent>
-
-          //         <CardActions disableSpacing sx={{ justifyContent: 'space-around' }}>
-          //           <Tooltip title="Delete">
-          //             <IconButton
-          //               aria-label="delete"
-          //               onClick={() =>
-          //                 deleteItem({ itemToSaveFor, itemAmount, monthNeeded, yearNeeded })
-          //               }>
-          //               <DeleteTwoToneIcon />
-          //             </IconButton>
-          //           </Tooltip>
-
-          //           <Tooltip title="Edit">
-          //             <IconButton
-          //               aria-label="edit"
-          //               onClick={() =>
-          //                 handleEdit({ itemToSaveFor, itemAmount, monthNeeded, yearNeeded })
-          //               }>
-          //               <EditTwoToneIcon />
-          //             </IconButton>
-          //           </Tooltip>
-          //         </CardActions>
-          //       </Card>
-          //     )}
-          //   </StyledBox>
         ))
       ) : (
         <InfoText>You have no Saving Goals. Add some by clicking the + icon.</InfoText>
