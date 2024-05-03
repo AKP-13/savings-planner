@@ -21,6 +21,7 @@ import { updateSavingItems } from './helpers';
 // Styles
 import { AddContainer, ButtonContainer, DateContainer } from './styles';
 import { TableData } from '../types';
+import { GoalBeingEdited } from './types';
 
 const CardContainer = styled(Box)({
   minWidth: 300,
@@ -46,11 +47,22 @@ const initialInputs = { monthNeeded: '', yearNeeded: '', itemToSaveFor: '', item
 interface Props {
   tableData: TableData;
   setTableData: React.Dispatch<React.SetStateAction<TableData>>;
+  goalBeingEdited: GoalBeingEdited;
 }
 
-const AddNewSavingItem: FunctionComponent<Props> = ({ setTableData, tableData }) => {
+const AddNewSavingItem: FunctionComponent<Props> = ({
+  setTableData,
+  tableData,
+  goalBeingEdited
+}) => {
   const [formInputs, setFormInputs] = useState(initialInputs);
   const [isAddingNewItem, setIsAddingNewItem] = useState(false);
+
+  const isAddDisabled =
+    goalBeingEdited.itemAmount !== '' &&
+    goalBeingEdited.itemToSaveFor !== '' &&
+    goalBeingEdited.monthNeeded !== '' &&
+    goalBeingEdited.yearNeeded !== '';
 
   const handleFormInputChange = (event: { target: { name: string; value: string } }) => {
     const { name, value } = event.target;
@@ -186,7 +198,12 @@ const AddNewSavingItem: FunctionComponent<Props> = ({ setTableData, tableData })
     </CardContainer>
   ) : (
     <AddContainer>
-      <Fab aria-label="Add" color="primary" onClick={handleAddNewItem} size="small">
+      <Fab
+        aria-label="Add"
+        color="primary"
+        onClick={handleAddNewItem}
+        size="small"
+        disabled={isAddDisabled}>
         <AddIcon />
       </Fab>
     </AddContainer>
