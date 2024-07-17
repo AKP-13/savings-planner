@@ -10,8 +10,7 @@ import {
   ExplanationText,
   PoundSign,
   SavingsAmount,
-  SavingsAmountContainer,
-  Title
+  SavingsAmountContainer
 } from './styles';
 import { Container } from '../globalStyles';
 import { SetTableData, TableData, TotalSaved } from '../types';
@@ -86,7 +85,6 @@ const MonthlySavingAmount: FunctionComponent<Props> = ({ tableData, setTableData
 
   return (
     <Container $margin="1rem 1rem 1rem 0" $width="33%">
-      <Title>Monthly Saving Amount</Title>
       <SavingsAmountContainer>
         <SavingsAmount>Each month I can save:</SavingsAmount>
         {isEditing ? (

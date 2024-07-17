@@ -14,62 +14,9 @@ const MONTHS = [
 ];
 const YEARS = ['2024', '2025', '2026'];
 
-const initialMonthlySavingAmount = 500;
+const initialMonthlySavingAmount = 310;
 
 const initialTableData = [
-  {
-    month: 'March 2024',
-    saved: 504.87 + 86.49 + 184.98,
-    savingGoals: []
-  },
-  {
-    month: 'April 2024',
-    saved: initialMonthlySavingAmount,
-    savingGoals: [
-      {
-        itemToSaveFor: 'Suit',
-        itemAmount: '300',
-        monthNeeded: 'April',
-        yearNeeded: '2024'
-      },
-      {
-        itemToSaveFor: "Jord and Megan's Wedding",
-        itemAmount: '100',
-        monthNeeded: 'April',
-        yearNeeded: '2024'
-      },
-      {
-        itemToSaveFor: "Mum's Birthday",
-        itemAmount: '60',
-        monthNeeded: 'April',
-        yearNeeded: '2024'
-      }
-    ]
-  },
-  {
-    month: 'May 2024',
-    saved: initialMonthlySavingAmount,
-    savingGoals: [
-      {
-        itemToSaveFor: "Libby & Stan's Wedding",
-        itemAmount: '100',
-        monthNeeded: 'May',
-        yearNeeded: '2024'
-      }
-    ]
-  },
-  {
-    month: 'June 2024',
-    saved: initialMonthlySavingAmount,
-    savingGoals: [
-      {
-        itemToSaveFor: 'My Birthday',
-        itemAmount: '60',
-        monthNeeded: 'June',
-        yearNeeded: '2024'
-      }
-    ]
-  },
   {
     month: 'July 2024',
     saved: initialMonthlySavingAmount,
@@ -88,14 +35,7 @@ const initialTableData = [
   {
     month: 'October 2024',
     saved: initialMonthlySavingAmount,
-    savingGoals: [
-      {
-        itemToSaveFor: 'iPhone 16',
-        itemAmount: '1300',
-        monthNeeded: 'October',
-        yearNeeded: '2024'
-      }
-    ]
+    savingGoals: []
   },
   {
     month: 'November 2024',
@@ -118,12 +58,6 @@ const initialTableData = [
     month: 'January 2025',
     saved: initialMonthlySavingAmount,
     savingGoals: [
-      {
-        itemToSaveFor: "Harvey's Birthday",
-        itemAmount: '50',
-        monthNeeded: 'January',
-        yearNeeded: '2025'
-      },
       {
         itemToSaveFor: 'Anniversary',
         itemAmount: '100',
