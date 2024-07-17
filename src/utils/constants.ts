@@ -14,7 +14,7 @@ const MONTHS = [
 ];
 const YEARS = ['2024', '2025', '2026'];
 
-const initialMonthlySavingAmount = 500;
+const initialMonthlySavingAmount = 310;
 
 const initialTableData = [
   {
@@ -35,14 +35,7 @@ const initialTableData = [
   {
     month: 'October 2024',
     saved: initialMonthlySavingAmount,
-    savingGoals: [
-      {
-        itemToSaveFor: 'iPhone 16',
-        itemAmount: '1300',
-        monthNeeded: 'October',
-        yearNeeded: '2024'
-      }
-    ]
+    savingGoals: []
   },
   {
     month: 'November 2024',
@@ -65,12 +58,6 @@ const initialTableData = [
     month: 'January 2025',
     saved: initialMonthlySavingAmount,
     savingGoals: [
-      {
-        itemToSaveFor: "Harvey's Birthday",
-        itemAmount: '50',
-        monthNeeded: 'January',
-        yearNeeded: '2025'
-      },
       {
         itemToSaveFor: 'Anniversary',
         itemAmount: '100',
