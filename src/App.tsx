@@ -34,7 +34,11 @@ const App = () => {
         <SavingGoals tableData={tableData} setTableData={setTableData} />
       </SavingsContainer>
 
-      <SavingsProjectionsTable tableData={tableData} totalSaved={totalSaved} />
+      <SavingsProjectionsTable
+        tableData={tableData}
+        totalSaved={totalSaved}
+        setTableData={setTableData}
+      />
 
       <GraphDisplay totalSaved={totalSaved} />
     </div>
