@@ -18,59 +18,6 @@ const initialMonthlySavingAmount = 500;
 
 const initialTableData = [
   {
-    month: 'March 2024',
-    saved: 504.87 + 86.49 + 184.98,
-    savingGoals: []
-  },
-  {
-    month: 'April 2024',
-    saved: initialMonthlySavingAmount,
-    savingGoals: [
-      {
-        itemToSaveFor: 'Suit',
-        itemAmount: '300',
-        monthNeeded: 'April',
-        yearNeeded: '2024'
-      },
-      {
-        itemToSaveFor: "Jord and Megan's Wedding",
-        itemAmount: '100',
-        monthNeeded: 'April',
-        yearNeeded: '2024'
-      },
-      {
-        itemToSaveFor: "Mum's Birthday",
-        itemAmount: '60',
-        monthNeeded: 'April',
-        yearNeeded: '2024'
-      }
-    ]
-  },
-  {
-    month: 'May 2024',
-    saved: initialMonthlySavingAmount,
-    savingGoals: [
-      {
-        itemToSaveFor: "Libby & Stan's Wedding",
-        itemAmount: '100',
-        monthNeeded: 'May',
-        yearNeeded: '2024'
-      }
-    ]
-  },
-  {
-    month: 'June 2024',
-    saved: initialMonthlySavingAmount,
-    savingGoals: [
-      {
-        itemToSaveFor: 'My Birthday',
-        itemAmount: '60',
-        monthNeeded: 'June',
-        yearNeeded: '2024'
-      }
-    ]
-  },
-  {
     month: 'July 2024',
     saved: initialMonthlySavingAmount,
     savingGoals: []
