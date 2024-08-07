@@ -1,4 +1,10 @@
-import React, { ChangeEventHandler, FunctionComponent, useState } from 'react';
+import React, {
+  ChangeEventHandler,
+  Dispatch,
+  FunctionComponent,
+  SetStateAction,
+  useState
+} from 'react';
 import { Button, IconButton, Input, InputAdornment, styled, Tooltip } from '@mui/material';
 import CheckIcon from '@mui/icons-material/Check';
 import CloseIcon from '@mui/icons-material/Close';
@@ -39,10 +45,17 @@ interface Props {
   setTableData: SetTableData;
   tableData: TableData;
   totalSaved: TotalSaved;
+  monthlySavingAmount: number;
+  setMonthlySavingAmount: Dispatch<SetStateAction<number>>;
 }
 
-const MonthlySavingAmount: FunctionComponent<Props> = ({ tableData, setTableData, totalSaved }) => {
-  const [monthlySavingAmount, setMonthlySavingAmount] = useState(initialMonthlySavingAmount);
+const MonthlySavingAmount: FunctionComponent<Props> = ({
+  tableData,
+  setTableData,
+  totalSaved,
+  monthlySavingAmount,
+  setMonthlySavingAmount
+}) => {
   const [input, setInput] = useState(initialMonthlySavingAmount);
   const [isEditing, setIsEditing] = useState(false);
 

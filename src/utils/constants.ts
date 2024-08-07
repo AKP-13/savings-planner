@@ -12,7 +12,21 @@ const MONTHS = [
   'November',
   'December'
 ];
-const YEARS = ['2024', '2025', '2026'];
+
+const YEARS = [
+  '2024',
+  '2025',
+  '2026',
+  '2027',
+  '2028',
+  '2029',
+  '2030',
+  '2031',
+  '2032',
+  '2033',
+  '2034',
+  '2035'
+];
 
 const initialMonthlySavingAmount = 310;
 

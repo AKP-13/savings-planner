@@ -9,9 +9,10 @@ import { GoalBeingEdited } from './types';
 type Params = {
   tableData: TableData;
   setTableData: SetTableData;
+  forecastYear: string;
 };
 
-const SavingGoals = ({ tableData, setTableData }: Params) => {
+const SavingGoals = ({ tableData, setTableData, forecastYear }: Params) => {
   const [goalBeingEdited, setGoalBeingEdited] = useState<GoalBeingEdited>(goalBeingEditedDefault);
 
   return (
@@ -23,6 +24,7 @@ const SavingGoals = ({ tableData, setTableData }: Params) => {
           tableData={tableData}
           setTableData={setTableData}
           goalBeingEdited={goalBeingEdited}
+          forecastYear={forecastYear}
         />
 
         <SavingItems

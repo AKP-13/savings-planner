@@ -38,7 +38,7 @@ const AmountContainer = styled(FormControl)({
   margin: '0.75rem 0 0 0'
 });
 
-const StyledTextField = styled(TextField)(({ width }: { width: string }) => ({
+export const StyledTextField = styled(TextField)(({ width }: { width?: string }) => ({
   width: width
 }));
 
@@ -48,12 +48,14 @@ interface Props {
   tableData: TableData;
   setTableData: React.Dispatch<React.SetStateAction<TableData>>;
   goalBeingEdited: GoalBeingEdited;
+  forecastYear: string;
 }
 
 const AddNewSavingItem: FunctionComponent<Props> = ({
   setTableData,
   tableData,
-  goalBeingEdited
+  goalBeingEdited,
+  forecastYear
 }) => {
   const [formInputs, setFormInputs] = useState(initialInputs);
   const [isAddingNewItem, setIsAddingNewItem] = useState(false);
@@ -165,7 +167,7 @@ const AddNewSavingItem: FunctionComponent<Props> = ({
               size="small"
               value={formInputs.yearNeeded}
               width="40%">
-              {YEARS.map((year) => (
+              {YEARS.filter((year) => year <= forecastYear).map((year) => (
                 <MenuItem key={year} value={year}>
                   {year}
                 </MenuItem>

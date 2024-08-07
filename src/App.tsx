@@ -8,7 +8,7 @@ import { returnTotals } from './utils/helpers';
 import './App.css';
 import SavingGoals from './savingGoals/SavingGoals';
 import { TableData } from './types';
-import { initialTableData } from './utils/constants';
+import { initialMonthlySavingAmount, initialTableData } from './utils/constants';
 
 const SavingsContainer = styled.div`
   display: flex;
@@ -17,21 +17,35 @@ const SavingsContainer = styled.div`
 
 const App = () => {
   const [tableData, setTableData] = useState<TableData>(initialTableData);
+  const [monthlySavingAmount, setMonthlySavingAmount] = useState(initialMonthlySavingAmount);
+  const [forecastYear, setForecastYear] = useState('2025');
 
   const totalSaved = useMemo(() => returnTotals({ tableData }), [JSON.stringify(tableData)]);
 
   return (
     <div className="App">
-      <Header />
+      <Header
+        monthlySavingAmount={monthlySavingAmount}
+        tableData={tableData}
+        setTableData={setTableData}
+        forecastYear={forecastYear}
+        setForecastYear={setForecastYear}
+      />
 
       <SavingsContainer>
         <MonthlySavingAmount
           tableData={tableData}
           setTableData={setTableData}
           totalSaved={totalSaved}
+          monthlySavingAmount={monthlySavingAmount}
+          setMonthlySavingAmount={setMonthlySavingAmount}
         />
 
-        <SavingGoals tableData={tableData} setTableData={setTableData} />
+        <SavingGoals
+          tableData={tableData}
+          setTableData={setTableData}
+          forecastYear={forecastYear}
+        />
       </SavingsContainer>
 
       <SavingsProjectionsTable
